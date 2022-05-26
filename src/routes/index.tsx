@@ -6,7 +6,7 @@ import UserDetail from './BackOffice/User/UserDetail'
 import UserManagement from './BackOffice/User/UserManagement'
 import LNB from './_shared/LNB'
 
-import styles from './routes.module.scss'
+import styles from './Routes.module.scss'
 
 const App = () => {
   return (
@@ -15,9 +15,9 @@ const App = () => {
       <div className={styles.app}>
         <Routes>
           <Route path='/' element={<Login />} />
-          <Route path='/home' element={<User />} />
-          <Route path='/management' element={<UserManagement />} />
-          <Route path='/management/detail/:id' element={<UserDetail />} />
+          <Route path='user' element={<User />} />
+          <Route path='management' element={<UserManagement />} />
+          <Route path='management/detail/:id' element={<UserDetail />} />
           <Route path='*' element={<div>404</div>} />
         </Routes>
       </div>

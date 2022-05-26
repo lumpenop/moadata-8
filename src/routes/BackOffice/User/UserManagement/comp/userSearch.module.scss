@@ -1,0 +1,62 @@
+@use '/src/styles/constants/colors';
+
+.searchForm {
+  position: relative;
+  // display: flex;
+  flex-wrap: wrap;
+  //   justify-content: space-around;
+  width: 650px;
+  height: 300px;
+  padding: 10px;
+  border: 1px solid colors.$BLACK;
+
+  .searchFormBodyContainer {
+    padding: 12px;
+
+    .searchFormBody {
+      display: inline-block;
+      width: 300px;
+      // margin-right: 60px;
+    }
+  }
+
+  .datePickerContainer {
+    width: 100%;
+    padding: 12px;
+
+    .tilde {
+      margin: 0 10px;
+    }
+
+    .date {
+      display: inline-block;
+    }
+  }
+
+  .datePickerButtonContainer {
+    display: inline-block;
+    padding: 12px;
+  }
+
+  label {
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    background: colors.$GRAYA;
+    border: 1px solid colors.$BLACK;
+  }
+
+  input {
+    width: 150px;
+    padding: 10px;
+    //   margin-left: 10px;
+    border: 1px solid colors.$BLACK;
+    border-radius: 5px;
+  }
+
+  .userSearchButtonContainer {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+}

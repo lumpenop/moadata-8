@@ -1,0 +1,22 @@
+@use '/src/styles/constants/colors';
+
+.userListContainer {
+  // padding: 12px;
+  margin-top: 24px;
+
+  .userListTable {
+    width: 100%;
+  }
+
+  .userListSubject {
+    padding: 8px;
+    background-color: colors.$GRAYD;
+    border: 1px solid #ececec;
+  }
+
+  td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid colors.$GRAYA;
+  }
+}
