@@ -1,7 +1,13 @@
-interface Props {}
+import { Outlet } from 'react-router-dom'
 
+interface Props {}
 const LNB = (props: Props) => {
-  return <div>LNB</div>
+  return (
+    <div>
+      LNB
+      <Outlet />
+    </div>
+  )
 }
 
 export default LNB

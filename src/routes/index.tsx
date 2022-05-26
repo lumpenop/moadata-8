@@ -10,17 +10,16 @@ import styles from './Routes.module.scss'
 
 const App = () => {
   return (
-    <div className={styles.appWrapper}>
-      <LNB />
-      <div className={styles.app}>
-        <Routes>
-          <Route path='/' element={<Login />} />
+    <div className={styles.app}>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route element={<LNB />}>
           <Route path='user' element={<User />} />
           <Route path='management' element={<UserManagement />} />
           <Route path='management/detail/:id' element={<UserDetail />} />
           <Route path='*' element={<div>404</div>} />
-        </Routes>
-      </div>
+        </Route>
+      </Routes>
     </div>
   )
 }
