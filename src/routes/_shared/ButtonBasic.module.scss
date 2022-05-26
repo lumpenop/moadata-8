@@ -1,0 +1,39 @@
+@use '/src/styles/constants/colors';
+
+.basicButton {
+  padding: 0 10px;
+  color: colors.$WHITE;
+  text-align: center;
+  background-color: colors.$BLUE;
+  border-radius: 10px;
+
+  &.smallButton {
+    height: 30px;
+    font-size: 10px;
+  }
+
+  &.midButton {
+    width: 90px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  &.largeButton {
+    width: 120px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  &:hover {
+    background: colors.$BIG_TITLE;
+  }
+
+  &:active {
+    background: colors.$BIG_TITLE;
+  }
+
+  // 버튼 사이 여백
+  & + & {
+    margin-left: 3px;
+  }
+}
