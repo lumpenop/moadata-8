@@ -7,10 +7,12 @@ import UserManagement from './BackOffice/User/UserManagement'
 import LNB from './_shared/LNB'
 
 import styles from './Routes.module.scss'
+import StepChart from './BackOffice/User/UserDetail/StepChart'
 
 const App = () => {
   return (
     <div className={styles.appWrapper}>
+      <StepChart />
       <LNB />
       <div className={styles.app}>
         <Routes>

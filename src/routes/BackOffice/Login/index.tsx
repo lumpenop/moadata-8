@@ -1,7 +1,7 @@
 interface Props {}
 
 const Login = (props: Props) => {
-  return <div>Login</div>
+  return <div />
 }
 
 export default Login
