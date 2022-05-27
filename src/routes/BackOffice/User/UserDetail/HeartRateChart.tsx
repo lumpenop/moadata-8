@@ -4,21 +4,48 @@ import dayjs from 'dayjs'
 
 import styles from './userDetail.module.scss'
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel } from 'victory'
-import USER_DATA from 'assets/json/test.json'
 
 // import { useIndexedDBStore } from 'use-indexeddb'
 import { isNumber } from 'lodash'
+
+import USER_DATA from 'assets/json/test.json'
 
 interface IUserData {
   x: string
   y: number
 }
 
+// const { getManyByIndex } = useIndexedDBStore("fruits");
+
+// const onClick = () => {
+//   getManyByIndex("quantity", 2)
+//     .then(console.log)
+//     .catch(console.error);
+// };
+interface IUserInfo {
+  seq: number
+  member_seq: number
+  avg_beat: number
+  crt_ymdt: string
+}
+
+const USER_HEART_DATAS = USER_DATA.sort(
+  (info1: IUserInfo, info2: IUserInfo) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt))
+)
+
+const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
+
+USER_HEART_DATAS.forEach((info, i) => {
+  const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
+  const currenStep = info.avg_beat - (USER_HEART_DATAS[i - 1]?.avg_beat || 0)
+  HOURLY_DATA[hourIndex].y += currenStep
+})
 interface Props {}
 // 결론 : _comon은 왜 comon인지 모른다.
 // 누군가의 솜씨, 부검이 필요합니다
-
-const StepChart = (props: Props) => {
+let hap = 0
+let length = 0
+const HeartRateChart = (props: Props) => {
   const [data, setData] = useState<IUserData[]>([])
 
   const [lookup, setLookup] = useState('')
@@ -27,6 +54,8 @@ const StepChart = (props: Props) => {
 
   const [date1, setDate1] = useState('2022-04-19')
   const [date2, setDate2] = useState('')
+
+  const [heartBeatAvg, setHeartBeatAvg] = useState(0)
 
   // indexedDB를 쓰는 경우에 데이터 가져오기
   // const { add, getManyByIndex } = useIndexedDBStore('HeartRate')
@@ -52,17 +81,29 @@ const StepChart = (props: Props) => {
   }
 
   useEffect(() => {
+    // USER_HEART_DATAS.forEach((info, i) => {
+    //   const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
+    //   const currenStep = info.avg_beat - (USER_HEART_DATAS[i - 1]?.avg_beat || 0)
+    //   HOURLY_DATA[hourIndex].y += currenStep
+    // })
+
     if (lookup === 'today') {
       setData(
-        USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD'))
-          .map((data1) => ({
-            x: dayjs(data1.crt_ymdt).format('HH:mm:ss'),
-            y: data1.avg_beat,
-          }))
-          .reverse()
+        USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD')).map(
+          (data1, index) => {
+            hap += data1.avg_beat
+            length = index
+            return {
+              x: dayjs(data1.crt_ymdt).format('hh:mm'),
+              y: data1.avg_beat,
+            }
+          }
+        )
       )
       setDate1('2022-04-19')
       setDate2('')
+      setHeartBeatAvg(Math.round(hap / length))
+      hap = 0
       return
     }
 
@@ -70,31 +111,41 @@ const StepChart = (props: Props) => {
       setData(
         USER_DATA.filter(
           (data2) =>
-            dayjs(data2.crt_ymdt) <= dayjs('2022-04-20') &&
+            dayjs(data2.crt_ymdt) <= dayjs('2022-04-27') &&
             dayjs(data2.crt_ymdt) >= dayjs('2022-04-19').subtract(7, 'day')
-        )
-          .map((userData) => ({
-            x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
+        ).map((userData, index) => {
+          hap += userData.avg_beat
+          length = index
+          return {
+            x: dayjs(userData.crt_ymdt).format('MM월DD일'),
             // x: dayjs(userData.crt_ymdt).format('MM:DD'),
             y: userData.avg_beat,
-          }))
-          .reverse()
+          }
+        })
       )
       setDate1('2022-04-19')
       setDate2('2022-04-26')
+      setHeartBeatAvg(Math.round(hap / length))
+      hap = 0
       return
     }
 
     if (lookup === 'entire') {
       setData(
-        USER_DATA.map((userData) => ({
-          x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
-          // x: dayjs(userData.crt_ymdt).format('MM:DD'),
-          y: userData.avg_beat,
-        })).reverse()
+        USER_DATA.map((userData, index) => {
+          hap += userData.avg_beat
+          length = index
+          return {
+            x: dayjs(userData.crt_ymdt).format('MM월'),
+            // x: dayjs(userData.crt_ymdt).format('MM:DD'),
+            y: userData.avg_beat,
+          }
+        })
       )
       setDate1('2022-04-19')
       setDate2('2022-04-26')
+      setHeartBeatAvg(Math.round(hap / length))
+      hap = 0
       return
     }
 
@@ -102,27 +153,30 @@ const StepChart = (props: Props) => {
       setData(
         USER_DATA.filter(
           (data2) => dayjs(data2.crt_ymdt) >= dayjs(startDate) && dayjs(data2.crt_ymdt) <= dayjs(endDate)
-        )
-          .map((userData) => ({
+        ).map((userData, index) => {
+          hap += userData.avg_beat
+          length = index
+          return {
             x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
             y: userData.avg_beat,
-          }))
-          .reverse()
+          }
+        })
       )
       setDate1(startDate)
       setDate2(endDate)
+      setHeartBeatAvg(Math.round(hap / length))
+      hap = 0
       return
     }
 
     setData(
-      USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD'))
-        .map((data1) => ({
-          x: dayjs(data1.crt_ymdt).format('HH:mm:ss'),
+      USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD')).map(
+        (data1) => ({
+          x: dayjs(data1.crt_ymdt).format('HH시'),
           y: data1.avg_beat,
-        }))
-        .reverse()
+        })
+      )
     )
-    console.log(data)
   }, [startDate, endDate, lookup])
 
   return (
@@ -133,21 +187,27 @@ const StepChart = (props: Props) => {
       <button type='button' onClick={showClick}>
         디비출력
       </button> */}
+      {/* // [{x:"14:21:52", y: 90}] */}
       {/* tickFormat={(t) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : '')} */}
       <div className={styles.chartTitle}>
-        <p>걸음수</p>
+        <p>심박수</p>
       </div>
       <div className={styles.chartWrap}>
+        {/* <VictoryChart domain={{ y: [50, 160] }}> */}
         <VictoryChart domain={{ y: [50, 160] }}>
           <VictoryLabel dy={10} text='bpm' x={15} y={30} />
           <VictoryAxis
             style={{
               tickLabels: { fontSize: 3 },
             }}
+            // [{x:"14:21:52", y: 90}]
+
             tickFormat={(t) => {
+              console.log('---------')
+              console.log(t)
               if (isNumber(t)) return null
               if (lookup === 'week') return t
-              return t.slice(0, 5)
+              return t // .slice(0, 2)
             }}
           />
           <VictoryAxis
@@ -174,7 +234,7 @@ const StepChart = (props: Props) => {
           <time dateTime={date1}>{date1}</time>
           {date1 && date2 && <time dateTime={date2}>~ {date2}</time>}
         </p>
-        <p className={styles.infoText}>총 13,203걸음</p>
+        <p className={styles.infoText}>평균 {heartBeatAvg} bpm</p>
       </div>
       <div className={styles.chartTitle}>
         <p>조회 기간</p>
@@ -190,4 +250,4 @@ const StepChart = (props: Props) => {
   )
 }
 
-export default StepChart
+export default HeartRateChart
