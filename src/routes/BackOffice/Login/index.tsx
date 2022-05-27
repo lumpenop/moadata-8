@@ -1,6 +1,6 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const member = {
@@ -31,6 +31,12 @@ const Login = () => {
       setIsInvalid(true)
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem('id', member.id)
+    localStorage.setItem('pw', member.pw)
+  })
+
   return (
     <div className={styles.loginWrapper}>
       <h1>백오피스</h1>
@@ -53,7 +59,7 @@ const Login = () => {
           로그인
         </button>
       </form>
-      {isInvalid && <Popup id={member.id} pw={member.pw} />}
+      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={member.id} pw={member.pw} />}
     </div>
   )
 }
