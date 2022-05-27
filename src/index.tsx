@@ -10,62 +10,62 @@ import './styles/index.scss'
 
 import Routes from './routes'
 
-const idbConfig = {
-  databaseName: 'moadata-db',
-  version: 1,
-  stores: [
-    {
-      name: 'Admin',
-      id: { keyPath: 'id', autoIncrement: true },
-      indices: [
-        { name: 'admin_id', keyPath: 'admin_id' },
-        { name: 'password', keyPath: 'password' },
-      ],
-    },
-    {
-      name: 'User',
-      id: { keyPath: 'id', autoIncrement: true },
-      indices: [
-        { name: 'user_id', keyPath: 'user_id' },
-        { name: 'seq', keyPath: 'seq', options: { unique: true } },
-        { name: 'created_date', keyPath: 'created_date' },
-      ],
-    },
-    {
-      name: 'HeartRate',
-      id: { keyPath: 'id', autoIncrement: true },
-      indices: [
-        { name: 'seq', keyPath: 'seq' },
-        { name: 'member_seq', keyPath: 'member_seq' },
-        { name: 'avg_beat', keyPath: 'avg_beat' },
-        { name: 'crt_ymdt', keyPath: 'crt_ymdt' },
-      ],
-    },
-    {
-      name: 'Step',
-      id: { keyPath: 'id', autoIncrement: true },
-      indices: [
-        { name: 'seq', keyPath: 'seq' },
-        { name: 'member_seq', keyPath: 'member_seq' },
-        { name: 'steps', keyPath: 'steps' },
-        { name: 'minutes', keyPath: 'minutes' },
-        { name: 'distance', keyPath: 'distance' },
-        { name: 'calorie', keyPath: 'calorie' },
-        { name: 'crt_ymdt', keyPath: 'crt_ymdt' },
-      ],
-    },
-  ],
-}
+// const idbConfig = {
+//   databaseName: 'moadata-db',
+//   version: 1,
+//   stores: [
+//     {
+//       name: 'Admin',
+//       id: { keyPath: 'id', autoIncrement: true },
+//       indices: [
+//         { name: 'admin_id', keyPath: 'admin_id' },
+//         { name: 'password', keyPath: 'password' },
+//       ],
+//     },
+//     {
+//       name: 'User',
+//       id: { keyPath: 'id', autoIncrement: true },
+//       indices: [
+//         { name: 'user_id', keyPath: 'user_id' },
+//         { name: 'seq', keyPath: 'seq', options: { unique: true } },
+//         { name: 'created_date', keyPath: 'created_date' },
+//       ],
+//     },
+//     {
+//       name: 'HeartRate',
+//       id: { keyPath: 'id', autoIncrement: true },
+//       indices: [
+//         { name: 'seq', keyPath: 'seq' },
+//         { name: 'member_seq', keyPath: 'member_seq' },
+//         { name: 'avg_beat', keyPath: 'avg_beat' },
+//         { name: 'crt_ymdt', keyPath: 'crt_ymdt' },
+//       ],
+//     },
+//     {
+//       name: 'Step',
+//       id: { keyPath: 'id', autoIncrement: true },
+//       indices: [
+//         { name: 'seq', keyPath: 'seq' },
+//         { name: 'member_seq', keyPath: 'member_seq' },
+//         { name: 'steps', keyPath: 'steps' },
+//         { name: 'minutes', keyPath: 'minutes' },
+//         { name: 'distance', keyPath: 'distance' },
+//         { name: 'calorie', keyPath: 'calorie' },
+//         { name: 'crt_ymdt', keyPath: 'crt_ymdt' },
+//       ],
+//     },
+//   ],
+// }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <IndexedDBProvider config={idbConfig}>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </IndexedDBProvider>
+      {/* <IndexedDBProvider config={idbConfig}> */}
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+      {/* </IndexedDBProvider> */}
     </Provider>
   </React.StrictMode>
 )

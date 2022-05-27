@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import store from 'store'
+import dayjs from 'dayjs'
 
 import Login from './BackOffice/Login'
 import User from './BackOffice/User'
@@ -13,24 +15,17 @@ import StepChart from './BackOffice/User/UserDetail/StepChart'
 
 import heartRate from 'assets/json/heartrate.json'
 import step from 'assets/json/step.json'
-import { useIndexedDBStore } from 'use-indexeddb'
+
+heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 
 const App = () => {
-  const { add: addHeartRate } = useIndexedDBStore('HeartRate')
-  const { add: addStep } = useIndexedDBStore('Step')
-
-  // useEffect(() => {
-  //   heartRate.forEach((data) => {
-  //     addHeartRate(data)
-  //   })
-  //   step.forEach((data) => {
-  //     addStep(data)
-  //   })
-  // }, [addHeartRate, addStep])
+  useEffect(() => {
+    store.set('heartRate', heartRate)
+    store.set('step', step)
+  }, [])
 
   return (
     <div className={styles.appWrapper}>
-      <HeartRateChart />
       <LNB />
       <div className={styles.app}>
         <Routes>

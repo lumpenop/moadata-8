@@ -1,3 +1,4 @@
+import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
 
 interface Props {}
@@ -5,7 +6,7 @@ interface Props {}
 const UserDetail = (props: Props) => {
   return (
     <div>
-      UserDetail <StepChart />
+      UserDetail <HeartRateChart />
     </div>
   )
 }
