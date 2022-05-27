@@ -122,7 +122,6 @@ const StepChart = (props: Props) => {
         }))
         .reverse()
     )
-    console.log(data)
   }, [startDate, endDate, lookup])
 
   return (
