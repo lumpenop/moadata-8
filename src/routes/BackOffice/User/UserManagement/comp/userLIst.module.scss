@@ -4,13 +4,42 @@
   // padding: 12px;
   margin-top: 24px;
 
+  p {
+    padding: 10px;
+
+    mark {
+      color: colors.$BLUE;
+      background-color: colors.$WHITE;
+    }
+  }
+
   .userListTable {
     width: 100%;
+
+    .userListSubject:nth-child(1) {
+      width: 130px;
+    }
+
+    .userListSubject:nth-child(2) {
+      width: 250px;
+    }
+
+    .userListSubject:nth-child(3) {
+      width: 170px;
+    }
+
+    .userListSubject:nth-child(4) {
+      width: 100px;
+    }
+  }
+
+  .listHidden {
+    display: none;
   }
 
   .userListSubject {
     padding: 8px;
-    background-color: colors.$GRAYD;
+    background-color: colors.$GRAYA;
     border: 1px solid #ececec;
   }
 
