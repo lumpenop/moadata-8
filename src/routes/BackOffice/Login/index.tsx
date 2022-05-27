@@ -1,6 +1,7 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import React, { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const member = {
   id: 'wanted',
@@ -8,6 +9,7 @@ const member = {
 }
 
 const Login = () => {
+  const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
@@ -24,6 +26,7 @@ const Login = () => {
     const PW = localStorage.getItem('pw')
     if (ID === idValue && PW === pwValue) {
       setIsInvalid(false)
+      navigate('/user')
     } else {
       setIsInvalid(true)
     }
@@ -33,12 +36,19 @@ const Login = () => {
       <h1>백오피스</h1>
       <form>
         <div className={styles.inputWrapper}>
-          <input type='text' id='id' placeholder='아이디' onChange={handleInputId} />
+          <input type='text' id='id' placeholder='아이디' value={idValue} onChange={handleInputId} autoComplete='off' />
         </div>
         <div className={styles.inputWrapper}>
-          <input type='password' id='password' placeholder='비밀번호' onChange={handleInputPassword} />
+          <input
+            type='password'
+            id='password'
+            placeholder='비밀번호'
+            value={pwValue}
+            onChange={handleInputPassword}
+            autoComplete='new-password'
+          />
         </div>
-        {isInvalid && <span>아이디 비번 달라요</span>}
+        {isInvalid && <div>ID 또는 PW가 다릅니다.</div>}
         <button type='button' onClick={handleLogin}>
           로그인
         </button>

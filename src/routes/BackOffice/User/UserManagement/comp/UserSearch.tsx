@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
-
+import { Link } from 'react-router-dom'
 import styles from './userSearch.module.scss'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -55,65 +55,76 @@ const UserSearch = () => {
   }
 
   return (
-    <div className={styles.searchFormBox}>
-      <form className={styles.searchForm}>
-        <div className={styles.searchFormBodyContainer}>
-          <div className={styles.searchFormBody}>
-            <label htmlFor='userId' className={styles.login}>
-              로그인 ID
-            </label>
-            <input name='userId' type='text' />
-          </div>
+    <>
+      <div className={styles.pathInfo}>
+        <Link to='/user'>
+          <span>홈</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to='/management'>
+          <span>회원관리</span>
+        </Link>
+      </div>
+      <div className={styles.searchFormBox}>
+        <form className={styles.searchForm}>
+          <div className={styles.searchFormBodyContainer}>
+            <div className={styles.searchFormBody}>
+              <label htmlFor='userId' className={styles.login}>
+                로그인 ID
+              </label>
+              <input name='userId' type='text' />
+            </div>
 
-          <div className={styles.searchFormBody}>
-            <label htmlFor='userNum' className={styles.userNum}>
-              회원번호
+            <div className={styles.searchFormBody}>
+              <label htmlFor='userNum' className={styles.userNum}>
+                회원번호
+              </label>
+              <input form='userNum' name='userId' type='text' />
+            </div>
+          </div>
+          <div className={styles.datePickerContainer}>
+            <label htmlFor='date' className={styles.period}>
+              조회기간
             </label>
-            <input form='userNum' name='userId' type='text' />
+            <div className={styles.date}>
+              <DatePicker
+                selected={startDate}
+                onChange={onStartDateChange}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat='yyyy년 MM월 dd일'
+                name='date'
+              />
+            </div>
+            <span className={styles.tilde}>~</span>
+            <div className={styles.date}>
+              <DatePicker
+                selected={endDate}
+                onChange={onEndDateChange}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+                dateFormat='yyyy년 MM월 dd일'
+                name='date'
+              />
+            </div>
+            <div className={styles.datePickerButtonContainer}>
+              <ButtonBasic onClick={setDateToday} buttonName='오늘' buttonSize='small' />
+              <ButtonBasic onClick={setDateSevenDays} buttonName='1주일' buttonSize='small' />
+              <ButtonBasic onClick={setDateAll} buttonName='전체' buttonSize='small' />
+            </div>
           </div>
-        </div>
-        <div className={styles.datePickerContainer}>
-          <label htmlFor='date' className={styles.period}>
-            조회기간
-          </label>
-          <div className={styles.date}>
-            <DatePicker
-              selected={startDate}
-              onChange={onStartDateChange}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              dateFormat='yyyy년 MM월 dd일'
-              name='date'
-            />
+          <div className={styles.userSearchButtonContainer}>
+            <div className={styles.userSearchButtonBox}>
+              <ButtonBasic buttonName='필터 초기화' buttonSize='large' />
+              <ButtonBasic buttonName='검색' buttonSize='large' />
+            </div>
           </div>
-          <span className={styles.tilde}>~</span>
-          <div className={styles.date}>
-            <DatePicker
-              selected={endDate}
-              onChange={onEndDateChange}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              dateFormat='yyyy년 MM월 dd일'
-              name='date'
-            />
-          </div>
-          <div className={styles.datePickerButtonContainer}>
-            <ButtonBasic onClick={setDateToday} buttonName='오늘' buttonSize='small' />
-            <ButtonBasic onClick={setDateSevenDays} buttonName='1주일' buttonSize='small' />
-            <ButtonBasic onClick={setDateAll} buttonName='전체' buttonSize='small' />
-          </div>
-        </div>
-        <div className={styles.userSearchButtonContainer}>
-          <div className={styles.userSearchButtonBox}>
-            <ButtonBasic buttonName='필터 초기화' buttonSize='large' />
-            <ButtonBasic buttonName='검색' buttonSize='large' />
-          </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   )
 }
 

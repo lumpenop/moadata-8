@@ -4,8 +4,7 @@
   width: 60%;
   height: 60%;
   padding: 30px;
-  box-shadow: 0 6.16667px 16.9583px -4.625px rgba(24, 39, 75, 12%),
-    0 10.7917px 49.3333px -3.08333px rgba(24, 39, 75, 12%);
+  box-shadow: 0 6.1667px 16.9583px -4.625px rgba(24, 39, 75, 12%), 0 10.7917px 49.3px -3.083px rgba(24, 39, 75, 12%);
 
   h1 {
     margin: 20px 0;
@@ -33,15 +32,16 @@
         border-radius: 40px;
 
         &::placeholder {
-          color: #a4b0be;
+          color: colors.$SUB_TITLE;
           text-align: center;
           letter-spacing: 1.5px;
         }
       }
     }
 
-    span {
+    div {
       color: colors.$RED;
+      text-align: center;
     }
 
     button {
