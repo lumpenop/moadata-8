@@ -3,27 +3,23 @@ import { Link, Route } from 'react-router-dom'
 import { cx } from 'styles'
 
 import ButtonBasic from 'routes/_shared/ButtonBasic'
-import UserDetail from '../../UserDetail'
 
 import styles from './userList.module.scss'
 
-interface IUser {
-  seq: number
-  member_seq: string
-  date: string
-  id: string
-}
+import { useRecoil } from 'hooks/state'
+import { userListState } from 'store/userManagement'
+
+import { IUser } from 'types/userManagement'
 
 interface Props {
-  userList: IUser[]
   isListHidden: boolean
 }
 
-const UserList = ({ userList, isListHidden }: Props) => {
+const UserList = ({ isListHidden }: Props) => {
   const thList = useMemo(() => ['회원번호', '가입일', '로그인ID', '상세'], [])
-  useEffect(() => {
-    console.log(isListHidden)
-  }, [isListHidden])
+
+  const [userList] = useRecoil<IUser[]>(userListState)
+
   const userItem = useMemo(() => {
     return (
       <div className={styles.userListContainer}>
@@ -44,12 +40,12 @@ const UserList = ({ userList, isListHidden }: Props) => {
           </thead>
           <tbody className={cx({ [styles.listHidden]: isListHidden })}>
             {userList.map((user) => (
-              <tr key={user.member_seq}>
-                <td>{user.member_seq}</td>
+              <tr key={user.seq}>
+                <td>{user.seq}</td>
                 <td>{user.date}</td>
-                <td>{user.id}</td>
+                <td>{user.login_id}</td>
                 <td>
-                  <Link to={`/detail/${user.member_seq}`}>
+                  <Link to={`/management/detail/${user.seq}`}>
                     <ButtonBasic buttonName='상세' buttonSize='middle' />
                   </Link>
                 </td>
@@ -59,7 +55,7 @@ const UserList = ({ userList, isListHidden }: Props) => {
         </table>
       </div>
     )
-  }, [userList, isListHidden])
+  }, [isListHidden, userList])
   return (
     <section>
       <ul>{userItem}</ul>

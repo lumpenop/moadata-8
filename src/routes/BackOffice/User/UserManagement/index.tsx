@@ -1,27 +1,20 @@
-import UserSearch from './comp/UserSearch'
-import UserList from './comp/UserList'
-
-import USER_LIST from 'data/user_list.json'
-
 import { useState } from 'react'
+import { useRecoil } from 'hooks/state'
+import { userListState } from 'store/userManagement'
+import UserList from './comp/UserList'
+import UserSearch from './comp/UserSearch'
+import { IUser } from 'types/userManagement'
 
 interface Props {}
 
-interface IUser {
-  seq: number
-  member_seq: string
-  date: string
-  id: string
-}
-
 const UserManagement = (props: Props) => {
-  const [userList, setUserList] = useState<IUser[]>(USER_LIST)
+  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
   const [isListHidden, setIsListHidden] = useState(false)
 
   return (
     <div>
-      <UserSearch setUserList={setUserList} userList={userList} setIsListHidden={setIsListHidden} />
-      <UserList userList={userList} isListHidden={isListHidden} />
+      <UserSearch setIsListHidden={setIsListHidden} />
+      <UserList isListHidden={isListHidden} />
     </div>
   )
 }
