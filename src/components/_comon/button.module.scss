@@ -1,0 +1,10 @@
+@use 'src/styles/constants/colors.scss';
+
+.blueButton {
+  padding: 10px;
+  margin: 0 2px;
+  font-size: 10px;
+  color: colors.$WHITE;
+  background-color: colors.$COMMON_BLUE;
+  border-radius: 10px;
+}

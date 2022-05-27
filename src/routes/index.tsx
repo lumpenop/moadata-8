@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Login from './BackOffice/Login'
@@ -7,10 +8,29 @@ import UserManagement from './BackOffice/User/UserManagement'
 import LNB from './_shared/LNB'
 
 import styles from './Routes.module.scss'
+import HeartRateChart from './BackOffice/User/UserDetail/HeartRateChart'
+import StepChart from './BackOffice/User/UserDetail/StepChart'
+
+import heartRate from 'assets/json/heartrate.json'
+import step from 'assets/json/step.json'
+import { useIndexedDBStore } from 'use-indexeddb'
 
 const App = () => {
+  const { add: addHeartRate } = useIndexedDBStore('HeartRate')
+  const { add: addStep } = useIndexedDBStore('Step')
+
+  // useEffect(() => {
+  //   heartRate.forEach((data) => {
+  //     addHeartRate(data)
+  //   })
+  //   step.forEach((data) => {
+  //     addStep(data)
+  //   })
+  // }, [addHeartRate, addStep])
+
   return (
     <div className={styles.appWrapper}>
+      <HeartRateChart />
       <LNB />
       <div className={styles.app}>
         <Routes>
