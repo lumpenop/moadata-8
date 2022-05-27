@@ -1,20 +1,17 @@
 [
   {
-    "seq": 1,
-    "member_seq": "136",
+    "seq": "136",
     "date": "2022-01-02 09:12:12",
-    "id": "ghdrlfehd12"
+    "login_id": "ghdrlfehd12"
   },
   {
-    "seq": 2,
-    "member_seq": "328",
+    "seq": "328",
     "date": "2022-01-12 11:30:08",
-    "id": "rladudgml12"
+    "login_id": "rladudgml12"
   },
   {
-    "seq": 3,
-    "member_seq": "380",
+    "seq": "380",
     "date": "2022-02-10 18:52:30",
-    "id": "rlacjftn23"
+    "login_id": "rlacjftn23"
   }
 ]
