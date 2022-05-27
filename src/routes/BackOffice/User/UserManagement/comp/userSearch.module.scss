@@ -52,6 +52,10 @@
     //   margin-left: 10px;
     border: 1px solid colors.$BLACK;
     border-radius: 5px;
+
+    &:read-only {
+      background-color: #e3e3e3;
+    }
   }
 
   .userSearchButtonContainer {

@@ -1,20 +1,35 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
+import { Link, Route } from 'react-router-dom'
+import { cx } from 'styles'
+
 import ButtonBasic from 'routes/_shared/ButtonBasic'
-import styles from './userLIst.module.scss'
+import UserDetail from '../../UserDetail'
 
-const userList = [
-  { num: 1, date: '2022-05-22', id: 'id1' },
-  { num: 2, date: '2022-04-22', id: 'id2' },
-  { num: 3, date: '2022-03-22', id: 'id3' },
-  { num: 4, date: '2022-02-22', id: 'id4' },
-]
-const UserList = () => {
+import styles from './userList.module.scss'
+
+interface IUser {
+  seq: number
+  member_seq: string
+  date: string
+  id: string
+}
+
+interface Props {
+  userList: IUser[]
+  isListHidden: boolean
+}
+
+const UserList = ({ userList, isListHidden }: Props) => {
   const thList = useMemo(() => ['회원번호', '가입일', '로그인ID', '상세'], [])
-
+  useEffect(() => {
+    console.log(isListHidden)
+  }, [isListHidden])
   const userItem = useMemo(() => {
     return (
       <div className={styles.userListContainer}>
-        {/* 전체 중 1명의 회원이 검색되었습니다. */}
+        <p>
+          전체 중 <mark>{isListHidden ? 0 : userList.length}</mark> 명의 회원이 검색되었습니다.
+        </p>
         <table className={styles.userListTable}>
           <thead>
             <tr>
@@ -27,14 +42,16 @@ const UserList = () => {
               })}
             </tr>
           </thead>
-          <tbody>
+          <tbody className={cx({ [styles.listHidden]: isListHidden })}>
             {userList.map((user) => (
-              <tr key={user.num}>
-                <td>{user.num}</td>
+              <tr key={user.member_seq}>
+                <td>{user.member_seq}</td>
                 <td>{user.date}</td>
                 <td>{user.id}</td>
                 <td>
-                  <ButtonBasic buttonName='상세' buttonSize='middle' />
+                  <Link to={`/detail/${user.member_seq}`}>
+                    <ButtonBasic buttonName='상세' buttonSize='middle' />
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -42,7 +59,7 @@ const UserList = () => {
         </table>
       </div>
     )
-  }, [userList])
+  }, [userList, isListHidden])
   return (
     <section>
       <ul>{userItem}</ul>
