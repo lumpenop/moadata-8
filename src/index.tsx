@@ -8,12 +8,11 @@ import { store } from './states'
 import reportWebVitals from './reportWebVitals'
 import './styles/index.scss'
 
+import Routes from './routes'
+import { RecoilRoot } from 'recoil'
 import store2 from 'store'
 
 import userData from 'data/user_list.json'
-
-import Routes from './routes'
-import { RecoilRoot } from 'recoil'
 
 store2.set('useManagement', userData)
 

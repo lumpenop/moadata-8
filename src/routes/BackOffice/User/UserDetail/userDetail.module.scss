@@ -9,11 +9,9 @@
     border: 1px solid #cccccc;
 
     .userProfile {
-      text-align: center;
-
       .userProfileList {
         display: inline-block;
-        width: 33%;
+        width: 400px;
         text-align: center;
         border: 1px solid #cccccc;
 
@@ -41,10 +39,19 @@
   width: 450px;
 
   .chartTitle {
-    display: inline-block;
-    padding: 8px 20px;
-    background-color: colors.$GRAYD;
-    border: 1px solid #666666;
+    p {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: colors.$GRAYD;
+      border: 1px solid #666666;
+    }
+
+    .datePickerWrap {
+      display: inline-block;
+      width: 90px;
+      margin-left: 10px;
+      vertical-align: center;
+    }
   }
 
   .chartWrap {
