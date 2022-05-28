@@ -3,15 +3,17 @@ import styles from './datePickerUtil.module.scss'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import DatePicker from 'react-datepicker'
 
-import { startDateState, endDateState, isDateReadOnlyState, userListState } from 'store/userManagement'
-import { useRecoil } from 'hooks/state'
+import { startDateState, endDateState, userListState } from 'store/userManagement'
+import { useRecoil, useResetRecoilState } from 'hooks/state'
 import dayjs from 'dayjs'
 import { IUser } from 'types/userManagement'
 
 const DatePickerUtil = () => {
-  const [startDate, setStartDate] = useRecoil<Date | null>(startDateState)
-  const [endDate, setEndDate] = useRecoil<Date | null>(endDateState)
-  const [isDateValueReadOnly] = useRecoil<boolean>(isDateReadOnlyState)
+  const [startDate, setStartDate] = useRecoil<Date>(startDateState)
+  const [endDate, setEndDate] = useRecoil<Date>(endDateState)
+
+  const resetStartDateList = useResetRecoilState(startDateState)
+  const resetEndDateList = useResetRecoilState(endDateState)
 
   const [userList] = useRecoil<IUser[]>(userListState)
 
@@ -23,13 +25,11 @@ const DatePickerUtil = () => {
   }
 
   const setDateToday = () => {
-    if (isDateValueReadOnly) return
     setStartDate(new Date())
     setEndDate(new Date())
   }
 
   const setDateSevenDays = () => {
-    if (isDateValueReadOnly) return
     const today = dayjs()
     const date = today.subtract(7, 'day').format()
     setStartDate(new Date(date))
@@ -37,16 +37,8 @@ const DatePickerUtil = () => {
   }
 
   const setDateAll = () => {
-    if (isDateValueReadOnly) return
-    let oldest = userList[0].date
-    let lately = '0'
-    userList.forEach((item) => {
-      const date = dayjs(item.date).format('YYYY-MM-DD')
-      if (oldest > date) oldest = date
-      if (lately < date) lately = date
-    })
-    setStartDate(new Date(oldest))
-    setEndDate(new Date(lately))
+    resetStartDateList()
+    resetEndDateList()
   }
 
   return (
@@ -63,7 +55,6 @@ const DatePickerUtil = () => {
           endDate={endDate}
           dateFormat='yyyy년 MM월 dd일'
           name='date'
-          readOnly={isDateValueReadOnly}
         />
       </div>
       <span className={styles.tilde}>~</span>
@@ -77,7 +68,6 @@ const DatePickerUtil = () => {
           minDate={startDate}
           dateFormat='yyyy년 MM월 dd일'
           name='date'
-          readOnly={isDateValueReadOnly}
         />
       </div>
       <div className={styles.datePickerButtonContainer}>
