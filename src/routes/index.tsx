@@ -16,14 +16,11 @@ import StepChart from './BackOffice/User/UserDetail/StepChart'
 
 import heartRate from 'assets/json/heartrate.json'
 import step from 'assets/json/step.json'
-
-heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
-
-import store from 'store'
-
 import userData from 'data/user_list.json'
 
 import { setUserStoreData } from 'services/userStoreData'
+
+heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 
 const App = () => {
   useEffect(() => {

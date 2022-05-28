@@ -3,7 +3,7 @@ import styles from './login.module.scss'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = (props: Props) => {
+const Login = () => {
   const member = {
     id: 'wanted',
     pw: '123456',
