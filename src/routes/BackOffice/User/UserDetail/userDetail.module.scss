@@ -1,5 +1,42 @@
 @use '/src/styles/constants/colors';
 
+.userDetailWrap {
+  max-width: 1024px;
+  margin: 0 auto;
+
+  .detailInner {
+    padding-bottom: 50px;
+    border: 1px solid #cccccc;
+
+    .userProfile {
+      text-align: center;
+
+      .userProfileList {
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        border: 1px solid #cccccc;
+
+        .profileTitle {
+          padding: 10px;
+          text-align: center;
+          background-color: #cccccc;
+        }
+
+        .profileInfo {
+          padding: 10px;
+        }
+      }
+    }
+
+    .charWrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 80px;
+    }
+  }
+}
+
 .chartWrap {
   width: 450px;
 
