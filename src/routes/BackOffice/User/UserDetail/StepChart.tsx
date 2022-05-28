@@ -16,17 +16,6 @@ import { useMount } from 'react-use'
 
 dayjs.extend(isSameOrAfter)
 
-// interface ITickFomat {
-//   [key: string]: ((t: number) => string) | ((t: string) => string)
-//   // [key: string]: (t: number) => string
-// }
-
-// const tickFomatter: ITickFomat = {
-//   day: (t: number) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : ''),
-//   week: (t: number) => `${t + 1}일`,
-//   entire: (t: string) => t,
-// }
-
 interface IChartData {
   x: number | string
   y: number
@@ -79,8 +68,6 @@ const StepChart = ({ stepData }: Props) => {
         const currenStep = info.steps - (filterdStep[i - 1]?.steps || 0)
         hourlyData[hourIndex].y += currenStep
       })
-      // console.log(filterdStep[filterdStep.length - 1].steps)
-      // setTotalStep(filterdStep[filterdStep.length - 1].steps)
       setChartData(hourlyData)
     }
 
@@ -154,10 +141,6 @@ const StepChart = ({ stepData }: Props) => {
           <DatePicker selected={new Date(endDate)} minDate={new Date(startDate)} onChange={handleChangeEndDate} />
         </div>
       </div>
-      {/* <DatePicker selected={new Date(startDate)} onChange={(date: Date) => setStartDate(date)} /> */}
-
-      {/* <input onChange={handleChangeStartDate} className={styles.datePicker} type='date' />~
-      <input onChange={handleChangeEndDate} className={styles.datePicker} type='date' /> */}
       <div className={styles.buttonWrap}>
         <Button title='오늘' value='today' onClick={handleLooupClick} />
         <Button title='1주일' value='week' onClick={handleLooupClick} />
