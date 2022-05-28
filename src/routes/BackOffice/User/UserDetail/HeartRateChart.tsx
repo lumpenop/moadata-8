@@ -1,12 +1,16 @@
 import Button from 'components/_comon/Button'
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 
 import styles from './userDetail.module.scss'
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel } from 'victory'
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel, VictoryArea } from 'victory'
+import DatePicker from 'react-datepicker'
 
 import store from 'store'
 import { isNumber } from 'lodash'
+import cx from 'classnames'
 
 interface IUserData {
   x: number | string
@@ -23,14 +27,12 @@ interface Props {}
 let hap = 0
 let length = 0
 
-const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
-
 const HeartRateChart = (props: Props) => {
   const [data, setData] = useState<IUserData[]>([])
   const [heartRateData, setHeartRateData] = useState<IUserInfo[]>([])
-  const [lookup, setLookup] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [lookup, setLookup] = useState('today')
+  const [startDate, setStartDate] = useState<string | Date>(new Date('2022-04-16'))
+  const [endDate, setEndDate] = useState<string | Date>(new Date())
 
   const [date1, setDate1] = useState('2022-04-19')
   const [date2, setDate2] = useState('')
@@ -42,15 +44,20 @@ const HeartRateChart = (props: Props) => {
     console.log(e.currentTarget.value)
   }
 
-  const handleChangeStartDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setStartDate(e.currentTarget.value)
+  const handleChangeStartDate = (date: Date) => {
+    // setStartDate(dayjs(date).format('YYYY-MM-DD'))
+    setStartDate(dayjs(date).format('YYYY-MM-DD'))
+    setDate1(dayjs(date).format('YYYY-MM-DD'))
     setLookup('')
-    console.log('start:', e.currentTarget.value)
   }
 
-  const handleChangeEndDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setEndDate(e.currentTarget.value)
-    console.log('end:', e.currentTarget.value)
+  const handleChangeEndDate = (date: Date) => {
+    // setEndDate(dayjs(date).format('YYYY-MM-DD'))
+    setEndDate(dayjs(date).format('YYYY-MM-DD'))
+    setDate2(dayjs(date).format('YYYY-MM-DD'))
+    setLookup('')
+
+    // console.log('end:', e.currentTarget.value)
   }
 
   useEffect(() => {
@@ -58,19 +65,9 @@ const HeartRateChart = (props: Props) => {
   }, [])
 
   useEffect(() => {
-    console.log('lookup', lookup)
-    // heartRateData
-    //   .filter(
-    //     (data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD') && data2.member_seq === 380
-    //   )
-    //   .forEach((info, i) => {
-    //     const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
-    //     const currenStep = info.avg_beat
-    //     HOURLY_DATA[hourIndex].y = currenStep
-    //   })
-    // console.log(HOURLY_DATA)
-
     if (lookup === 'today') {
+      const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
+
       heartRateData
         .filter(
           (data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD') && data2.member_seq === 380
@@ -82,16 +79,8 @@ const HeartRateChart = (props: Props) => {
           const currenStep = info.avg_beat
           HOURLY_DATA[hourIndex].y = currenStep
         })
+      console.log(HOURLY_DATA)
       setData(HOURLY_DATA)
-      // .forEach((data1, index) => {
-      //   hap += data1.avg_beat
-      //   length = index
-      //   return {
-      //     x: dayjs(data1.crt_ymdt).format('HH:mm'),
-      //     y: data1.avg_beat,
-      //   }
-      // })
-
       setDate1('2022-04-19')
       setDate2('')
       setHeartBeatAvg(Math.round(hap / length))
@@ -100,45 +89,49 @@ const HeartRateChart = (props: Props) => {
     }
 
     if (lookup === 'week') {
-      setData(
-        heartRateData
-          .filter(
-            (data2) =>
-              dayjs(data2.crt_ymdt) <= dayjs('2022-04-27') &&
-              dayjs(data2.crt_ymdt) >= dayjs('2022-04-16') &&
-              data2.member_seq === 380
-          )
-          .map((userData, index) => {
-            hap += userData.avg_beat
-            length = index
-            return {
-              x: dayjs(userData.crt_ymdt).format('MM월DD일'),
-              // x: dayjs(userData.crt_ymdt).format('MM:DD'),
-              y: userData.avg_beat,
-            }
-          })
-      )
+      const weekData = Array.from({ length: 7 }, (_, i) => ({ x: i, y: 0 }))
+
+      heartRateData
+        .filter(
+          (data2) =>
+            dayjs(data2.crt_ymdt) <= dayjs('2022-04-23') &&
+            dayjs(data2.crt_ymdt) >= dayjs('2022-04-16') &&
+            data2.member_seq === 380
+        )
+        .forEach((data3, i) => {
+          hap += data3.avg_beat
+          length = i
+          const dailyIndex = Number(dayjs(data3.crt_ymdt).date()) - Number(dayjs(startDate).date())
+          weekData[dailyIndex].y = (weekData[dailyIndex].y + data3.avg_beat) / 2
+        })
+
+      setData(weekData)
       setDate1('2022-04-19')
       setDate2('2022-04-26')
       setHeartBeatAvg(Math.round(hap / length))
       hap = 0
       return
     }
-
     if (lookup === 'entire') {
-      setData(
-        heartRateData
-          .filter((data2) => data2.member_seq === 380)
-          .map((userData, index) => {
-            hap += userData.avg_beat
-            length = index
-            return {
-              x: dayjs(userData.crt_ymdt).format('MM월DD일'),
-              // x: dayjs(userData.crt_ymdt).format('MM:DD'),
-              y: userData.avg_beat,
-            }
-          })
-      )
+      const entireData = heartRateData
+        .filter((data2) => data2.member_seq === 380)
+        .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
+        .reduce((acc: { [key: string]: any }, cur, i) => {
+          hap += cur.avg_beat
+          length = i
+          acc[dayjs(cur.crt_ymdt).format('YYYY-MM-DD')] = {
+            heartRate: cur.avg_beat,
+          }
+          return acc
+        }, {})
+
+      console.log('entireData = ', entireData)
+      const eData = Object.keys(entireData).map((date) => ({
+        x: dayjs(date).format('M월 D일'),
+        y: entireData[date].heartRate,
+      }))
+      console.log(eData)
+      setData(eData)
       setDate1('2022-04-19')
       setDate2('2022-04-26')
       setHeartBeatAvg(Math.round(hap / length))
@@ -147,109 +140,77 @@ const HeartRateChart = (props: Props) => {
     }
 
     console.log('startDate =', startDate, 'endDate = ', endDate)
+
     if (startDate && endDate) {
-      setData(
-        heartRateData
-          .filter(
-            (data2) =>
-              dayjs(data2.crt_ymdt) >= dayjs(startDate) &&
-              dayjs(data2.crt_ymdt) <= dayjs(endDate) &&
-              data2.member_seq === 380
-          )
-          .map((userData, index) => {
-            hap += userData.avg_beat
-            length = index
-            return {
-              x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
-              y: userData.avg_beat,
-            }
-          })
-      )
-      setDate1(startDate)
-      setDate2(endDate)
+      const entireData = heartRateData
+        .filter(
+          (data2) =>
+            dayjs(data2.crt_ymdt) >= dayjs(startDate) &&
+            dayjs(data2.crt_ymdt) <= dayjs(endDate) &&
+            // dayjs(data2.crt_ymdt).isSameOrAfter(dayjs(startDate)) &&
+            // dayjs(data2.crt_ymdt).isBefore(dayjs(endDate)) &&
+            data2.member_seq === 380
+        )
+        .reduce((acc: { [key: string]: any }, cur, i) => {
+          hap += cur.avg_beat
+          length = i
+          acc[dayjs(cur.crt_ymdt).format('YYYY-MM-DD')] = {
+            heartRate: cur.avg_beat,
+          }
+          return acc
+        }, {})
+      const eData = Object.keys(entireData).map((date) => ({
+        x: dayjs(date).format('M월 D일'),
+        y: entireData[date].heartRate,
+      }))
+      setData(eData)
+
       setHeartBeatAvg(Math.round(hap / length))
       hap = 0
     }
-
-    setData(
-      heartRateData
-        .filter(
-          (data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD') && data2.member_seq === 380
-        )
-        .map((data1) => ({
-          x: dayjs(data1.crt_ymdt).format('HH:mm'),
-          y: data1.avg_beat,
-        }))
-    )
-
-    // heartRateData
-    //   .filter(
-    //     (data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD') && data2.member_seq === 380
-    //   )
-    //   .forEach((info, i) => {
-    //     const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
-    //     const currenStep = info.avg_beat
-    //     HOURLY_DATA[hourIndex].y = currenStep
-    //   })
-    // setData(HOURLY_DATA)
-    // // .forEach((data1, index) => {
-    // //   hap += data1.avg_beat
-    // //   length = index
-    // //   return {
-    // //     x: dayjs(data1.crt_ymdt).format('HH:mm'),
-    // //     y: data1.avg_beat,
-    // //   }
-    // // })
-
-    // setDate1('2022-04-19')
-    // setDate2('')
-    // setHeartBeatAvg(Math.round(hap / length))
-    // hap = 0
   }, [startDate, endDate, lookup, heartRateData])
+
+  const tickFormatter = (t: number | string): string => {
+    if (startDate && endDate && !lookup) return typeof t === 'string' ? t : ''
+    switch (lookup) {
+      case 'today': // 0  ~ 143
+        if (t === 143) return '24시'
+        return typeof t === 'number' && (t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : ''
+      case 'week':
+        return `${typeof t === 'number' && t + 1}일`
+      case 'entire':
+        return typeof t === 'string' ? t : ''
+      default:
+        return ''
+    }
+  }
 
   return (
     <div className={styles.chartWrap}>
-      {/* <button type='button' onClick={click}>
-        디비입력
-      </button>
-      <button type='button' onClick={showClick}>
-        디비출력
-      </button> */}
-      {/* // [{x:"14:21:52", y: 90}] */}
-      {/* tickFormat={(t) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : '')} */}
       <div className={styles.chartTitle}>
         <p>심박수</p>
       </div>
       <div className={styles.chartWrap}>
         {/* <VictoryChart domain={{ y: [50, 160] }}> */}
-        <VictoryChart domain={{ y: [50, 160] }}>
-          <VictoryLabel dy={10} text='bpm' x={15} y={30} />
+        <VictoryChart style={{ background: { fill: '#000' } }} domain={{ y: [50, 160] }}>
+          <VictoryLabel style={{ fill: '#e85319' }} dy={10} text='bpm' x={15} y={20} />
           <VictoryAxis
             style={{
-              tickLabels: { fontSize: 3 },
+              tickLabels: { fontSize: 15, fill: '#a6a6a6' },
             }}
-            // [{x:"14:21:52", y: 90}]
-
-            tickValues={HOURLY_DATA.map((el) => el.x).concat(144)}
-            tickFormat={(t) => {
-              if (lookup !== 'today') return t
-              return (t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : ''
-            }}
-            // tickFormat={(t) => {
-            //   if (isNumber(t)) return null
-            //   if (lookup === 'week') return t
-            //   return t // .slice(0, 2)
-            // }}
+            tickValues={data.map((el) => el.x)}
+            tickFormat={tickFormatter}
           />
           <VictoryAxis
             dependentAxis
             style={{
-              tickLabels: { fontSize: 5 },
+              tickLabels: { fontSize: 15, fill: '#a6a6a6' },
             }}
           />
           {data.map((item: any) => {
             return (
-              <VictoryLine
+              <VictoryArea
+                style={{ data: { stroke: '#f3490b' }, parent: { border: '5px solid #272324' } }}
                 key={item.y + new Date()}
                 data={data}
                 // style={{ data: { strokeWidth: 1 } }}
@@ -269,8 +230,15 @@ const HeartRateChart = (props: Props) => {
       <div className={styles.chartTitle}>
         <p>조회 기간</p>
       </div>
-      <input onChange={handleChangeStartDate} className={styles.datePicker} type='date' />~
-      <input onChange={handleChangeEndDate} className={styles.datePicker} type='date' />
+      <DatePicker selected={new Date(startDate)} onChange={handleChangeStartDate} className={styles.datePicker} />
+      <DatePicker
+        selected={new Date(endDate)}
+        minDate={new Date(startDate)}
+        maxDate={new Date()}
+        onChange={handleChangeEndDate}
+        className={styles.datePicker}
+      />
+
       <div className={styles.buttonWrap}>
         <Button title='오늘' value='today' onClick={handleLookUpClick} />
         <Button title='1주일' value='week' onClick={handleLookUpClick} />
