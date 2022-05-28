@@ -9,13 +9,7 @@ import LNB from './_shared/LNB'
 
 import styles from './Routes.module.scss'
 
-import userData from 'data/user_list.json'
-import { setUserStoreData } from 'services/userStoreData'
-
 const App = () => {
-  useEffect(() => {
-    setUserStoreData(userData)
-  }, [])
   return (
     <div className={styles.appWrapper}>
       <LNB />

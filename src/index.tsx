@@ -12,7 +12,17 @@ import i18n from 'utils/locale'
 import reportWebVitals from './reportWebVitals'
 import './styles/index.scss'
 
+import userData from 'data/user_list.json'
+import heartrate from 'data/heartrate_136_0226_user1.json'
+
 import Routes from './routes'
+
+import store2 from 'store'
+
+store2.clearAll()
+store2.set('userManagement', userData)
+console.log(userData)
+store2.set('heartrate', heartrate)
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
