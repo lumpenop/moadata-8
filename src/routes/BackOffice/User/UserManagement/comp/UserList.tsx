@@ -1,15 +1,13 @@
 import { useMemo, useEffect } from 'react'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { cx } from 'styles'
-
-import ButtonBasic from 'routes/_shared/ButtonBasic'
-
-import styles from './userList.module.scss'
 
 import { useRecoil } from 'hooks/state'
 import { userListState } from 'store/userManagement'
-
+import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
+
+import styles from './userList.module.scss'
 
 interface Props {
   isListHidden: boolean

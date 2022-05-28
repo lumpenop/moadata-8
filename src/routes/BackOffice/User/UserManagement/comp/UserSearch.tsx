@@ -1,7 +1,7 @@
 import { useEffect, KeyboardEvent } from 'react'
 import dayjs from 'dayjs'
+import store from 'store'
 
-import ButtonBasic from 'routes/_shared/ButtonBasic'
 import {
   endDateState,
   isDateReadOnlyState,
@@ -12,14 +12,15 @@ import {
   startDateState,
   userListState,
 } from 'store/userManagement'
+
 import { useRecoil } from 'hooks/state'
+import ButtonBasic from 'routes/_shared/ButtonBasic'
+import UserSearchContainer from './UserSearchContainer'
 import { IUser } from 'types/userManagement'
 import DatePickerUtil from 'utils/user/DatePickerUtil'
 
-import USER_LIST from 'data/user_list.json'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './userSearch.module.scss'
-import UserSearchContainer from './UserSearchContainer'
 
 interface Props {
   setIsListHidden: Function
@@ -76,7 +77,7 @@ const UserSearch = ({ setIsListHidden }: Props) => {
     setEndDate(null)
     setLoginValue('')
     setNumValue('')
-    setUserList(USER_LIST)
+    setUserList(store.get('userManagement'))
   }
 
   const searchUserByDate = (items: IUser[]) => {
@@ -125,6 +126,7 @@ const UserSearch = ({ setIsListHidden }: Props) => {
     <div className={styles.searchFormBox}>
       <form className={styles.searchForm}>
         <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
+
         <DatePickerUtil />
         <div className={styles.userSearchButtonContainer}>
           <div className={styles.userSearchButtonBox}>

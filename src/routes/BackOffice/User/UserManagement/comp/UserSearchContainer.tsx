@@ -1,7 +1,17 @@
-import { ChangeEvent, KeyboardEvent } from 'react'
+import { ChangeEvent, KeyboardEvent, useCallback, useMemo } from 'react'
 import styles from './userSearchContainer.module.scss'
-import { useRecoil } from 'hooks/state'
-import { loginValueState, numValueState, isLoginReadOnlyState, isNumReadOnlyState } from 'store/userManagement'
+import { useRecoil, usePrevious } from 'hooks/state'
+import {
+  loginValueState,
+  numValueState,
+  isLoginReadOnlyState,
+  isNumReadOnlyState,
+  userListState,
+} from 'store/userManagement'
+
+import { IUser } from 'types/userManagement'
+
+import store from 'store'
 
 interface Props {
   searchUserButtonClick: Function
@@ -13,18 +23,60 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
   const [isLoginValueReadOnly] = useRecoil<boolean>(isLoginReadOnlyState)
   const [isNumValueReadOnly] = useRecoil<boolean>(isNumReadOnlyState)
 
-  const handleLoginInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLoginValue(event.currentTarget.value)
-  }
-  const handleUserIdInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNumValue(event.currentTarget.value)
-  }
+  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
 
-  const inputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      searchUserButtonClick()
-    }
-  }
+  const prevLoginValue = usePrevious(loginValue)
+  const prevNumValue = usePrevious(numValue)
+
+  const handleLoginIdInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const targetValue = event.currentTarget.value
+      setLoginValue(targetValue)
+      if (targetValue.length !== prevLoginValue?.length) setUserList(store.get('userManagement'))
+    },
+    [prevLoginValue?.length]
+  )
+  const handleUserNumInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const targetValue = event.currentTarget.value
+      setNumValue(targetValue)
+      if (targetValue.length !== prevNumValue?.length) setUserList(store.get('userManagement'))
+    },
+    [prevNumValue?.length]
+  )
+
+  const inputEnterPress = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') searchUserButtonClick()
+    },
+    [searchUserButtonClick]
+  )
+
+  const userIdInput = useMemo(() => {
+    return (
+      <input
+        name='userId'
+        type='text'
+        value={loginValue}
+        onChange={handleLoginIdInputChange}
+        readOnly={isLoginValueReadOnly}
+        onKeyPress={inputEnterPress}
+      />
+    )
+  }, [loginValue, handleLoginIdInputChange, isLoginValueReadOnly, inputEnterPress])
+
+  const userNumInput = useMemo(() => {
+    return (
+      <input
+        name='userId'
+        type='text'
+        value={numValue}
+        onChange={handleUserNumInputChange}
+        readOnly={isNumValueReadOnly}
+        onKeyPress={inputEnterPress}
+      />
+    )
+  }, [numValue, handleUserNumInputChange, isNumValueReadOnly, inputEnterPress])
 
   return (
     <div className={styles.searchFormBodyContainer}>
@@ -32,27 +84,13 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
         <label htmlFor='userId' className={styles.login}>
           로그인 ID
         </label>
-        <input
-          name='userId'
-          type='text'
-          value={loginValue}
-          onChange={handleLoginInputChange}
-          readOnly={isLoginValueReadOnly}
-          onKeyPress={inputEnterPress}
-        />
+        {userIdInput}
       </div>
       <div className={styles.searchFormBody}>
         <label htmlFor='userNum' className={styles.userNum}>
           회원번호
         </label>
-        <input
-          name='userNum'
-          type='number'
-          value={numValue}
-          readOnly={isNumValueReadOnly}
-          onChange={handleUserIdInputChange}
-          onKeyPress={inputEnterPress}
-        />
+        {userNumInput}
       </div>
     </div>
   )
