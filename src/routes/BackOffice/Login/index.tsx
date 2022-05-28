@@ -3,12 +3,12 @@ import styles from './login.module.scss'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const member = {
-  id: 'wanted',
-  pw: '123456',
-}
+const Login = (props: Props) => {
+  const member = {
+    id: 'wanted',
+    pw: '123456',
+  }
 
-const Login = () => {
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
   const [idValue, setIdValue] = useState('')

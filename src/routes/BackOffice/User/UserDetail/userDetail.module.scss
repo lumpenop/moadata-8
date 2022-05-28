@@ -1,0 +1,75 @@
+@use '/src/styles/constants/colors';
+
+.userDetailWrap {
+  max-width: 1024px;
+  margin: 0 auto;
+
+  .detailInner {
+    padding-bottom: 50px;
+    border: 1px solid #cccccc;
+
+    .userProfile {
+      text-align: center;
+
+      .userProfileList {
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        border: 1px solid #cccccc;
+
+        .profileTitle {
+          padding: 10px;
+          text-align: center;
+          background-color: #cccccc;
+        }
+
+        .profileInfo {
+          padding: 10px;
+        }
+      }
+    }
+
+    .charWrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 80px;
+    }
+  }
+}
+
+.chartWrap {
+  width: 450px;
+
+  .chartTitle {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: colors.$GRAYD;
+    border: 1px solid #666666;
+  }
+
+  .chartWrap {
+    height: 280px;
+    // margin-top: -1px;
+    background-color: black;
+    border: 1px solid #666666;
+  }
+
+  .info {
+    margin-top: 15px;
+
+    .infoText {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+  }
+
+  .datePicker {
+    border: 1px solid colors.$COMMON_BLUE;
+    border-radius: 5px;
+  }
+
+  .buttonWrap {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
