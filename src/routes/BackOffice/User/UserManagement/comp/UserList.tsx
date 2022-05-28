@@ -13,13 +13,12 @@ interface Props {
   isListHidden: boolean
 }
 
+const thList = ['회원번호', '가입일', '로그인ID', '상세']
+
 const UserList = ({ isListHidden }: Props) => {
-  const thList = useMemo(() => ['회원번호', '가입일', '로그인ID', '상세'], [])
-
   const [userList] = useRecoil<IUser[]>(userListState)
-
-  const userItem = useMemo(() => {
-    return (
+  return (
+    <section>
       <div className={styles.userListContainer}>
         <p>
           전체 중 <mark>{isListHidden ? 0 : userList.length}</mark> 명의 회원이 검색되었습니다.
@@ -28,13 +27,11 @@ const UserList = ({ isListHidden }: Props) => {
           <table className={styles.userListTable}>
             <thead>
               <tr>
-                {thList.map((thItem) => {
-                  return (
-                    <th key={thItem} className={styles.userListSubject}>
-                      {thItem}
-                    </th>
-                  )
-                })}
+                {thList.map((thItem) => (
+                  <th key={thItem} className={styles.userListSubject}>
+                    {thItem}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className={cx({ [styles.listHidden]: isListHidden })}>
@@ -54,11 +51,6 @@ const UserList = ({ isListHidden }: Props) => {
           </table>
         </div>
       </div>
-    )
-  }, [isListHidden, userList])
-  return (
-    <section>
-      <ul>{userItem}</ul>
     </section>
   )
 }

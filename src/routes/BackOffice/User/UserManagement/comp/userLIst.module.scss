@@ -7,7 +7,7 @@
   p {
     // position: absolute;
     // top: -35px;
-    padding: 10px;
+    padding: 18px;
 
     mark {
       color: colors.$BLUE;
@@ -16,8 +16,7 @@
   }
 
   .userListWrapper {
-    position: relative;
-    height: 300px;
+    // height: 300px;
     // padding: 20px 40px;
     // border: 1px solid #ececec;
     overflow: hidden;
@@ -26,14 +25,13 @@
   }
 
   .userListTable {
-    position: absolute;
     // top: 51px;
     // width: 550px;
     width: 100%;
     height: 200px;
 
     .userListSubject {
-      padding: 10px;
+      padding: 16px;
     }
 
     .userListSubject:nth-child(1) {
@@ -68,7 +66,7 @@
   }
 
   td {
-    padding: 8px;
+    line-height: 50px;
     text-align: center;
     // border: 1px solid colors.$GRAYA;
   }
