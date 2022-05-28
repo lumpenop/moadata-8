@@ -1,13 +1,14 @@
-import UserSearch from './comp/UserSearch'
+import { useState } from 'react'
 import UserList from './comp/UserList'
+import UserSearch from './comp/UserSearch'
 
-interface Props {}
+const UserManagement = () => {
+  const [isListHidden, setIsListHidden] = useState(false)
 
-const UserManagement = (props: Props) => {
   return (
     <div>
-      <UserSearch />
-      <UserList />
+      <UserSearch setIsListHidden={setIsListHidden} />
+      <UserList isListHidden={isListHidden} />
     </div>
   )
 }
