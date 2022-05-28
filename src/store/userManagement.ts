@@ -3,7 +3,9 @@ import { IUser } from 'types/userManagement'
 import store from 'store'
 import dayjs from 'dayjs'
 
-const defaultUserArr = store.get('userManagement')
+import defaultUserArr from 'data/user_list.json'
+
+// const defaultUserArr = store.get('userManagement')
 
 const setDateAll = () => {
   let oldest = defaultUserArr[0].date

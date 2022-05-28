@@ -1,4 +1,4 @@
-import { useEffect, useState,KeyboardEvent } from 'react'
+import { useEffect, useState, KeyboardEvent } from 'react'
 import dayjs from 'dayjs'
 import store from 'store'
 import {
@@ -20,9 +20,6 @@ import ButtonBasic from 'routes/_shared/ButtonBasic'
 import UserSearchContainer from './UserSearchContainer'
 import { IUser } from 'types/userManagement'
 import DatePickerUtil from 'utils/user/DatePickerUtil'
-
-import 'react-datepicker/dist/react-datepicker.css'
-import styles from './userSearch.module.scss'
 
 interface Props {
   setIsListHidden: Function

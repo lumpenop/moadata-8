@@ -10,13 +10,18 @@ import PageTemplate from './_shared/templates'
 
 import styles from './Routes.module.scss'
 
+import store from 'store'
+
 import userData from 'data/user_list.json'
+
 import { setUserStoreData } from 'services/userStoreData'
 
 const App = () => {
-  useEffect(() => {
-    setUserStoreData(userData)
-  }, [])
+  // useEffect(() => {
+  //   setUserStoreData(userData)
+  // }, [])
+  // store.set('useManagement', userData)
+
   return (
     <div className={styles.app}>
       <Routes>
