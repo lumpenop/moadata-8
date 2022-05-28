@@ -1,178 +1,128 @@
 import Button from 'components/_comon/Button'
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
-import dayjs from 'dayjs'
-
 import styles from './userDetail.module.scss'
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel } from 'victory'
-import USER_DATA from 'assets/json/test.json'
 
-// import { useIndexedDBStore } from 'use-indexeddb'
-import { isNumber } from 'lodash'
+// import userSteps from './step_136_0226.json'
+import dayjs from 'dayjs'
+import { VictoryBar, VictoryChart, VictoryAxis } from 'victory'
 
-interface IUserData {
-  x: string
-  y: number
+import store from 'store'
+
+// {
+//   "seq": 265563,                     // 고유 key
+//   "member_seq": 136,                 // 회원아이디
+//   "steps": 14303,                    // 누적 걸음수
+//   "minutes": 191,                    // 누적 걸음 시간
+//   "distance": 10.185364,             // 누적 거리
+//   "calorie": 504.14557,              // 소모 칼로리
+//   "crt_ymdt": "2022-02-26 20:21:30"  // 기록 시간?
+// },
+// jsonData => jsonData.sort(crt_ymdt) (오름차순 정렬)
+
+interface IUserInfo {
+  seq: number
+  member_seq: number
+  steps: number
+  minutes: number
+  distance: number
+  crt_ymdt: string
 }
 
+// const USER_STEP_DATAS = userSteps.sort(
+//   (info1: IUserInfo, info2: IUserInfo) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt))
+// )
+
+// // 아래꺼 지우셈
+// const dummyData = USER_STEP_DATAS.map((info, i, arr) => ({
+//   x: dayjs(info.crt_ymdt).format('HHmmss'),
+//   y: info.steps - (arr[i - 1]?.steps || 0),
+// }))
+
+// console.log(USER_STEP_DATAS)
+
+// console.log('dayjs', dayjs(USER_STEP_DATAS[0].crt_ymdt).format('HHmm'))
+// console.log('dayjs', dayjs(USER_STEP_DATAS.at(-1)!.crt_ymdt).format('HHmm'))
+
+/**
+ * [0:0 , . . . . .1:00]
+ * [0 , 1, 2, ... , 7]
+ *  * "2022-02-26 20:21:30" => Number(2021) / 10 = 202
+ * (dayjs(시간).hour() * 60 + dayjs(시간).minute()) / 10 = 인덱스
+ * 1:11 => 60 + 11 = 71 / 10 => 7
+ * HOURLY_DATA: 10분 가격 걸음수
+ * HOURLY_DATA[0]: 00시 00분 ~ 00시 10분 HHmm / 10 => 0
+ * HOURLY_DATA[1]: 00시 00분 ~ 00시 10분 HHmm / 10 => 1
+ * ...
+ * HOURLY_DATA[142]: 23시 41분 ~ 23시 50분
+ * HOURLY_DATA[143]: 23시 51분 ~ 24시 00분 HHmm / 10 => 235
+ */
+
+// const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
+
+// USER_STEP_DATAS.forEach((info, i) => {
+//   const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
+//   const currenStep = info.steps - (USER_STEP_DATAS[i - 1]?.steps || 0)
+//   HOURLY_DATA[hourIndex].y += currenStep
+// })
+
+// console.log(HOURLY_DATA)
+// data={[
+//   { x: 0시 0분, y: 0시간당 걸음수 },
+//   { x: 0시 10분, y: 0시간당 걸음수 },
+//   { x: 0시 20분, y: 0시간당 걸음수 },
+//   { x: 0시 30분, y: 0시간당 걸음수 },
+//   { x: 0시 40분, y: 0시간당 걸음수 },
+//   { x: 0시 50분, y: 0시간당 걸음수 },
+//   { x: 1시 0분, y: 0시간당 걸음수 },
+//   { x: 1시, y: 3 },
+//   { x: 2시, y: 5 },
+//   ...
+//   { x:, y: 4 }
+//   { x: 2 21, y: 4 }
+//   { x: 223, y: 4 }
+// ]}
+
 interface Props {}
-// 결론 : _comon은 왜 comon인지 모른다.
-// 누군가의 솜씨, 부검이 필요합니다
 
 const StepChart = (props: Props) => {
-  const [data, setData] = useState<IUserData[]>([])
-
+  const [stepData, setStepData] = useState<IUserInfo[]>([])
   const [lookup, setLookup] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
 
-  const [date1, setDate1] = useState('2022-04-19')
-  const [date2, setDate2] = useState('')
+  useEffect(() => {
+    setStepData(store.get('step'))
+  }, [])
 
-  // indexedDB를 쓰는 경우에 데이터 가져오기
-  // const { add, getManyByIndex } = useIndexedDBStore('HeartRate')
-  // const showClick = () => {
-  //   getManyByIndex('member_seq', 328)
-  //     .then((e) => console.log(e))
-  //     .catch(console.error)
-  // }
-
-  const handleLookUpClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleLooupClick = (e: MouseEvent<HTMLButtonElement>) => {
     setLookup(e.currentTarget.value)
     console.log(e.currentTarget.value)
   }
 
   const handleChangeStartDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setStartDate(e.currentTarget.value)
     console.log('start:', e.currentTarget.value)
   }
 
   const handleChangeEndDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setEndDate(e.currentTarget.value)
-    console.log('end:', e.currentTarget.value)
+    console.log(e.currentTarget.value)
   }
-
-  useEffect(() => {
-    if (lookup === 'today') {
-      setData(
-        USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD'))
-          .map((data1) => ({
-            x: dayjs(data1.crt_ymdt).format('HH:mm:ss'),
-            y: data1.avg_beat,
-          }))
-          .reverse()
-      )
-      setDate1('2022-04-19')
-      setDate2('')
-      return
-    }
-
-    if (lookup === 'week') {
-      setData(
-        USER_DATA.filter(
-          (data2) =>
-            dayjs(data2.crt_ymdt) <= dayjs('2022-04-20') &&
-            dayjs(data2.crt_ymdt) >= dayjs('2022-04-19').subtract(7, 'day')
-        )
-          .map((userData) => ({
-            x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
-            // x: dayjs(userData.crt_ymdt).format('MM:DD'),
-            y: userData.avg_beat,
-          }))
-          .reverse()
-      )
-      setDate1('2022-04-19')
-      setDate2('2022-04-26')
-      return
-    }
-
-    if (lookup === 'entire') {
-      setData(
-        USER_DATA.map((userData) => ({
-          x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
-          // x: dayjs(userData.crt_ymdt).format('MM:DD'),
-          y: userData.avg_beat,
-        })).reverse()
-      )
-      setDate1('2022-04-19')
-      setDate2('2022-04-26')
-      return
-    }
-
-    if (startDate && endDate) {
-      setData(
-        USER_DATA.filter(
-          (data2) => dayjs(data2.crt_ymdt) >= dayjs(startDate) && dayjs(data2.crt_ymdt) <= dayjs(endDate)
-        )
-          .map((userData) => ({
-            x: dayjs(userData.crt_ymdt).format('HH:mm:ss'),
-            y: userData.avg_beat,
-          }))
-          .reverse()
-      )
-      setDate1(startDate)
-      setDate2(endDate)
-      return
-    }
-
-    setData(
-      USER_DATA.filter((data2) => dayjs(data2.crt_ymdt).format('DD') === dayjs('2022-04-19').format('DD'))
-        .map((data1) => ({
-          x: dayjs(data1.crt_ymdt).format('HH:mm:ss'),
-          y: data1.avg_beat,
-        }))
-        .reverse()
-    )
-  }, [startDate, endDate, lookup])
-
   return (
     <div className={styles.chartWrap}>
-      {/* <button type='button' onClick={click}>
-        디비입력
-      </button>
-      <button type='button' onClick={showClick}>
-        디비출력
-      </button> */}
-      {/* tickFormat={(t) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : '')} */}
       <div className={styles.chartTitle}>
         <p>걸음수</p>
       </div>
       <div className={styles.chartWrap}>
-        <VictoryChart domain={{ y: [50, 160] }}>
-          <VictoryLabel dy={10} text='bpm' x={15} y={30} />
+        {/* <VictoryChart width={1000}>
           <VictoryAxis
-            style={{
-              tickLabels: { fontSize: 3 },
-            }}
-            tickFormat={(t) => {
-              if (isNumber(t)) return null
-              if (lookup === 'week') return t
-              return t.slice(0, 5)
-            }}
+            tickValues={HOURLY_DATA.map((el) => el.x).concat(144)}
+            tickFormat={(t) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : '')}
           />
-          <VictoryAxis
-            dependentAxis
-            style={{
-              tickLabels: { fontSize: 5 },
-            }}
-          />
-          {data &&
-            data.map((item: any) => {
-              return (
-                <VictoryLine
-                  key={item.seq + new Date()}
-                  data={data}
-                  style={{ data: { strokeWidth: 1 } }}
-                  y={(datum) => datum.y}
-                />
-              )
-            })}
-        </VictoryChart>
+          <VictoryAxis dependentAxis crossAxis />
+          <VictoryBar data={HOURLY_DATA} />
+        </VictoryChart> */}
       </div>
       <div className={styles.info}>
-        <p className={styles.infoText}>
-          <time dateTime={date1}>{date1}</time>
-          {date1 && date2 && <time dateTime={date2}>~ {date2}</time>}
-        </p>
+        <p className={styles.infoText}>2022-04-20 ~ 2022-04-20 </p>
         <p className={styles.infoText}>총 13,203걸음</p>
       </div>
       <div className={styles.chartTitle}>
@@ -181,9 +131,9 @@ const StepChart = (props: Props) => {
       <input onChange={handleChangeStartDate} className={styles.datePicker} type='date' />~
       <input onChange={handleChangeEndDate} className={styles.datePicker} type='date' />
       <div className={styles.buttonWrap}>
-        <Button title='오늘' value='today' onClick={handleLookUpClick} />
-        <Button title='1주일' value='week' onClick={handleLookUpClick} />
-        <Button title='전체' value='entire' onClick={handleLookUpClick} />
+        <Button title='오늘' value='today' onClick={handleLooupClick} />
+        <Button title='1주일' value='week' onClick={handleLooupClick} />
+        <Button title='전체' value='entire' onClick={handleLooupClick} />
       </div>
     </div>
   )
