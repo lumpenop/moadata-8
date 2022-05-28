@@ -1,5 +1,24 @@
 @use '/src/styles/constants/colors';
 
+.pathInfo {
+  position: relative;
+  bottom: 12px;
+
+  span {
+    padding: 0 4px;
+  }
+
+  a:link,
+  a:visited,
+  a:active {
+    color: colors.$BLACK;
+  }
+
+  a:active {
+    text-decoration: underline;
+  }
+}
+
 .searchForm {
   position: relative;
   // display: flex;

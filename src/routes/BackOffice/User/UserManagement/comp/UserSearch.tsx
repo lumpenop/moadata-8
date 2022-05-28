@@ -1,7 +1,6 @@
-import { useEffect, KeyboardEvent } from 'react'
+import { useEffect, useState,KeyboardEvent } from 'react'
 import dayjs from 'dayjs'
 import store from 'store'
-
 import {
   endDateState,
   isLoginReadOnlyState,
@@ -11,6 +10,10 @@ import {
   startDateState,
   userListState,
 } from 'store/userManagement'
+import DatePicker from 'react-datepicker'
+import { Link } from 'react-router-dom'
+import styles from './userSearch.module.scss'
+import 'react-datepicker/dist/react-datepicker.css'
 
 import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
@@ -119,19 +122,29 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   }
 
   return (
-    <div className={styles.searchFormBox}>
-      <form className={styles.searchForm}>
-        <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
-
-        <DatePickerUtil />
-        <div className={styles.userSearchButtonContainer}>
-          <div className={styles.userSearchButtonBox}>
-            <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
-            <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
+    <>
+      <div className={styles.pathInfo}>
+        <Link to='/user'>
+          <span>홈</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to='/management'>
+          <span>회원관리</span>
+        </Link>
+      </div>
+      <div className={styles.searchFormBox}>
+        <form className={styles.searchForm}>
+          <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
+          <DatePickerUtil />
+          <div className={styles.userSearchButtonContainer}>
+            <div className={styles.userSearchButtonBox}>
+              <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
+              <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   )
 }
 
