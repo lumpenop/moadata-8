@@ -1,0 +1,24 @@
+@use '/src/styles/constants//colors';
+
+.container {
+  width: 800px;
+  height: 80vh;
+
+  a:link,
+  a:visited,
+  a:active {
+    color: colors.$BLACK;
+  }
+
+  a:active {
+    text-decoration: underline;
+  }
+
+  .pathInfo {
+    height: 40px;
+  }
+
+  h2 {
+    font-weight: 700;
+  }
+}

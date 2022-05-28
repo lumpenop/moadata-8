@@ -7,7 +7,8 @@ import Login from './BackOffice/Login'
 import User from './BackOffice/User'
 import UserDetail from './BackOffice/User/UserDetail'
 import UserManagement from './BackOffice/User/UserManagement'
-import LNB from './_shared/LNB'
+// import LNB from './_shared/LNB'
+import PageTemplate from './_shared/templates'
 
 import styles from './Routes.module.scss'
 import HeartRateChart from './BackOffice/User/UserDetail/HeartRateChart'
@@ -18,6 +19,12 @@ import step from 'assets/json/step.json'
 
 heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 
+import store from 'store'
+
+import userData from 'data/user_list.json'
+
+import { setUserStoreData } from 'services/userStoreData'
+
 const App = () => {
   useEffect(() => {
     store.set('heartRate', heartRate)
@@ -25,17 +32,16 @@ const App = () => {
   }, [])
 
   return (
-    <div className={styles.appWrapper}>
-      <LNB />
-      <div className={styles.app}>
-        <Routes>
-          <Route path='/' element={<Login />} />
+    <div className={styles.app}>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route element={<PageTemplate />}>
           <Route path='user' element={<User />} />
           <Route path='management' element={<UserManagement />} />
           <Route path='management/detail/:id' element={<UserDetail />} />
           <Route path='*' element={<div>404</div>} />
-        </Routes>
-      </div>
+        </Route>
+      </Routes>
     </div>
   )
 }

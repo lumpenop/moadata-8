@@ -8,7 +8,17 @@ import { store } from './states'
 import reportWebVitals from './reportWebVitals'
 import './styles/index.scss'
 
+import store2 from 'store'
+
+import userData from 'data/user_list.json'
+
 import Routes from './routes'
+
+store2.set('useManagement', userData)
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnMount: false } },
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
