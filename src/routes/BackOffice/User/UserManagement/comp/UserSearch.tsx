@@ -4,7 +4,6 @@ import store from 'store'
 
 import {
   endDateState,
-  isDateReadOnlyState,
   isLoginReadOnlyState,
   isNumReadOnlyState,
   loginValueState,
@@ -13,7 +12,7 @@ import {
   userListState,
 } from 'store/userManagement'
 
-import { useRecoil } from 'hooks/state'
+import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import UserSearchContainer from './UserSearchContainer'
 import { IUser } from 'types/userManagement'
@@ -29,12 +28,14 @@ interface Props {
 const UserSearch = ({ setIsListHidden }: Props) => {
   const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
-  const [startDate, setStartDate] = useRecoil<Date | null>(startDateState)
-  const [endDate, setEndDate] = useRecoil<Date | null>(endDateState)
+  const [startDate, setStartDate] = useRecoil<Date>(startDateState)
+  const [endDate, setEndDate] = useRecoil<Date>(endDateState)
   const [isLoginValueReadOnly, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
   const [isNumValueReadOnly, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
-  const [isDateValueReadOnly, setIsDateValueReadOnly] = useRecoil(isDateReadOnlyState)
-  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
+  const [, setUserList] = useRecoil<IUser[]>(userListState)
+
+  const resetStartDateList = useResetRecoilState(startDateState)
+  const resetEndDateList = useResetRecoilState(endDateState)
 
   useEffect(() => {
     handleReadonly()
@@ -44,37 +45,32 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   const handleReadonly = () => {
     if (loginValue !== '') {
       setIsNumValueReadOnly(true)
-      setIsDateValueReadOnly(true)
       return
     }
     if (numValue !== '') {
       setIsLoginValueReadOnly(true)
-      setIsDateValueReadOnly(true)
-      return
-    }
-    if (startDate || endDate) {
-      setIsLoginValueReadOnly(true)
-      setIsNumValueReadOnly(true)
       return
     }
     resetReadOnly()
   }
 
   const resetReadOnly = () => {
-    setIsDateValueReadOnly(false)
     setIsLoginValueReadOnly(false)
     setIsNumValueReadOnly(false)
   }
 
   const searchUserButtonClick = () => {
-    if (isLoginValueReadOnly === false) searchUserByLoginId(userList)
-    if (isNumValueReadOnly === false) searchUserByMemberSeq(userList)
-    if (isDateValueReadOnly === false) searchUserByDate(userList)
+    const userList = store.get('userManagement')
+    if (loginValue) setUserList(searchUserByLoginId(searchUserByDate(userList)))
+    if (numValue) setUserList(searchUserByUserNum(searchUserByDate(userList)))
+    else setUserList(() => searchUserByDate(userList))
+
+    console.log(searchUserByDate(userList))
   }
 
   const resetData = () => {
-    setStartDate(null)
-    setEndDate(null)
+    resetStartDateList()
+    resetEndDateList()
     setLoginValue('')
     setNumValue('')
     setUserList(store.get('userManagement'))
@@ -89,9 +85,9 @@ const UserSearch = ({ setIsListHidden }: Props) => {
     })
     if (result.length === 0) {
       setIsListHidden(true)
-      return
+      return []
     }
-    setUserList(() => result)
+    return result
   }
 
   const searchUserByLoginId = (items: IUser[]) => {
@@ -100,20 +96,20 @@ const UserSearch = ({ setIsListHidden }: Props) => {
     })
     if (result.length === 0) {
       setIsListHidden(true)
-      return
+      return []
     }
-    setUserList(() => result)
+    return result
   }
 
-  const searchUserByMemberSeq = (items: IUser[]) => {
+  const searchUserByUserNum = (items: IUser[]) => {
     const result = items.filter((item: IUser) => {
       return numValue === item.seq
     })
     if (result.length === 0) {
       setIsListHidden(true)
-      return
+      return []
     }
-    setUserList(result)
+    return result
   }
 
   const resetSearchButtonClick = () => {

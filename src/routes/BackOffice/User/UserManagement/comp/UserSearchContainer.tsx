@@ -32,7 +32,6 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
       setLoginValue(targetValue)
-      if (targetValue.length !== prevLoginValue?.length) setUserList(store.get('userManagement'))
     },
     [prevLoginValue?.length]
   )
@@ -40,7 +39,6 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
       setNumValue(targetValue)
-      if (targetValue.length !== prevNumValue?.length) setUserList(store.get('userManagement'))
     },
     [prevNumValue?.length]
   )
