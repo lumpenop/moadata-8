@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import store from 'store'
+import { useParams } from 'react-router-dom'
 
 import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
@@ -12,10 +13,11 @@ interface Props {}
 // prams로 유저 아이디를 가져올것
 const UserDetail = (props: Props) => {
   const [stepData, setStepData] = useState<IUserInfo[]>([])
+  const { id = 328 } = useParams()
 
   useEffect(() => {
     const userData = store.get('step')
-    const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === 328)
+    const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(id))
     setStepData(filteredStepData)
   }, [])
 
@@ -30,7 +32,7 @@ const UserDetail = (props: Props) => {
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>회원번호</p>
-            <p className={styles.profileInfo}>380</p>
+            <p className={styles.profileInfo}>{id}</p>
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>가입일시</p>
