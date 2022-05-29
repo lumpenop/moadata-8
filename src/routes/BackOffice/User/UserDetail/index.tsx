@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import store from 'store'
-import { useParams } from 'react-router-dom'
+
+import { useLocation, useParams } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
@@ -15,11 +17,15 @@ const UserDetail = (props: Props) => {
   const [stepData, setStepData] = useState<IUserInfo[]>([])
   const { id = 328 } = useParams()
 
+  const location = useLocation()
+  const state = location.state as { date: string; login_id: string; seq: string }
+
   useEffect(() => {
+    console.log('first', first)
     const userData = store.get('step')
     const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(id))
     setStepData(filteredStepData)
-  }, [])
+  }, [id])
 
   return (
     <div className={styles.userDetailWrap}>
@@ -28,7 +34,7 @@ const UserDetail = (props: Props) => {
         <ul className={styles.userProfile}>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>로그인ID</p>
-            <p className={styles.profileInfo}>ghdrlfehd12</p>
+            <p className={styles.profileInfo}>{state.login_id}</p>
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>회원번호</p>
@@ -36,12 +42,12 @@ const UserDetail = (props: Props) => {
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>가입일시</p>
-            <p className={styles.profileInfo}>2022-04-20 12:23:56</p>
+            <p className={styles.profileInfo}>{state.date}</p>
           </li>
         </ul>
         <div className={styles.charWrap}>
           <HeartRateChart />
-          <StepChart stepData={stepData} />
+          <StepChart firstDate={first} stepData={stepData} />
         </div>
       </div>
     </div>

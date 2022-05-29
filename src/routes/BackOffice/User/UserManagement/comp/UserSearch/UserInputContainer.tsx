@@ -1,17 +1,7 @@
-import { ChangeEvent, KeyboardEvent, useCallback, useMemo } from 'react'
-import styles from './userSearchContainer.module.scss'
+import { ChangeEvent, KeyboardEvent, useCallback } from 'react'
+import styles from './userInputContainer.module.scss'
 import { useRecoil, usePrevious } from 'hooks/state'
-import {
-  loginValueState,
-  numValueState,
-  isLoginReadOnlyState,
-  isNumReadOnlyState,
-  userListState,
-} from 'store/userManagement'
-
-import { IUser } from 'types/userManagement'
-
-import store from 'store'
+import { loginValueState, numValueState, isLoginReadOnlyState, isNumReadOnlyState } from 'store/userManagement'
 
 interface Props {
   searchUserButtonClick: Function
@@ -23,22 +13,20 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
   const [isLoginValueReadOnly] = useRecoil<boolean>(isLoginReadOnlyState)
   const [isNumValueReadOnly] = useRecoil<boolean>(isNumReadOnlyState)
 
-  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
-
   const prevLoginValue = usePrevious(loginValue)
   const prevNumValue = usePrevious(numValue)
 
   const handleLoginIdInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
-      setLoginValue(targetValue)
+      setLoginValue(targetValue.replace(' ', ''))
     },
     [prevLoginValue?.length]
   )
   const handleUserNumInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
-      setNumValue(targetValue)
+      setNumValue(targetValue.replace(' ', ''))
     },
     [prevNumValue?.length]
   )
@@ -50,45 +38,33 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
     [searchUserButtonClick]
   )
 
-  const userIdInput = useMemo(() => {
-    return (
-      <input
-        name='userId'
-        type='text'
-        value={loginValue}
-        onChange={handleLoginIdInputChange}
-        readOnly={isLoginValueReadOnly}
-        onKeyPress={inputEnterPress}
-      />
-    )
-  }, [loginValue, handleLoginIdInputChange, isLoginValueReadOnly, inputEnterPress])
-
-  const userNumInput = useMemo(() => {
-    return (
-      <input
-        name='userId'
-        type='text'
-        value={numValue}
-        onChange={handleUserNumInputChange}
-        readOnly={isNumValueReadOnly}
-        onKeyPress={inputEnterPress}
-      />
-    )
-  }, [numValue, handleUserNumInputChange, isNumValueReadOnly, inputEnterPress])
-
   return (
     <div className={styles.searchFormBodyContainer}>
       <div className={styles.searchFormBody}>
         <label htmlFor='userId' className={styles.login}>
           로그인 ID
         </label>
-        {userIdInput}
+        <input
+          id='userId'
+          type='text'
+          value={loginValue}
+          onChange={handleLoginIdInputChange}
+          readOnly={isLoginValueReadOnly}
+          onKeyPress={inputEnterPress}
+        />
       </div>
       <div className={styles.searchFormBody}>
         <label htmlFor='userNum' className={styles.userNum}>
           회원번호
         </label>
-        {userNumInput}
+        <input
+          id='userNum'
+          type='text'
+          value={numValue}
+          onChange={handleUserNumInputChange}
+          readOnly={isNumValueReadOnly}
+          onKeyPress={inputEnterPress}
+        />
       </div>
     </div>
   )

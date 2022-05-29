@@ -1,1 +1,38 @@
 @use '/src/styles/constants/colors';
+
+.userManagementWrapper {
+  /* TODO 추후 Position 변경 */
+  position: fixed;
+  top: 80px;
+  left: 220px;
+
+  .pathInfo {
+    position: relative;
+    bottom: 12px;
+
+    span {
+      padding: 0 4px;
+    }
+
+    a:link,
+    a:visited,
+    a:active {
+      color: colors.$BLACK;
+    }
+
+    a:active {
+      text-decoration: underline;
+    }
+  }
+
+  .contents {
+    max-width: 1024px;
+    padding-right: 5%;
+
+    .title {
+      padding: 20px 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+}

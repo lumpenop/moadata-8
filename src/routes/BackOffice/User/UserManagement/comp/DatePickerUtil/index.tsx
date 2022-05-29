@@ -1,21 +1,23 @@
-import 'react-datepicker/dist/react-datepicker.css'
-import styles from './datePickerUtil.module.scss'
-import ButtonBasic from 'routes/_shared/ButtonBasic'
+import { useEffect } from 'react'
+import store from 'store'
+import dayjs from 'dayjs'
 import DatePicker from 'react-datepicker'
 
-import { startDateState, endDateState, userListState } from 'store/userManagement'
-import { useRecoil, useResetRecoilState } from 'hooks/state'
-import dayjs from 'dayjs'
+import { startDateState, endDateState } from 'store/userManagement'
+import { useRecoil } from 'hooks/state'
+import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
 
-const DatePickerUtil = () => {
+import styles from './datePickerUtil.module.scss'
+import 'react-datepicker/dist/react-datepicker.css'
+
+interface Props {
+  searchUserButtonClick: Function
+}
+
+const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   const [startDate, setStartDate] = useRecoil<Date>(startDateState)
   const [endDate, setEndDate] = useRecoil<Date>(endDateState)
-
-  const resetStartDateList = useResetRecoilState(startDateState)
-  const resetEndDateList = useResetRecoilState(endDateState)
-
-  const [userList] = useRecoil<IUser[]>(userListState)
 
   const onStartDateChange = (start: Date) => {
     setStartDate(start)
@@ -24,27 +26,38 @@ const DatePickerUtil = () => {
     setEndDate(end)
   }
 
+  useEffect(() => {
+    searchUserButtonClick()
+  }, [startDate, endDate])
+
   const setDateToday = () => {
-    setStartDate(new Date())
-    setEndDate(new Date())
+    const today = new Date()
+    setStartDate(today)
+    setEndDate(today)
   }
 
   const setDateSevenDays = () => {
     const today = dayjs()
-    const date = today.subtract(7, 'day').format()
+    const date = today.subtract(6, 'day').format()
     setStartDate(new Date(date))
-    setEndDate(new Date())
+    setEndDate(new Date(today.format()))
   }
-
   const setDateAll = () => {
-    resetStartDateList()
-    resetEndDateList()
+    const userList: IUser[] = store.get('userManagement')
+    const userDates = userList.map((item: IUser) => {
+      return dayjs(item.date)
+    })
+    const firstDate = dayjs.min(userDates).format()
+    const lastDate = dayjs.max(userDates).format()
+
+    setStartDate(new Date(firstDate))
+    setEndDate(new Date(lastDate))
   }
 
   return (
     <div className={styles.datePickerContainer}>
       <label htmlFor='date' className={styles.period}>
-        조회기간
+        가입기간
       </label>
       <div className={styles.date}>
         <DatePicker
