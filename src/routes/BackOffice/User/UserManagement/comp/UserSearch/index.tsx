@@ -12,9 +12,9 @@ import {
 } from 'store/userManagement'
 import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
-import UserSearchContainer from './UserSearchContainer'
+import UserSearchContainer from './UserInputContainer'
 import { IUser } from 'types/userManagement'
-import DatePickerUtil from './DatePickerUtil'
+import DatePickerUtil from '../DatePickerUtil'
 import { searchUserByLoginId, searchUserByUserNum, searchUserByDate } from 'utils/user/userSearchUtil'
 
 import 'react-datepicker/dist/react-datepicker.css'

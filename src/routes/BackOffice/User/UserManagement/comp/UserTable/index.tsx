@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cx } from 'styles'
 
@@ -7,7 +7,7 @@ import { userListState } from 'store/userManagement'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
 
-import styles from './userList.module.scss'
+import styles from './userTable.module.scss'
 
 interface Props {
   setIsListHidden: Function
@@ -16,9 +16,11 @@ interface Props {
 
 const thList = ['회원번호', '가입일', '로그인ID', '상세']
 
-const UserList = ({ setIsListHidden, isListHidden }: Props) => {
+const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
   const [userList] = useRecoil<IUser[]>(userListState)
+  const [userListLength, setUserListLength] = useState(0)
   useEffect(() => {
+    setUserListLength(userList.length)
     if (userList.length === 0) setIsListHidden(true)
   }, [userList])
 
@@ -26,7 +28,7 @@ const UserList = ({ setIsListHidden, isListHidden }: Props) => {
     <section>
       <div className={styles.userListContainer}>
         <p>
-          전체 중 <mark>{isListHidden ? 0 : userList.length}</mark> 명의 회원이 검색되었습니다.
+          전체 중 <mark>{userListLength}</mark> 명의 회원이 검색되었습니다.
         </p>
         <div className={styles.userListWrapper}>
           <table className={styles.userListTable}>
@@ -62,4 +64,4 @@ const UserList = ({ setIsListHidden, isListHidden }: Props) => {
     </section>
   )
 }
-export default UserList
+export default UserTable

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import UserList from './comp/UserList'
+import UserTable from './comp/UserTable'
 import UserSearch from './comp/UserSearch'
 
 import styles from './userManagement.module.scss'
@@ -23,7 +23,7 @@ const UserManagement = () => {
       <div className={styles.contents}>
         <p className={styles.title}>회원 관리</p>
         <UserSearch />
-        <UserList isListHidden={isListHidden} setIsListHidden={setIsListHidden} />
+        <UserTable isListHidden={isListHidden} setIsListHidden={setIsListHidden} />
       </div>
     </div>
   )

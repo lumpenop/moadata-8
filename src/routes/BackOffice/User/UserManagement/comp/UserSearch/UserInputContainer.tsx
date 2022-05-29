@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useCallback } from 'react'
-import styles from './userSearchContainer.module.scss'
+import styles from './userInputContainer.module.scss'
 import { useRecoil, usePrevious } from 'hooks/state'
 import { loginValueState, numValueState, isLoginReadOnlyState, isNumReadOnlyState } from 'store/userManagement'
 
@@ -19,14 +19,14 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
   const handleLoginIdInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
-      setLoginValue(targetValue)
+      setLoginValue(targetValue.replace(' ', ''))
     },
     [prevLoginValue?.length]
   )
   const handleUserNumInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const targetValue = event.currentTarget.value
-      setNumValue(targetValue)
+      setNumValue(targetValue.replace(' ', ''))
     },
     [prevNumValue?.length]
   )

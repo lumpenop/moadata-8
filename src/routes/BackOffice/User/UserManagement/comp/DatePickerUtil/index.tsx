@@ -44,7 +44,7 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
 
   const setDateSevenDays = () => {
     const today = dayjs()
-    const date = today.subtract(7, 'day').format()
+    const date = today.subtract(6, 'day').format()
     setStartDate(new Date(date))
     setEndDate(new Date(today.format()))
   }
@@ -63,7 +63,7 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   return (
     <div className={styles.datePickerContainer}>
       <label htmlFor='date' className={styles.period}>
-        조회기간
+        가입기간
       </label>
       <div className={styles.date}>
         <DatePicker
