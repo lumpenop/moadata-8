@@ -1,12 +1,11 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import cx from 'classnames'
 
-const member = {
-  id: 'wanted',
-  pw: '123456',
-}
+const ID = process.env.REACT_APP_ADMIN_ID
+const PW = process.env.REACT_APP_ADMIN_PASSWORD
 
 const Login = () => {
   const navigate = useNavigate()
@@ -22,8 +21,6 @@ const Login = () => {
   }
 
   const handleLogin = () => {
-    const ID = localStorage.getItem('id')
-    const PW = localStorage.getItem('pw')
     if (ID === idValue && PW === pwValue) {
       setIsInvalid(false)
       navigate('/user')
@@ -32,26 +29,30 @@ const Login = () => {
     }
   }
 
-  useEffect(() => {
-    localStorage.setItem('id', member.id)
-    localStorage.setItem('pw', member.pw)
-  })
-
   return (
     <div className={styles.loginWrapper}>
       <h1>백오피스</h1>
       <form>
         <div className={styles.inputWrapper}>
-          <input type='text' id='id' placeholder='아이디' value={idValue} onChange={handleInputId} autoComplete='off' />
+          <input
+            type='text'
+            name='id'
+            placeholder='아이디'
+            value={idValue}
+            onChange={handleInputId}
+            autoComplete='off'
+            className={cx(!idValue && styles.focus)}
+          />
         </div>
         <div className={styles.inputWrapper}>
           <input
             type='password'
-            id='password'
+            name='password'
             placeholder='비밀번호'
             value={pwValue}
             onChange={handleInputPassword}
             autoComplete='new-password'
+            className={cx(!pwValue && styles.focus)}
           />
         </div>
         {isInvalid && <div>ID 또는 PW가 다릅니다.</div>}
@@ -59,7 +60,7 @@ const Login = () => {
           로그인
         </button>
       </form>
-      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={member.id} pw={member.pw} />}
+      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={ID} pw={PW} />}
     </div>
   )
 }
