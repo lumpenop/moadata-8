@@ -4,8 +4,6 @@ import dayjs from 'dayjs'
 
 export const searchUserByLoginId = (loginValue: string) => {
   const dataArr = store.get('userManagement')
-  console.log(dataArr)
-  console.log('loginValue', loginValue)
   const result = dataArr.filter((item: IUser) => {
     return item.login_id === loginValue
   })
@@ -14,7 +12,6 @@ export const searchUserByLoginId = (loginValue: string) => {
 
 export const searchUserByUserNum = (numValue: string) => {
   const dataArr = store.get('userManagement')
-  console.log('numValue', numValue)
   const result = dataArr.filter((item: IUser) => {
     return Number(numValue) === item.seq
   })
@@ -26,7 +23,6 @@ export const searchUserByUserNum = (numValue: string) => {
 }
 
 export const searchUserByDate = (startDate: Date, endDate: Date, items: IUser[] = store.get('userManagement')) => {
-  console.log(items)
   const start = dayjs(startDate).format('YYYY-MM-DD')
   const end = dayjs(endDate).format('YYYY-MM-DD')
   const result = items.filter((item: IUser) => {

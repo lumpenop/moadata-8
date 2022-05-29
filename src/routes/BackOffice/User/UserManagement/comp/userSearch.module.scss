@@ -9,9 +9,7 @@
 
 .searchForm {
   position: relative;
-  // display: flex;
   flex-wrap: wrap;
-  //   justify-content: space-around;
   width: 100%;
   min-width: 486px;
   height: 250px;
@@ -26,7 +24,6 @@
     .searchFormBody {
       display: inline-block;
       width: 300px;
-      // margin-right: 60px;
     }
   }
 
@@ -42,7 +39,6 @@
   input {
     width: 150px;
     padding: 10px;
-    //   margin-left: 10px;
     border: 1px solid colors.$GRAYA;
     border-radius: 5px;
 

@@ -1,9 +1,7 @@
 import styles from './user.module.scss'
 import { Link } from 'react-router-dom'
 
-interface Props {}
-
-const User = (props: Props) => {
+const User = () => {
   return (
     <div className={styles.container}>
       <Link to='/user'>

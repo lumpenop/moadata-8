@@ -1,14 +1,15 @@
-import 'react-datepicker/dist/react-datepicker.css'
-import styles from './datePickerUtil.module.scss'
-import ButtonBasic from 'routes/_shared/ButtonBasic'
+import { useEffect } from 'react'
+import store from 'store'
+import dayjs from 'dayjs'
 import DatePicker from 'react-datepicker'
 
 import { startDateState, endDateState, userListState, loginValueState, numValueState } from 'store/userManagement'
 import { useRecoil, useResetRecoilState } from 'hooks/state'
-import { useEffect } from 'react'
-import dayjs from 'dayjs'
+import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
-import store from 'store'
+
+import styles from './datePickerUtil.module.scss'
+import 'react-datepicker/dist/react-datepicker.css'
 
 interface Props {
   searchUserButtonClick: Function
@@ -18,11 +19,11 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   const [startDate, setStartDate] = useRecoil<Date>(startDateState)
   const [endDate, setEndDate] = useRecoil<Date>(endDateState)
 
-  const resetStartDateList = useResetRecoilState(startDateState)
-  const resetEndDateList = useResetRecoilState(endDateState)
+  // const resetStartDateList = useResetRecoilState(startDateState)
+  // const resetEndDateList = useResetRecoilState(endDateState)
 
-  const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
-  const [numValue, setNumValue] = useRecoil<string>(numValueState)
+  // const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
+  // const [numValue, setNumValue] = useRecoil<string>(numValueState)
 
   const onStartDateChange = (start: Date) => {
     setStartDate(start)

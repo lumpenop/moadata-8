@@ -1,17 +1,7 @@
-import { ChangeEvent, KeyboardEvent, useCallback, useMemo } from 'react'
+import { ChangeEvent, KeyboardEvent, useCallback } from 'react'
 import styles from './userSearchContainer.module.scss'
 import { useRecoil, usePrevious } from 'hooks/state'
-import {
-  loginValueState,
-  numValueState,
-  isLoginReadOnlyState,
-  isNumReadOnlyState,
-  userListState,
-} from 'store/userManagement'
-
-import { IUser } from 'types/userManagement'
-
-import store from 'store'
+import { loginValueState, numValueState, isLoginReadOnlyState, isNumReadOnlyState } from 'store/userManagement'
 
 interface Props {
   searchUserButtonClick: Function
@@ -22,8 +12,6 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
   const [isLoginValueReadOnly] = useRecoil<boolean>(isLoginReadOnlyState)
   const [isNumValueReadOnly] = useRecoil<boolean>(isNumReadOnlyState)
-
-  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
 
   const prevLoginValue = usePrevious(loginValue)
   const prevNumValue = usePrevious(numValue)

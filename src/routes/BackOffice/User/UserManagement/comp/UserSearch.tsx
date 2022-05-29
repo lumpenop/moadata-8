@@ -1,6 +1,6 @@
-import { useEffect, useState, KeyboardEvent } from 'react'
-import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
 import store from 'store'
+
 import {
   endDateState,
   isLoginReadOnlyState,
@@ -10,24 +10,17 @@ import {
   startDateState,
   userListState,
 } from 'store/userManagement'
-import DatePicker from 'react-datepicker'
-import { Link } from 'react-router-dom'
-import styles from './userSearch.module.scss'
-import 'react-datepicker/dist/react-datepicker.css'
-
 import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import UserSearchContainer from './UserSearchContainer'
 import { IUser } from 'types/userManagement'
 import DatePickerUtil from './DatePickerUtil'
-
 import { searchUserByLoginId, searchUserByUserNum, searchUserByDate } from 'utils/user/userSearchUtil'
 
-interface Props {
-  setIsListHidden: Function
-}
+import 'react-datepicker/dist/react-datepicker.css'
+import styles from './userSearch.module.scss'
 
-const UserSearch = ({ setIsListHidden }: Props) => {
+const UserSearch = () => {
   const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
   const [startDate] = useRecoil<Date>(startDateState)
@@ -35,15 +28,13 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   const [isLoginValueReadOnly, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
   const [isNumValueReadOnly, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
   const [, setUserList] = useRecoil<IUser[]>(userListState)
-  const [isDisabledButton, setIsDisabledButton] = useState(false)
 
+  const [isDisabledButton, setIsDisabledButton] = useState(false)
   const resetStartDateList = useResetRecoilState(startDateState)
   const resetEndDateList = useResetRecoilState(endDateState)
 
   useEffect(() => {
     handleReadonly()
-    setIsListHidden(false)
-    !(isLoginValueReadOnly && isNumValueReadOnly) ?? setIsDisabledButton(true)
   }, [startDate, loginValue, numValue, endDate])
 
   const handleReadonly = () => {
@@ -79,7 +70,6 @@ const UserSearch = ({ setIsListHidden }: Props) => {
 
   const resetSearchButtonClick = () => {
     resetReadOnly()
-    setIsListHidden(false)
     resetData()
   }
 
