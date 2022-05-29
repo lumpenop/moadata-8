@@ -1,8 +1,7 @@
 import styles from './lnb.module.scss'
 import { NavLink } from 'react-router-dom'
 
-interface Props {}
-const LNB = (props: Props) => {
+const LNB = () => {
   return (
     <aside className={styles.container}>
       <nav className={styles.navList}>
