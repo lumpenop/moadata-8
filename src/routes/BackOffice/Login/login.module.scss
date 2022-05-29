@@ -33,7 +33,7 @@
         border-radius: 40px;
 
         &.focus {
-          border: 1px solid #70a1ff;
+          border: 1px solid #6640bf;
         }
 
         &::placeholder {
@@ -55,8 +55,9 @@
       margin-top: 20px;
       font-size: 18px;
       font-weight: 500;
+      color: colors.$WHITE;
       letter-spacing: 1.5px;
-      background-color: #70a1ff;
+      background-color: #6640bf;
       border-radius: 40px;
     }
   }
