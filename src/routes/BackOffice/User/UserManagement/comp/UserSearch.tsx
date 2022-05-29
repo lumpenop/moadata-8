@@ -19,7 +19,9 @@ import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import UserSearchContainer from './UserSearchContainer'
 import { IUser } from 'types/userManagement'
-import DatePickerUtil from 'utils/user/DatePickerUtil'
+import DatePickerUtil from './DatePickerUtil'
+
+import { searchUserByLoginId, searchUserByUserNum, searchUserByDate } from 'utils/user/userSearchUtil'
 
 interface Props {
   setIsListHidden: Function
@@ -28,11 +30,12 @@ interface Props {
 const UserSearch = ({ setIsListHidden }: Props) => {
   const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
-  const [startDate, setStartDate] = useRecoil<Date>(startDateState)
-  const [endDate, setEndDate] = useRecoil<Date>(endDateState)
+  const [startDate] = useRecoil<Date>(startDateState)
+  const [endDate] = useRecoil<Date>(endDateState)
   const [isLoginValueReadOnly, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
   const [isNumValueReadOnly, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
   const [, setUserList] = useRecoil<IUser[]>(userListState)
+  const [isDisabledButton, setIsDisabledButton] = useState(false)
 
   const resetStartDateList = useResetRecoilState(startDateState)
   const resetEndDateList = useResetRecoilState(endDateState)
@@ -40,6 +43,7 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   useEffect(() => {
     handleReadonly()
     setIsListHidden(false)
+    !(isLoginValueReadOnly && isNumValueReadOnly) ?? setIsDisabledButton(true)
   }, [startDate, loginValue, numValue, endDate])
 
   const handleReadonly = () => {
@@ -60,12 +64,9 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   }
 
   const searchUserButtonClick = () => {
-    const userList = store.get('userManagement')
-    if (loginValue) setUserList(searchUserByLoginId(searchUserByDate(userList)))
-    if (numValue) setUserList(searchUserByUserNum(searchUserByDate(userList)))
-    else setUserList(() => searchUserByDate(userList))
-
-    console.log(searchUserByDate(userList))
+    if (isDisabledButton) return
+    if (loginValue) setUserList(searchUserByDate(startDate, endDate, searchUserByLoginId(loginValue)))
+    else setUserList(searchUserByDate(startDate, endDate, searchUserByUserNum(numValue)))
   }
 
   const resetData = () => {
@@ -76,42 +77,6 @@ const UserSearch = ({ setIsListHidden }: Props) => {
     setUserList(store.get('userManagement'))
   }
 
-  const searchUserByDate = (items: IUser[]) => {
-    const start = dayjs(startDate).format('YYYY-MM-DD')
-    const end = dayjs(endDate).format('YYYY-MM-DD')
-    const result = items.filter((item: IUser) => {
-      const userDate = dayjs(item.date).format('YYYY-MM-DD')
-      return userDate >= start && userDate <= end
-    })
-    if (result.length === 0) {
-      setIsListHidden(true)
-      return []
-    }
-    return result
-  }
-
-  const searchUserByLoginId = (items: IUser[]) => {
-    const result = items.filter((item: IUser) => {
-      return item.login_id === loginValue
-    })
-    if (result.length === 0) {
-      setIsListHidden(true)
-      return []
-    }
-    return result
-  }
-
-  const searchUserByUserNum = (items: IUser[]) => {
-    const result = items.filter((item: IUser) => {
-      return numValue === item.seq
-    })
-    if (result.length === 0) {
-      setIsListHidden(true)
-      return []
-    }
-    return result
-  }
-
   const resetSearchButtonClick = () => {
     resetReadOnly()
     setIsListHidden(false)
@@ -119,20 +84,12 @@ const UserSearch = ({ setIsListHidden }: Props) => {
   }
 
   return (
-    <>
-      <div className={styles.pathInfo}>
-        <Link to='/user'>
-          <span>홈</span>
-        </Link>
-        <span>{'>'}</span>
-        <Link to='/management'>
-          <span>회원관리</span>
-        </Link>
-      </div>
+    <div className={styles.userSearchContainer}>
+      <p className={styles.userSearchTitle}>회원 검색</p>
       <div className={styles.searchFormBox}>
         <form className={styles.searchForm}>
           <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
-          <DatePickerUtil />
+          <DatePickerUtil searchUserButtonClick={searchUserButtonClick} />
           <div className={styles.userSearchButtonContainer}>
             <div className={styles.userSearchButtonBox}>
               <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
@@ -141,7 +98,7 @@ const UserSearch = ({ setIsListHidden }: Props) => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   )
 }
 

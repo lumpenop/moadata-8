@@ -50,45 +50,33 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
     [searchUserButtonClick]
   )
 
-  const userIdInput = useMemo(() => {
-    return (
-      <input
-        name='userId'
-        type='text'
-        value={loginValue}
-        onChange={handleLoginIdInputChange}
-        readOnly={isLoginValueReadOnly}
-        onKeyPress={inputEnterPress}
-      />
-    )
-  }, [loginValue, handleLoginIdInputChange, isLoginValueReadOnly, inputEnterPress])
-
-  const userNumInput = useMemo(() => {
-    return (
-      <input
-        name='userId'
-        type='text'
-        value={numValue}
-        onChange={handleUserNumInputChange}
-        readOnly={isNumValueReadOnly}
-        onKeyPress={inputEnterPress}
-      />
-    )
-  }, [numValue, handleUserNumInputChange, isNumValueReadOnly, inputEnterPress])
-
   return (
     <div className={styles.searchFormBodyContainer}>
       <div className={styles.searchFormBody}>
         <label htmlFor='userId' className={styles.login}>
           로그인 ID
         </label>
-        {userIdInput}
+        <input
+          name='userId'
+          type='text'
+          value={loginValue}
+          onChange={handleLoginIdInputChange}
+          readOnly={isLoginValueReadOnly}
+          onKeyPress={inputEnterPress}
+        />
       </div>
       <div className={styles.searchFormBody}>
         <label htmlFor='userNum' className={styles.userNum}>
           회원번호
         </label>
-        {userNumInput}
+        <input
+          name='userId'
+          type='text'
+          value={numValue}
+          onChange={handleUserNumInputChange}
+          readOnly={isNumValueReadOnly}
+          onKeyPress={inputEnterPress}
+        />
       </div>
     </div>
   )

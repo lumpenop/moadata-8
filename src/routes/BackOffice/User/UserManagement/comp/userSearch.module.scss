@@ -1,21 +1,9 @@
 @use '/src/styles/constants/colors';
 
-.pathInfo {
-  position: relative;
-  bottom: 12px;
-
-  span {
-    padding: 0 4px;
-  }
-
-  a:link,
-  a:visited,
-  a:active {
-    color: colors.$BLACK;
-  }
-
-  a:active {
-    text-decoration: underline;
+.userSearchContainer {
+  .userSearchTitle {
+    padding: 20px 10px;
+    font-size: 16px;
   }
 }
 
@@ -24,11 +12,13 @@
   // display: flex;
   flex-wrap: wrap;
   //   justify-content: space-around;
-  width: 650px;
-  height: 300px;
+  width: 100%;
+  min-width: 486px;
+  height: 250px;
   padding: 10px;
-  border: 1px solid colors.$GRAYA;
-  border-radius: 5px;
+  border: 1px solid colors.$GRAY_BORDER;
+  border-radius: 19px;
+  box-shadow: 0 1px 2px colors.$SUB_TITLE;
 
   .searchFormBodyContainer {
     padding: 12px;
@@ -44,8 +34,8 @@
     width: 200px;
     padding: 10px;
     margin-right: 10px;
-    background: colors.$GRAYA;
-    border: 1px solid colors.$GRAYA;
+    background: colors.$GRAY_BORDER;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 25%));
     border-radius: 5px;
   }
 
@@ -57,7 +47,7 @@
     border-radius: 5px;
 
     &:read-only {
-      background-color: #e3e3e3;
+      background-color: colors.$GRAY_BLOCK;
     }
   }
 
@@ -65,5 +55,13 @@
     position: absolute;
     right: 10px;
     bottom: 10px;
+
+    button {
+      box-shadow: 0 1px 1px rgba(66, 54, 95, 50%);
+
+      &:active {
+        box-shadow: none;
+      }
+    }
   }
 }

@@ -13,50 +13,67 @@ interface Props {
   isListHidden: boolean
 }
 
-const UserList = ({ isListHidden }: Props) => {
-  const thList = useMemo(() => ['회원번호', '가입일', '로그인ID', '상세'], [])
+const thList = ['회원번호', '가입일', '로그인ID', '상세']
 
+const UserList = ({ isListHidden }: Props) => {
   const [userList] = useRecoil<IUser[]>(userListState)
 
-  const userItem = useMemo(() => {
-    return (
+  const userTableBody = useMemo(() => {
+    ;<tbody className={cx({ [styles.listHidden]: isListHidden })}>
+      {userList.map((user) => (
+        <tr key={user.seq}>
+          <td>{user.seq}</td>
+          <td>{user.date}</td>
+          <td>{user.login_id}</td>
+          <td>
+            <Link
+              to={`/management/detail/${user.seq}`}
+              state={{ seq: user.seq, date: user.date, login_id: user.login_id }}
+            >
+              <ButtonBasic buttonName='상세' buttonSize='middle' />
+            </Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  }, [userList])
+  return (
+    <section>
       <div className={styles.userListContainer}>
         <p>
           전체 중 <mark>{isListHidden ? 0 : userList.length}</mark> 명의 회원이 검색되었습니다.
         </p>
-        <table className={styles.userListTable}>
-          <thead>
-            <tr>
-              {thList.map((thItem) => {
-                return (
+        <div className={styles.userListWrapper}>
+          <table className={styles.userListTable}>
+            <thead>
+              <tr>
+                {thList.map((thItem) => (
                   <th key={thItem} className={styles.userListSubject}>
                     {thItem}
                   </th>
-                )
-              })}
-            </tr>
-          </thead>
-          <tbody className={cx({ [styles.listHidden]: isListHidden })}>
-            {userList.map((user) => (
-              <tr key={user.seq}>
-                <td>{user.seq}</td>
-                <td>{user.date}</td>
-                <td>{user.login_id}</td>
-                <td>
-                  <Link to={`/management/detail/${user.seq}`}>
-                    <ButtonBasic buttonName='상세' buttonSize='middle' />
-                  </Link>
-                </td>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className={cx({ [styles.listHidden]: isListHidden })}>
+              {userList.map((user) => (
+                <tr key={user.seq}>
+                  <td>{user.seq}</td>
+                  <td>{user.date}</td>
+                  <td>{user.login_id}</td>
+                  <td>
+                    <Link
+                      to={`/management/detail/${user.seq}`}
+                      state={{ seq: user.seq, date: user.date, login_id: user.login_id }}
+                    >
+                      <ButtonBasic buttonName='상세' buttonSize='middle' />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    )
-  }, [isListHidden, userList])
-  return (
-    <section>
-      <ul>{userItem}</ul>
     </section>
   )
 }

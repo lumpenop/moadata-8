@@ -3,19 +3,26 @@ import styles from './datePickerUtil.module.scss'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import DatePicker from 'react-datepicker'
 
-import { startDateState, endDateState, userListState } from 'store/userManagement'
+import { startDateState, endDateState, userListState, loginValueState, numValueState } from 'store/userManagement'
 import { useRecoil, useResetRecoilState } from 'hooks/state'
+import { useEffect } from 'react'
 import dayjs from 'dayjs'
 import { IUser } from 'types/userManagement'
+import store from 'store'
 
-const DatePickerUtil = () => {
+interface Props {
+  searchUserButtonClick: Function
+}
+
+const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   const [startDate, setStartDate] = useRecoil<Date>(startDateState)
   const [endDate, setEndDate] = useRecoil<Date>(endDateState)
 
   const resetStartDateList = useResetRecoilState(startDateState)
   const resetEndDateList = useResetRecoilState(endDateState)
 
-  const [userList] = useRecoil<IUser[]>(userListState)
+  const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
+  const [numValue, setNumValue] = useRecoil<string>(numValueState)
 
   const onStartDateChange = (start: Date) => {
     setStartDate(start)
@@ -24,21 +31,32 @@ const DatePickerUtil = () => {
     setEndDate(end)
   }
 
+  useEffect(() => {
+    searchUserButtonClick()
+  }, [startDate, endDate])
+
   const setDateToday = () => {
-    setStartDate(new Date())
-    setEndDate(new Date())
+    const today = new Date()
+    setStartDate(today)
+    setEndDate(today)
   }
 
   const setDateSevenDays = () => {
     const today = dayjs()
     const date = today.subtract(7, 'day').format()
     setStartDate(new Date(date))
-    setEndDate(new Date())
+    setEndDate(new Date(today.format()))
   }
-
   const setDateAll = () => {
-    resetStartDateList()
-    resetEndDateList()
+    const userList: IUser[] = store.get('userManagement')
+    const userDates = userList.map((item: IUser) => {
+      return dayjs(item.date)
+    })
+    const firstDate = dayjs.min(userDates).format()
+    const lastDate = dayjs.max(userDates).format()
+
+    setStartDate(new Date(firstDate))
+    setEndDate(new Date(lastDate))
   }
 
   return (
