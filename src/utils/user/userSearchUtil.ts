@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 export const searchUserByLoginId = (loginValue: string) => {
   const dataArr = store.get('userManagement')
   const result = dataArr.filter((item: IUser) => {
-    return item.login_id === loginValue
+    return item.loginId === loginValue
   })
   return result
 }

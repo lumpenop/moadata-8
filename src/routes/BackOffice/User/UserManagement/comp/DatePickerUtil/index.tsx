@@ -3,8 +3,8 @@ import store from 'store'
 import dayjs from 'dayjs'
 import DatePicker from 'react-datepicker'
 
-import { startDateState, endDateState, userListState, loginValueState, numValueState } from 'store/userManagement'
-import { useRecoil, useResetRecoilState } from 'hooks/state'
+import { startDateState, endDateState } from 'store/userManagement'
+import { useRecoil } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
 
@@ -18,12 +18,6 @@ interface Props {
 const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   const [startDate, setStartDate] = useRecoil<Date>(startDateState)
   const [endDate, setEndDate] = useRecoil<Date>(endDateState)
-
-  // const resetStartDateList = useResetRecoilState(startDateState)
-  // const resetEndDateList = useResetRecoilState(endDateState)
-
-  // const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
-  // const [numValue, setNumValue] = useRecoil<string>(numValueState)
 
   const onStartDateChange = (start: Date) => {
     setStartDate(start)

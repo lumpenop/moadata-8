@@ -25,11 +25,11 @@ const UserSearch = () => {
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
   const [startDate] = useRecoil<Date>(startDateState)
   const [endDate] = useRecoil<Date>(endDateState)
-  const [isLoginValueReadOnly, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
-  const [isNumValueReadOnly, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
+  const [, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
+  const [, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
   const [, setUserList] = useRecoil<IUser[]>(userListState)
 
-  const [isDisabledButton, setIsDisabledButton] = useState(false)
+  const [isDisabledButton] = useState(false)
   const resetStartDateList = useResetRecoilState(startDateState)
   const resetEndDateList = useResetRecoilState(endDateState)
 

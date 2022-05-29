@@ -46,11 +46,11 @@ const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
                 <tr key={user.seq}>
                   <td>{user.seq}</td>
                   <td>{user.date}</td>
-                  <td>{user.login_id}</td>
+                  <td>{user.loginId}</td>
                   <td>
                     <Link
                       to={`/management/detail/${user.seq}`}
-                      state={{ seq: user.seq, date: user.date, login_id: user.login_id }}
+                      state={{ seq: user.seq, date: user.date, loginId: user.loginId }}
                     >
                       <ButtonBasic buttonName='상세' buttonSize='middle' />
                     </Link>

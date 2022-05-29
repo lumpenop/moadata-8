@@ -45,7 +45,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
           로그인 ID
         </label>
         <input
-          name='userId'
+          id='userId'
           type='text'
           value={loginValue}
           onChange={handleLoginIdInputChange}
@@ -58,7 +58,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
           회원번호
         </label>
         <input
-          name='userId'
+          id='userNum'
           type='text'
           value={numValue}
           onChange={handleUserNumInputChange}
