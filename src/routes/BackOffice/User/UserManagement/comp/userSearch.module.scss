@@ -27,7 +27,8 @@
   width: 650px;
   height: 300px;
   padding: 10px;
-  border: 1px solid colors.$BLACK;
+  border: 1px solid colors.$GRAYA;
+  border-radius: 5px;
 
   .searchFormBodyContainer {
     padding: 12px;
@@ -39,38 +40,25 @@
     }
   }
 
-  .datePickerContainer {
-    width: 100%;
-    padding: 12px;
-
-    .tilde {
-      margin: 0 10px;
-    }
-
-    .date {
-      display: inline-block;
-    }
-  }
-
-  .datePickerButtonContainer {
-    display: inline-block;
-    padding: 12px;
-  }
-
   label {
     width: 200px;
     padding: 10px;
     margin-right: 10px;
     background: colors.$GRAYA;
-    border: 1px solid colors.$BLACK;
+    border: 1px solid colors.$GRAYA;
+    border-radius: 5px;
   }
 
   input {
     width: 150px;
     padding: 10px;
     //   margin-left: 10px;
-    border: 1px solid colors.$BLACK;
+    border: 1px solid colors.$GRAYA;
     border-radius: 5px;
+
+    &:read-only {
+      background-color: #e3e3e3;
+    }
   }
 
   .userSearchButtonContainer {

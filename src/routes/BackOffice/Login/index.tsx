@@ -6,7 +6,6 @@ import cx from 'classnames'
 
 const ID = process.env.REACT_APP_ADMIN_ID
 const PW = process.env.REACT_APP_ADMIN_PASSWORD
-
 const Login = () => {
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)

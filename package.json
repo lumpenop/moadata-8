@@ -69,6 +69,7 @@
     "react-use": "^17.3.2",
     "recoil": "^0.7.3-alpha.2",
     "store": "^2.0.12",
+    "use-indexeddb": "^1.0.9",
     "victory": "^36.4.0",
     "victory-core": "^36.4.0",
     "web-vitals": "^2.1.0"
