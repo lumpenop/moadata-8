@@ -23,11 +23,18 @@ const HeartRateChart = () => {
   const [heartRateData, setHeartRateData] = useState<IUserInfo[]>([])
   const [lookup, setLookup] = useState('today')
   const [startDate, setStartDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
-  const [endDate, setEndDate] = useState<string>(dayjs().format('YYYY-MM-DD'))
+  const [endDate, setEndDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
 
   const { data, date1, date2, heartBeatAvg } = useHeartRate(heartRateData, lookup, startDate, endDate, state)
 
   const handleLookUpClick = (e: MouseEvent<HTMLButtonElement>) => {
+    // if (e.currentTarget.value === 'today') {
+    //   setStartDate(date1)
+    //   setEndDate(date1)
+    // }
+    // if (e.currentTarget.value === 'week') {
+    //   setEndDate(dayjs(startDate).add(7, 'day').format('YYYY-MM-DD'))
+    // }
     setLookup(e.currentTarget.value)
   }
 
@@ -44,6 +51,11 @@ const HeartRateChart = () => {
   useEffect(() => {
     setHeartRateData(store.get('heartRate').filter((data2: IUserInfo) => data2.member_seq === Number(state.seq)))
   }, [state.seq])
+
+  // useEffect(() => {
+  //   setStartDate(dayjs(date1).format('YYYY-MM-DD'))
+  //   setEndDate(dayjs(date2).format('YYYY-MM-DD'))
+  // }, [date1, date2])
 
   const tickFormatter = (t: number | string): string => {
     switch (lookup) {

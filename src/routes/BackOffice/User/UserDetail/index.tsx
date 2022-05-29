@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import store from 'store'
 
-import { useLocation, useParams } from 'react-router-dom'
-import dayjs from 'dayjs'
-
+import { IUserInfo } from 'types/step'
 import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
-import styles from './userDetail.module.scss'
 
-import { IUserInfo } from 'types/step'
+import styles from './userDetail.module.scss'
 
 interface Props {}
 
@@ -21,7 +19,6 @@ const UserDetail = (props: Props) => {
   const state = location.state as { date: string; login_id: string; seq: string }
 
   useEffect(() => {
-    console.log('first', first)
     const userData = store.get('step')
     const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(id))
     setStepData(filteredStepData)
@@ -47,7 +44,7 @@ const UserDetail = (props: Props) => {
         </ul>
         <div className={styles.charWrap}>
           <HeartRateChart />
-          <StepChart firstDate={first} stepData={stepData} />
+          <StepChart firstDate={state.date} stepData={stepData} />
         </div>
       </div>
     </div>

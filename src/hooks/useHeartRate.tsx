@@ -60,7 +60,6 @@ const useHeartRate = (
         .forEach((data3, i) => {
           hap += data3.avg_beat
           length = i
-          console.log(Number(dayjs(data3.crt_ymdt).date()) - Number(dayjs(state.date).date()))
           const dailyIndex = Number(dayjs(data3.crt_ymdt).date()) - Number(dayjs(state.date).date())
 
           weekData[dailyIndex].y = (weekData[dailyIndex].y + data3.avg_beat) / 2
@@ -98,6 +97,7 @@ const useHeartRate = (
     }
 
     if (startDate && endDate) {
+      // if (lookup === 'custom') {
       if (startDate === endDate) {
         const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
 
