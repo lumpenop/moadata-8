@@ -7,7 +7,19 @@
 
   to {
     opacity: 1;
-    transform: translateZ(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
   }
 }
 
@@ -18,10 +30,21 @@
   width: 300px;
   height: 40px;
   margin: 12px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 40px;
+  color: colors.$WHITE;
   text-align: center;
   letter-spacing: 0.15px;
-  background: #70a1ff;
-  animation: fadein 0.5s;
+  background: #6640bf;
+  border-radius: 1rem;
+
+  &.fadein {
+    animation: fadein 0.3s;
+  }
+
+  &.fadeout {
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: fadeout 0.3s;
+  }
 }

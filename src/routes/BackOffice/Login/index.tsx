@@ -14,7 +14,6 @@ const Login = () => {
   const [login, setLogin] = useState(false)
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
-
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
@@ -36,6 +35,19 @@ const Login = () => {
     store.set('login', login.toString())
   }, [login])
 
+  const renderFloatingMessag = () => {
+    if (idValue === '' && idValue === '') return <div className={styles.container} />
+    if (ID !== idValue && PW !== pwValue) {
+      return <div className={styles.container}>ID 와 PW가 다릅니다.</div>
+    }
+    if (ID !== idValue && PW === pwValue) {
+      return <div className={styles.container}>ID가 다릅니다.</div>
+    }
+    if (ID === idValue && PW !== pwValue) {
+      return <div className={styles.container}>PW가 다릅니다.</div>
+    }
+    return <div className={styles.container} />
+  }
   return (
     <div className={styles.loginWrapper}>
       <h1>백오피스</h1>
@@ -62,7 +74,7 @@ const Login = () => {
             className={cx(!pwValue && styles.focus)}
           />
         </div>
-        {isInvalid && <div>ID 또는 PW가 다릅니다.</div>}
+        {isInvalid && renderFloatingMessag()}
         <button type='button' onClick={handleLogin}>
           로그인
         </button>

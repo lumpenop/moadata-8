@@ -19,6 +19,7 @@ import userData from 'data/user_list.json'
 
 import { setUserStoreData } from 'services/userStoreData'
 import Login from './BackOffice/Login'
+import Redirect from './BackOffice/Login/Redirect'
 
 heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 const LOGIN_PASS = store.get('login')
@@ -40,7 +41,7 @@ const App = () => {
             <Route path='*' element={<div>404</div>} />
           </Route>
         ) : (
-          <Route path='*' element={<div>404</div>} />
+          <Route path='*' element={<Redirect />} />
         )}
       </Routes>
     </div>

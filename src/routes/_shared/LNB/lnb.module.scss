@@ -18,9 +18,9 @@
 
     li {
       width: 100%;
-      height: 50px;
-      padding-left: 20px;
-      line-height: 50px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
 
       a:link,
       a:visited,
@@ -36,10 +36,14 @@
       a:active {
         text-decoration: underline;
       }
-    }
 
-    .active {
-      font-weight: 900;
+      .active {
+        display: block;
+        width: 188px;
+        height: 59px;
+        font-weight: 900;
+        background: rgba(100, 100, 100, 10%);
+      }
     }
 
     li:first-child {
