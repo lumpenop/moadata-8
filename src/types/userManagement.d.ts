@@ -1,5 +1,5 @@
 export interface IUser {
-  seq: string
+  seq: number
   date: string
-  login_id: string
+  loginId: string
 }

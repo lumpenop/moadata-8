@@ -1,21 +1,22 @@
 @use '/src/styles/constants/colors';
 
 .container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  min-width: 1000px;
+  min-width: 600px;
   height: 50px;
   padding: 0 20px;
   line-height: 50px;
-  background: #4998e8;
-  border: 1px solid #135fac;
+  background: #6640bf;
+  border: 1px solid #4b1cb9;
 
   .title {
     font-size: 1.2rem;
+    color: colors.$WHITE;
     letter-spacing: 1px;
   }
 
@@ -26,6 +27,8 @@
     width: 200px;
 
     span {
+      font-weight: 400;
+      color: colors.$WHITE;
       letter-spacing: 1px;
     }
 

@@ -1,6 +1,9 @@
 @use '/src/styles/constants//colors';
 
 .container {
+  position: fixed;
+  top: 70px;
+  left: 220px;
   width: 800px;
   height: 80vh;
 
