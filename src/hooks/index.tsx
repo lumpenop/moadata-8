@@ -5,8 +5,6 @@ export { useClickAway, useInterval, usePrevious, useMount, useUnmount } from 're
 export { useState, useEffect, useLayoutEffect, useCallback, useContext, useMemo, useReducer, useRef } from 'react'
 
 export { useKeys } from './useKeys'
-export { useAppDispatch } from './useAppDispatch'
-export { useAppSelector } from './useAppSelector'
 
 export function useMounted(): boolean {
   const [mounted, setMounted] = useState(false)
