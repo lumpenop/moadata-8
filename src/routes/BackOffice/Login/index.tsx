@@ -14,17 +14,19 @@ const Login = () => {
   const [login, setLogin] = useState(false)
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
+
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
+
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPwValue(e.currentTarget.value)
   }
 
   const handleLogin = () => {
     if (ID === idValue && PW === pwValue) {
-      setLogin(true)
       setIsInvalid(false)
+      store.set('login', true)
       navigate('/user')
     } else {
       setIsInvalid(true)
@@ -32,7 +34,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    store.set('login', login.toString())
+    store.set('login', login)
   }, [login])
 
   const renderFloatingMessag = () => {

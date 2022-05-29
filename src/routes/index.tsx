@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import store from 'store'
 import dayjs from 'dayjs'
 
@@ -22,27 +22,25 @@ import Login from './BackOffice/Login'
 import Redirect from './BackOffice/Login/Redirect'
 
 heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
-const LOGIN_PASS = store.get('login')
 const App = () => {
   useEffect(() => {
     store.set('heartRate', heartRate)
     store.set('step', step)
   }, [])
-
   return (
     <div className={styles.app}>
       <Routes>
         <Route path='/' element={<Login />} />
-        {LOGIN_PASS === true ? (
-          <Route element={<PageTemplate />}>
+        <Route element={<PageTemplate />}>
+          {store.get('login').current ? (
             <Route path='user' element={<User />} />
-            <Route path='management' element={<UserManagement />} />
-            <Route path='management/detail/:id' element={<UserDetail />} />
-            <Route path='*' element={<div>404</div>} />
-          </Route>
-        ) : (
-          <Route path='*' element={<Redirect />} />
-        )}
+          ) : (
+            <Route path='user' element={<Navigate replace to='/' />} />
+          )}
+          <Route path='management' element={<UserManagement />} />
+          <Route path='management/detail/:id' element={<UserDetail />} />
+          <Route path='*' element={<div>404</div>} />
+        </Route>
       </Routes>
     </div>
   )
