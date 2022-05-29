@@ -1,6 +1,5 @@
 import { atom } from 'hooks/state'
 import { IUser } from 'types/userManagement'
-import store from 'store'
 import dayjs from 'dayjs'
 
 import heartRate from 'assets/json/heartrate.json'

@@ -1,9 +1,10 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 import cx from 'classnames'
-import store from 'store'
+import { authState } from 'store/auth'
 
 const ID = process.env.REACT_APP_ADMIN_ID
 const PW = process.env.REACT_APP_ADMIN_PASSWORD
@@ -14,7 +15,7 @@ const Login = () => {
   const [loginPass, setLoginPass] = useState('false')
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
-
+  const [, setAuth] = useRecoilState(authState)
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
@@ -27,8 +28,11 @@ const Login = () => {
     if (ID === idValue && PW === pwValue) {
       setLoginPass('true')
       setIsInvalid(false)
+      setAuth(true)
+      navigate('/user')
     } else {
       setIsInvalid(true)
+      setAuth(false)
     }
 
     loginPass === 'true' && navigate('/user')
