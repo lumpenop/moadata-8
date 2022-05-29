@@ -1,14 +1,17 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
+import store from 'store'
 
 const ID = process.env.REACT_APP_ADMIN_ID
 const PW = process.env.REACT_APP_ADMIN_PASSWORD
+
 const Login = () => {
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
+  const [login, setLogin] = useState(false)
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
 
@@ -21,12 +24,17 @@ const Login = () => {
 
   const handleLogin = () => {
     if (ID === idValue && PW === pwValue) {
+      setLogin(true)
       setIsInvalid(false)
       navigate('/user')
     } else {
       setIsInvalid(true)
     }
   }
+
+  useEffect(() => {
+    store.set('login', login.toString())
+  }, [login])
 
   return (
     <div className={styles.loginWrapper}>
