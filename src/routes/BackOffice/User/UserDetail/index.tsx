@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import store from 'store'
 import { useParams } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
@@ -14,8 +15,10 @@ interface Props {}
 const UserDetail = (props: Props) => {
   const [stepData, setStepData] = useState<IUserInfo[]>([])
   const { id = 328 } = useParams()
+  const first = '2022-04-16'
 
   useEffect(() => {
+    console.log('first', first)
     const userData = store.get('step')
     const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(id))
     setStepData(filteredStepData)
@@ -41,7 +44,7 @@ const UserDetail = (props: Props) => {
         </ul>
         <div className={styles.charWrap}>
           <HeartRateChart />
-          <StepChart stepData={stepData} />
+          <StepChart firstDate={first} stepData={stepData} />
         </div>
       </div>
     </div>

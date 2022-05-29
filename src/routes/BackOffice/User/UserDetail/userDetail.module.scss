@@ -48,7 +48,7 @@
 
     .datePickerWrap {
       display: inline-block;
-      width: 90px;
+      width: 75px;
       margin-left: 10px;
       vertical-align: center;
     }
@@ -58,6 +58,11 @@
     height: 280px;
     // margin-top: -1px;
     background-color: black;
+    border: 1px solid #666666;
+  }
+
+  .stepChartWrap {
+    height: 280px;
     border: 1px solid #666666;
   }
 

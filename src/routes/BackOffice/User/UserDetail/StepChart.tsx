@@ -21,18 +21,20 @@ interface IChartData {
 
 interface Props {
   stepData: IUserInfo[]
+  firstDate: string
 }
 
-const StepChart = ({ stepData }: Props) => {
+const StepChart = ({ stepData, firstDate }: Props) => {
   const [chartData, setChartData] = useState<IChartData[]>([])
-  const [startDate, setStartDate] = useState(TODAY)
-  const [endDate, setEndDate] = useState(TODAY)
+  const [startDate, setStartDate] = useState(firstDate)
+  const [endDate, setEndDate] = useState(firstDate)
   const [lookup, setLookup] = useState('today')
   const [totalSteps, setTotalSteps] = useState(0)
 
   const handleLookupClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.value === 'today') {
-      setEndDate(startDate)
+      setStartDate(firstDate)
+      setEndDate(firstDate)
     }
     if (e.currentTarget.value === 'week') {
       setEndDate(dayjs(startDate).add(7, 'day').format('YYYY-MM-DD'))
@@ -98,11 +100,13 @@ const StepChart = ({ stepData }: Props) => {
       }))
       setChartData(eData)
       const lastDate = Object.keys(entireData).at(-1)
+      setStartDate(dayjs(firstDate).format('YYYY-MM-DD'))
       setEndDate(dayjs(lastDate).format('YYYY-MM-DD'))
       setTotalSteps(eData.reduce((acc, cur) => acc + cur.y, 0))
     }
 
     if (lookup === 'custom') {
+      console.log('stepData0,', stepData)
       const entireData = stepData
         .filter(
           (data) =>
@@ -126,7 +130,7 @@ const StepChart = ({ stepData }: Props) => {
       setChartData(customPeriodData)
       setTotalSteps(customPeriodData.reduce((acc, cur) => acc + cur.y, 0))
     }
-  }, [stepData, startDate, endDate, lookup])
+  }, [startDate, endDate, lookup, stepData, firstDate])
 
   const tickFormatter = (t: number | string): string => {
     switch (lookup) {
@@ -148,28 +152,43 @@ const StepChart = ({ stepData }: Props) => {
       <div className={styles.chartTitle}>
         <p>걸음수</p>
       </div>
-      <div className={styles.chartWrap}>
-        <VictoryChart>
+      <div className={styles.stepChartWrap}>
+        <VictoryChart domainPadding={lookup === 'today' ? 0 : 25}>
           <VictoryAxis tickValues={chartData.map((el) => el.x)} tickFormat={tickFormatter} />
           <VictoryAxis dependentAxis crossAxis />
-          <VictoryBar data={chartData} />
+          <VictoryBar
+            style={{
+              data: { fill: '#f3490b' },
+            }}
+            data={chartData}
+          />
         </VictoryChart>
       </div>
       <div className={styles.info}>
         <p className={styles.infoText}>
-          {startDate}
-          {startDate !== endDate && ` ~ ${endDate}`}
+          {dayjs(startDate).format('YY-MM-DD')}
+          {startDate !== endDate && ` ~ ${dayjs(endDate).format('YY-MM-DD')}`}
         </p>
         <p className={styles.infoText}>총 {totalSteps.toLocaleString('ko-kr')} 걸음</p>
       </div>
       <div className={styles.chartTitle}>
         <p>조회 기간</p>
         <div className={styles.datePickerWrap}>
-          <DatePicker selected={new Date(startDate)} onChange={handleStartDateChange} />
+          <DatePicker
+            dateFormat='yy-MM-dd'
+            minDate={new Date(firstDate)}
+            selected={new Date(startDate)}
+            onChange={handleStartDateChange}
+          />
         </div>
         <span>~</span>
         <div className={styles.datePickerWrap}>
-          <DatePicker selected={new Date(endDate)} minDate={new Date(startDate)} onChange={handleEndDateChange} />
+          <DatePicker
+            dateFormat='yy-MM-dd'
+            minDate={new Date(startDate)}
+            selected={new Date(endDate)}
+            onChange={handleEndDateChange}
+          />
         </div>
       </div>
       <div className={styles.buttonWrap}>
