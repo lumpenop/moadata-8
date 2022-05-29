@@ -3,23 +3,30 @@ import { IUser } from 'types/userManagement'
 import store from 'store'
 import dayjs from 'dayjs'
 
-import defaultUserArr from 'data/user_list.json'
+import heartRate from 'assets/json/heartrate.json'
+import step from 'assets/json/step.json'
+import userInfo from 'data/user_list.json'
+// import defaultUserArr from 'data/user_list.json'
 
-// const defaultUserArr = store.get('userManagement')
+heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 
-const setDateAll = () => {
-  let oldest = defaultUserArr[0].date
-  let lately = '0'
-  defaultUserArr.forEach((item: IUser) => {
-    const date = dayjs(item.date).format('YYYY-MM-DD')
-    if (oldest > date) oldest = date
-    if (lately < date) lately = date
+store.set('heartRate', heartRate)
+store.set('step', step)
+store.set('userManagement', userInfo)
+
+const defaultUserArr = store.get('userManagement')
+
+const setDate = () => {
+  const dates = defaultUserArr.map((item: IUser) => {
+    return dayjs(item.date)
   })
+  const oldest = dayjs.min(dates)
+  const lately = dayjs.max(dates)
 
-  return [new Date(oldest), new Date(lately)]
+  return [new Date(oldest.format()), new Date(lately.format())]
 }
 
-const [oldest, lately] = setDateAll()
+const [oldest, lately] = setDate()
 
 export const userListState = atom<IUser[]>({
   key: '#userListState', // unique ID (with respect to other atoms/selectors)

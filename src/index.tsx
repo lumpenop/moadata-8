@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -13,18 +12,16 @@ import store2 from 'store'
 import Routes from './routes'
 import userData from 'data/user_list.json'
 
-store2.set('useManagement', userData)
+import './styles/index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </RecoilRoot>
-    </Provider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </RecoilRoot>
   </React.StrictMode>
 )
 

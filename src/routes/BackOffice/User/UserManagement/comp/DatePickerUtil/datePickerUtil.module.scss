@@ -1,3 +1,5 @@
+@use '/src/styles/constants/colors';
+
 .datePickerContainer {
   width: 100%;
   padding: 12px;
@@ -14,4 +16,13 @@
 .datePickerButtonContainer {
   display: inline-block;
   padding: 12px;
+
+  button {
+    background: colors.$DATE_BUTTON;
+    filter: drop-shadow(0 1px 1px rgba(66, 54, 95, 50%));
+
+    &:active {
+      filter: none;
+    }
+  }
 }

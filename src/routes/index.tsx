@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import User from './BackOffice/User'
 import UserDetail from './BackOffice/User/UserDetail'
 import UserManagement from './BackOffice/User/UserManagement'
-// import LNB from './_shared/LNB'
 import PageTemplate from './_shared/templates'
 
 import styles from './Routes.module.scss'
@@ -30,7 +29,7 @@ const App = () => {
     store.set('step', step)
     setLoginPass(store.get('loginPass'))
   }, [])
-  console.log(loginPass)
+
   return (
     <div className={styles.app}>
       <Routes>
