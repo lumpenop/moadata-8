@@ -14,9 +14,11 @@ const Login = () => {
   const [loginPass, setLoginPass] = useState('false')
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
+
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
+
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPwValue(e.currentTarget.value)
   }
