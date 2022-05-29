@@ -5,17 +5,31 @@
   padding: 12px;
 
   .tilde {
-    margin: 0 10px;
+    padding: 0 20px;
   }
 
   .date {
     display: inline-block;
+
+    input {
+      width: 150px;
+      padding: 10px;
+      background-color: colors.$MAIN_LIGHTGRAY;
+      border: none;
+      border-radius: 5px;
+    }
+  }
+
+  .dateLabelContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 62%;
   }
 }
 
 .datePickerButtonContainer {
   display: inline-block;
-  padding: 12px;
+  padding: 7px;
 
   button {
     background: colors.$DATE_BUTTON;
