@@ -2,21 +2,11 @@ import Popup from './Popup'
 import styles from './login.module.scss'
 import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import crypto from 'crypto'
+import cx from 'classnames'
 
+const ID = process.env.REACT_APP_ADMIN_ID
+const PW = process.env.REACT_APP_ADMIN_PASSWORD
 const Login = () => {
-  const admin = {
-    id: process.env.REACT_APP_ADMIN_ID as string,
-    pw: process.env.REACT_APP_ADMIN_PASSWORD as string,
-  }
-  const { id, pw } = admin
-
-  // const createHashedPassword = (password: string) => {
-  //   return crypto.createHash('sha512').update(password).digest('base64')
-  // }
-
-  // console.log(createHashedPassword(admin.pw))
-
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
   const [idValue, setIdValue] = useState('')
@@ -30,7 +20,7 @@ const Login = () => {
   }
 
   const handleLogin = () => {
-    if (id === idValue && pw === pwValue) {
+    if (ID === idValue && PW === pwValue) {
       setIsInvalid(false)
       navigate('/user')
     } else {
@@ -43,16 +33,25 @@ const Login = () => {
       <h1>백오피스</h1>
       <form>
         <div className={styles.inputWrapper}>
-          <input type='text' id='id' placeholder='아이디' value={idValue} onChange={handleInputId} autoComplete='off' />
+          <input
+            type='text'
+            name='id'
+            placeholder='아이디'
+            value={idValue}
+            onChange={handleInputId}
+            autoComplete='off'
+            className={cx(!idValue && styles.focus)}
+          />
         </div>
         <div className={styles.inputWrapper}>
           <input
             type='password'
-            id='password'
+            name='password'
             placeholder='비밀번호'
             value={pwValue}
             onChange={handleInputPassword}
             autoComplete='new-password'
+            className={cx(!pwValue && styles.focus)}
           />
         </div>
         {isInvalid && <div>ID 또는 PW가 다릅니다.</div>}
@@ -60,7 +59,7 @@ const Login = () => {
           로그인
         </button>
       </form>
-      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={id} pw={pw} />}
+      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={ID} pw={PW} />}
     </div>
   )
 }

@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import store from 'store'
 import dayjs from 'dayjs'
 
-import Login from './BackOffice/Login'
 import User from './BackOffice/User'
 import UserDetail from './BackOffice/User/UserDetail'
 import UserManagement from './BackOffice/User/UserManagement'
@@ -19,6 +18,7 @@ import step from 'assets/json/step.json'
 import userData from 'data/user_list.json'
 
 import { setUserStoreData } from 'services/userStoreData'
+import Login from './BackOffice/Login'
 
 heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
 
