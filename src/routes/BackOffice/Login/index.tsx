@@ -1,13 +1,21 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import crypto from 'crypto'
 
 const Login = () => {
-  const member = {
-    id: 'wanted',
-    pw: '123456',
+  const admin = {
+    id: process.env.REACT_APP_ADMIN_ID as string,
+    pw: process.env.REACT_APP_ADMIN_PASSWORD as string,
   }
+  const { id, pw } = admin
+
+  // const createHashedPassword = (password: string) => {
+  //   return crypto.createHash('sha512').update(password).digest('base64')
+  // }
+
+  // console.log(createHashedPassword(admin.pw))
 
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
@@ -22,20 +30,13 @@ const Login = () => {
   }
 
   const handleLogin = () => {
-    const ID = localStorage.getItem('id')
-    const PW = localStorage.getItem('pw')
-    if (ID === idValue && PW === pwValue) {
+    if (id === idValue && pw === pwValue) {
       setIsInvalid(false)
       navigate('/user')
     } else {
       setIsInvalid(true)
     }
   }
-
-  useEffect(() => {
-    localStorage.setItem('id', member.id)
-    localStorage.setItem('pw', member.pw)
-  })
 
   return (
     <div className={styles.loginWrapper}>
@@ -59,7 +60,7 @@ const Login = () => {
           로그인
         </button>
       </form>
-      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={member.id} pw={member.pw} />}
+      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={id} pw={pw} />}
     </div>
   )
 }

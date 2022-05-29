@@ -2,7 +2,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import IndexedDBProvider from 'use-indexeddb'
 
 import { store } from './states'
 import reportWebVitals from './reportWebVitals'
