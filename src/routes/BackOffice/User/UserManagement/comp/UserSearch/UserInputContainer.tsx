@@ -55,7 +55,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
       </div>
       <div className={styles.searchFormBody}>
         <label htmlFor='userNum' className={styles.userNum}>
-          회원번호
+          회원 번호
         </label>
         <input
           id='userNum'

@@ -57,7 +57,7 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   return (
     <div className={styles.datePickerContainer}>
       <label htmlFor='date' className={styles.period}>
-        가입기간
+        가입 기간
       </label>
       <div className={styles.date}>
         <DatePicker

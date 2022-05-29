@@ -1,16 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-
-import { store } from './states'
-import reportWebVitals from './reportWebVitals'
-import './styles/index.scss'
-
+import ReactDOM from 'react-dom/client'
 import { RecoilRoot } from 'recoil'
-import store2 from 'store'
+import reportWebVitals from './reportWebVitals'
 
 import Routes from './routes'
-import userData from 'data/user_list.json'
 
 import './styles/index.scss'
 
