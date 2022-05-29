@@ -22,7 +22,8 @@ import Login from './BackOffice/Login'
 import Redirect from './BackOffice/Login/Redirect'
 
 heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
-const LOGIN_PASS = store.get('login')
+const LOGIN_PASS = store.get('loginPass')
+console.log(LOGIN_PASS)
 const App = () => {
   useEffect(() => {
     store.set('heartRate', heartRate)
@@ -33,7 +34,7 @@ const App = () => {
     <div className={styles.app}>
       <Routes>
         <Route path='/' element={<Login />} />
-        {LOGIN_PASS === true ? (
+        {LOGIN_PASS === 'true' ? (
           <Route element={<PageTemplate />}>
             <Route path='user' element={<User />} />
             <Route path='management' element={<UserManagement />} />
@@ -41,7 +42,7 @@ const App = () => {
             <Route path='*' element={<div>404</div>} />
           </Route>
         ) : (
-          <Route path='*' element={<Redirect />} />
+          <Route path='loginFail' element={<Redirect />} />
         )}
       </Routes>
     </div>
