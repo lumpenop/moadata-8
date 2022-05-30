@@ -27,13 +27,14 @@ const App = () => {
   // }, [])
 
   const auth = useRecoilValue(authState)
+  const loginUser = sessionStorage.getItem('user')
 
   return (
     <div className={styles.app}>
       <Routes>
         <Route path='/' element={<Login />} />
 
-        {auth ? (
+        {auth || loginUser ? (
           <Route element={<PageTemplate />}>
             <Route path='user' element={<User />} />
             <Route path='management' element={<UserManagement />} />
@@ -42,9 +43,9 @@ const App = () => {
           </Route>
         ) : (
           <Route element={<PageTemplate />}>
-            <Route path='user' element={<Navigate replace to='/' />} />
-            <Route path='management' element={<Navigate replace to='/' />} />
-            <Route path='management/detail/:id' element={<Navigate replace to='/' />} />
+            <Route path='/user' element={<Navigate replace to='/' />} />
+            <Route path='/management' element={<Navigate replace to='/' />} />
+            <Route path='/management/detail/:id' element={<Navigate replace to='/' />} />
           </Route>
         )}
       </Routes>

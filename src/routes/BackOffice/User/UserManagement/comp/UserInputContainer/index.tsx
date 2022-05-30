@@ -40,7 +40,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
 
   return (
     <div className={styles.searchFormBodyContainer}>
-      <div className={styles.searchLabelBox}>
+      <div className={styles.labelBox}>
         <label htmlFor='userId' className={styles.login}>
           <span>로그인 ID</span>
         </label>

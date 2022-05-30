@@ -23,36 +23,34 @@ const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
   return (
     <section>
       <div className={styles.userListContainer}>
-        <div className={styles.userListWrapper}>
-          <table className={styles.userListTable}>
-            <thead>
-              <tr>
-                {thList.map((thItem) => (
-                  <th key={thItem} className={styles.userListSubject}>
-                    {thItem}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className={cx({ [styles.listHidden]: isListHidden })}>
-              {userList.map((user) => (
-                <tr key={user.seq} className={styles.trItem}>
-                  <td>{user.seq}</td>
-                  <td>{user.loginId}</td>
-                  <td>{user.date}</td>
-                  <td>
-                    <Link
-                      to={`/management/detail/${user.seq}`}
-                      state={{ seq: user.seq, date: user.date, loginId: user.loginId }}
-                    >
-                      <InfoIcon />
-                    </Link>
-                  </td>
-                </tr>
+        <table className={styles.userListTable}>
+          <thead>
+            <tr>
+              {thList.map((thItem) => (
+                <th key={thItem} className={styles.userListSubject}>
+                  {thItem}
+                </th>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </tr>
+          </thead>
+          <tbody className={cx({ [styles.listHidden]: isListHidden })}>
+            {userList.map((user) => (
+              <tr key={user.seq} className={styles.trItem}>
+                <td>No. {user.seq}</td>
+                <td>{user.loginId}</td>
+                <td>{user.date}</td>
+                <td>
+                  <Link
+                    to={`/management/detail/${user.seq}`}
+                    state={{ seq: user.seq, date: user.date, loginId: user.loginId }}
+                  >
+                    <InfoIcon className={styles.infoIcon} />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   )
