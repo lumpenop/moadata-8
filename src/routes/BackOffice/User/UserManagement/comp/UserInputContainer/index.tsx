@@ -21,6 +21,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
       const targetValue = event.currentTarget.value
       setLoginValue(targetValue.replace(' ', ''))
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [prevLoginValue?.length]
   )
   const handleUserNumInputChange = useCallback(
@@ -28,6 +29,7 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
       const targetValue = event.currentTarget.value
       setNumValue(targetValue.replace(' ', ''))
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [prevNumValue?.length]
   )
 

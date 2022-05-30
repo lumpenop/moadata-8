@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import store from 'store'
-import dayjs from 'dayjs'
 
 import { useRecoilValue } from 'recoil'
 import User from './BackOffice/User'

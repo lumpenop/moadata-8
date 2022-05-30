@@ -3,9 +3,8 @@ import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
-import { VictoryAxis, VictoryChart, VictoryLabel, VictoryArea, VictoryLine } from 'victory'
+import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine } from 'victory'
 import DatePicker from 'react-datepicker'
-import store from 'store'
 
 import Button from 'components/_comon/Button'
 import { IUserHeartRateInfo } from 'types/heartRate.d'
@@ -29,7 +28,7 @@ const HeartRateChart = ({ heartRateData }: Props) => {
   const [startDate, setStartDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
   const [endDate, setEndDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
 
-  const { data, date1, date2, heartBeatAvg } = useHeartRate(heartRateData, lookup, startDate, endDate, state)
+  const { data, heartBeatAvg } = useHeartRate(heartRateData, lookup, startDate, endDate, state)
 
   const handleLookUpClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.value === 'today') {
@@ -110,12 +109,10 @@ const HeartRateChart = ({ heartRateData }: Props) => {
       </div>
       <div className={styles.infoContainer}>
         <table>
-          <thead>
-            <tr className={styles.info}>
-              <div className={styles.infoDescription}>
-                <th className={styles.infoTitle}>HEART RATE</th>
-                <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
-              </div>
+          <thead className={styles.info}>
+            <tr className={styles.infoDescription}>
+              <th className={styles.infoTitle}>HEART RATE</th>
+              <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
               {/* <div className={styles.infoDescription}>
                 <th className={styles.infoTitle}>DISTANCE</th>
                 <td className={styles.infoValue}>{totalDistance.toFixed(1)}km</td>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useParams, Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import store from 'store'
 import { IUserInfo } from 'types/step.d'
 import { IUserHeartRateInfo } from 'types/heartRate.d'
