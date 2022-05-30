@@ -9,13 +9,11 @@ import heartRate from 'assets/json/heartrate.json'
 import step from 'assets/json/step.json'
 import userData from 'data/user_list.json'
 
-store.clearAll()
 store.set('heartRate', heartRate)
 store.set('step', step)
 store.set('userManagement', userData)
 
 const defaultUserArr = store.get('userManagement')
-console.log(defaultUserArr, 'dnklsd')
 
 const setDate = () => {
   const dates = defaultUserArr.map((item: IUser) => {

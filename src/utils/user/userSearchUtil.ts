@@ -15,6 +15,10 @@ export const searchUserByUserNum = (numValue: string) => {
   const result = dataArr.filter((item: IUser) => {
     return Number(numValue) === item.seq
   })
+  if (result.length === 0) {
+    return undefined
+  }
+
   return result
 }
 
