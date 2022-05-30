@@ -21,7 +21,7 @@ const UserManagement = () => {
         </Link>
       </div>
       <div className={styles.contents}>
-        <UserSearch setIsListHidden={setIsListHidden} />
+        <UserSearch />
         <UserTable isListHidden={isListHidden} setIsListHidden={setIsListHidden} />
       </div>
     </div>
