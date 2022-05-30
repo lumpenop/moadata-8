@@ -48,9 +48,7 @@ const App = () => {
             <Route path='user' element={<Navigate replace to='/' />} />
             <Route path='management' element={<Navigate replace to='/' />} />
             <Route path='management/detail/:id' element={<Navigate replace to='/' />} />
-            
           </Route>
-          <Route path='loginFail' element={<Redirect />} />
         )}
       </Routes>
     </div>

@@ -1,6 +1,6 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import cx from 'classnames'
