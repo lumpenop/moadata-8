@@ -11,12 +11,25 @@
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 20%);
 
   .container {
+    .lnbLogo {
+      margin: 12px 0;
+      text-align: center;
+
+      img {
+        width: 90px;
+        filter: brightness(0.75) invert(0.8);
+      }
+
+      svg {
+        background: #f9f9f9;
+      }
+    }
+
     h1 {
       padding: 20px 0;
       font-size: 1.2em;
       font-weight: 700;
       color: colors.$MAIN_TITLE;
-      text-align: center;
     }
 
     .navList {
