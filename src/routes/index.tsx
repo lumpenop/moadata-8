@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-
 import { useRecoilValue } from 'recoil'
 import User from './BackOffice/User'
 import UserDetail from './BackOffice/User/UserDetail'
