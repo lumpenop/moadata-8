@@ -1,23 +1,20 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cx } from 'styles'
 
 import { useRecoil } from 'hooks/state'
 import { userListState } from 'store/userManagement'
-import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
 
 import styles from './userTable.module.scss'
 import { InfoIcon } from 'assets'
 
 interface Props {
-  setIsListHidden: Function
   isListHidden: boolean
 }
 
 const thList = ['회원번호', '로그인ID', '가입일', '상세']
 
-const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
+const UserTable = ({ isListHidden }: Props) => {
   const [userList] = useRecoil<IUser[]>(userListState)
 
   return (
