@@ -1,10 +1,11 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import cx from 'classnames'
 import { authState } from 'store/auth'
+import { MoadataLogo } from 'assets'
 
 const ID = process.env.REACT_APP_ADMIN_ID
 const PW = process.env.REACT_APP_ADMIN_PASSWORD
@@ -14,6 +15,7 @@ const Login = () => {
   const [isInvalid, setIsInvalid] = useState(false)
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
+  const [show, setShow] = useState(false)
   const [, setAuth] = useRecoilState(authState)
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
@@ -34,6 +36,10 @@ const Login = () => {
     }
   }
 
+  const handleShowPassword = () => {
+    setShow(!show)
+  }
+
   const renderFloatingMessag = () => {
     if (idValue === '' && idValue === '') return <div className={styles.container} />
     if (ID !== idValue && PW !== pwValue) {
@@ -49,36 +55,47 @@ const Login = () => {
   }
   return (
     <div className={styles.loginWrapper}>
-      <h1>백오피스</h1>
-      <form>
-        <div className={styles.inputWrapper}>
-          <input
-            type='text'
-            name='id'
-            placeholder='아이디'
-            value={idValue}
-            onChange={handleInputId}
-            autoComplete='off'
-            className={cx(!idValue && styles.focus)}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <input
-            type='password'
-            name='password'
-            placeholder='비밀번호'
-            value={pwValue}
-            onChange={handleInputPassword}
-            autoComplete='new-password'
-            className={cx(!pwValue && styles.focus)}
-          />
-        </div>
-        {isInvalid && renderFloatingMessag()}
-        <button type='button' onClick={handleLogin}>
-          로그인
-        </button>
-      </form>
-      {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={ID} pw={PW} />}
+      <div className={styles.loginInner}>
+        <header>
+          <MoadataLogo />
+        </header>
+        <form>
+          <div className={styles.inputWrapper}>
+            <input
+              type='text'
+              name='id'
+              placeholder='id'
+              value={idValue}
+              onChange={handleInputId}
+              autoComplete='off'
+              className={cx(!idValue && styles.focus)}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <input
+              type={show ? 'text' : 'password'}
+              name='password'
+              placeholder='password'
+              value={pwValue}
+              onChange={handleInputPassword}
+              autoComplete='new-password'
+              className={cx(!pwValue && styles.focus)}
+            />
+            <button type='button' className={styles.showBtn} onClick={handleShowPassword}>
+              {show ? (
+                <span className='material-symbols-outlined'>visibility</span>
+              ) : (
+                <span className='material-symbols-outlined'>visibility_off</span>
+              )}
+            </button>
+          </div>
+          {isInvalid && renderFloatingMessag()}
+          <button type='button' className={styles.loginBtn} onClick={handleLogin}>
+            Login
+          </button>
+        </form>
+        {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={ID} pw={PW} />}
+      </div>
     </div>
   )
 }
