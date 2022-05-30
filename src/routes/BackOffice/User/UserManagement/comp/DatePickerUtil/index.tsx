@@ -28,6 +28,7 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
 
   useEffect(() => {
     searchUserButtonClick()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate])
 
   const setDateToday = () => {
