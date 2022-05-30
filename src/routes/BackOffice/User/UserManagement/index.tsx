@@ -21,8 +21,7 @@ const UserManagement = () => {
         </Link>
       </div>
       <div className={styles.contents}>
-        <p className={styles.title}>회원 관리</p>
-        <UserSearch />
+        <UserSearch setIsListHidden={setIsListHidden} />
         <UserTable isListHidden={isListHidden} setIsListHidden={setIsListHidden} />
       </div>
     </div>

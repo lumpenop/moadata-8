@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 
-import { IUserData, IUserInfo } from 'types/heartRate.d'
+import { IUserData, IUserHeartRateInfo } from 'types/heartRate.d'
 
 interface Props {
   lookup: string
@@ -14,7 +14,7 @@ let hap = 0
 let length = 0
 
 const useHeartRate = (
-  heartRateData: IUserInfo[],
+  heartRateData: IUserHeartRateInfo[],
   lookup: string,
   startDate: string | Date,
   endDate: string | Date,

@@ -1,28 +1,32 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useParams, Link } from 'react-router-dom'
 import store from 'store'
-
-import { IUserInfo } from 'types/step'
+import { IUserInfo } from 'types/step.d'
+import { IUserHeartRateInfo } from 'types/heartRate.d'
 import HeartRateChart from './HeartRateChart'
 import StepChart from './StepChart'
-
+import dayjs from 'dayjs'
 import styles from './userDetail.module.scss'
 
-interface Props {}
-
 // prams로 유저 아이디를 가져올것
-const UserDetail = (props: Props) => {
+const UserDetail = () => {
   const [stepData, setStepData] = useState<IUserInfo[]>([])
-  const { id = 328 } = useParams()
+  const [heartRateData, setHeartRateData] = useState<IUserHeartRateInfo[]>([])
 
   const location = useLocation()
-  const state = location.state as { date: string; login_id: string; seq: string }
+  const state = location.state as { date: string; loginId: string; seq: string }
 
   useEffect(() => {
     const userData = store.get('step')
-    const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(id))
+    const filteredStepData = userData.filter((el: IUserInfo) => el.member_seq === Number(state.seq))
     setStepData(filteredStepData)
-  }, [id])
+
+    const userData2 = store.get('heartRate')
+    const filteredHeartRateData = userData2.filter((el: IUserHeartRateInfo) => el.member_seq === Number(state.seq))
+    setHeartRateData(
+      filteredHeartRateData.sort((a: any, b: any) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
+    )
+  }, [state.seq])
 
   return (
     <div className={styles.userDetailWrap}>

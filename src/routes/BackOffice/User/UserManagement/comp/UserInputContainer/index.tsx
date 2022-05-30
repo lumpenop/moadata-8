@@ -48,25 +48,29 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
           <span>회원 번호</span>
         </label>
       </div>
-      <div className={styles.searchFormBody}>
-        <input
-          id='userId'
-          type='text'
-          value={loginValue}
-          onChange={handleLoginIdInputChange}
-          readOnly={isLoginValueReadOnly}
-          onKeyPress={inputEnterPress}
-        />
-      </div>
-      <div className={styles.searchFormBody}>
-        <input
-          id='userNum'
-          type='text'
-          value={numValue}
-          onChange={handleUserNumInputChange}
-          readOnly={isNumValueReadOnly}
-          onKeyPress={inputEnterPress}
-        />
+      <div className={styles.searchFormBodyBox}>
+        <div className={styles.searchFormBody}>
+          <input
+            id='userId'
+            className='userInput'
+            type='text'
+            value={loginValue}
+            onChange={handleLoginIdInputChange}
+            readOnly={isLoginValueReadOnly}
+            onKeyPress={inputEnterPress}
+          />
+        </div>
+        <div className={styles.searchFormBody}>
+          <input
+            id='userNum'
+            className='userInput'
+            type='text'
+            value={numValue}
+            onChange={handleUserNumInputChange}
+            readOnly={isNumValueReadOnly}
+            onKeyPress={inputEnterPress}
+          />
+        </div>
       </div>
     </div>
   )

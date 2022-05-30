@@ -5,15 +5,6 @@
   min-width: 460px;
   margin-top: 20px;
 
-  p {
-    padding: 18px;
-
-    mark {
-      color: colors.$BLUE;
-      background-color: colors.$MAIN_LIGHTGRAY;
-    }
-  }
-
   .userListWrapper {
     overflow: hidden;
     // border-radius: 19px;
@@ -49,8 +40,16 @@
     }
 
     svg {
-      width: 20px;
+      width: 25px;
       fill: colors.$MAIN_BLANK;
+
+      &:hover {
+        fill: colors.$GRAYA;
+      }
+
+      &:active {
+        fill: colors.$GRAYA;
+      }
     }
 
     .listHidden {
@@ -60,12 +59,34 @@
 
   .trItem {
     background-color: colors.$WHITE;
-    border-left: 10px solid colors.$MAIN_BLUE;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-    ::before {
-      width: 10px;
-      background-color: colors.$MAIN_BLUE;
+    &::after {
+      width: 3px;
+      height: 65px;
+      content: '';
+      background: tomato;
     }
+
+    &.trItem:hover {
+      box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+    }
+
+    &.trItem:active {
+      box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+    }
+
+    &.trItem::before {
+      box-sizing: border-box;
+      width: 10px;
+      // background-color: colors.$MAIN_BLUE;
+      background-color: aqua;
+    }
+
+    // .trItem:nth-child(1)::after {
+    //   box-sizing: border-box;
+    // }
 
     td {
       line-height: 65px;

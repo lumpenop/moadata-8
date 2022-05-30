@@ -41,23 +41,27 @@
 
         .profileTitle {
           padding: 10px;
+
           text-align: center;
-          background-color: #cccccc;
         }
 
-        .profileInfo {
-          padding: 10px;
+        .buttonWrap {
+          margin-top: 10px;
+          text-align: center;
         }
       }
-    }
 
-    .charWrap {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 80px;
-    }
-  }
-}
+      .trItem {
+        display: flex;
+        min-width: 1024px;
+        padding: 12px 24px;
+        background-color: colors.$WHITE;
+        // td {
+        //   width: 30%;
+        //   line-height: 65px;
+        //   text-align: center;
+        // }
+
 
 .chartWrap {
   position: relative;
