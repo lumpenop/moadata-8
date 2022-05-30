@@ -41,7 +41,6 @@
 
         .profileTitle {
           padding: 10px;
-
           text-align: center;
         }
 
@@ -50,118 +49,121 @@
           text-align: center;
         }
       }
-
-      .trItem {
-        display: flex;
-        min-width: 1024px;
-        padding: 12px 24px;
-        background-color: colors.$WHITE;
-        // td {
-        //   width: 30%;
-        //   line-height: 65px;
-        //   text-align: center;
-        // }
-
-
-.chartWrap {
-  position: relative;
-  display: flex;
-  min-width: 700px;
-  max-width: 1040px;
-  margin: auto;
-  background-color: #ffffff;
-  border-radius: 8px;
-
-  .chartTitle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .date {
-    margin-top: 30px;
-
-    .dateTop {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 375px;
-      height: 40px;
-      line-height: 40px;
-
-      .title {
-        margin-left: 20px;
-        font-size: 16px;
-        font-weight: 600;
-        color: colors.$INFO_TITLE;
-      }
-
-      .buttonWrap {
-        text-align: center;
-      }
     }
 
-    .datePickerInputWrap {
-      display: inline-block;
-      width: 130px;
-      padding: 10px 15px;
-      margin-top: 20px;
-      margin-right: 10px;
-      text-align: center;
-      vertical-align: center;
-      background-color: #f4f4f4;
-      border-radius: 20px;
+    .trItem {
+      display: flex;
+      min-width: 1024px;
+      padding: 12px 24px;
+      background-color: colors.$WHITE;
+      // td {
+      //   width: 30%;
+      //   line-height: 65px;
+      //   text-align: center;
+      // }
     }
   }
 
   .chartWrap {
-    height: 280px;
-    background-color: black;
-    border: 1px solid #666666;
-  }
-
-  .infoContainer {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 30px 20px 20px 0;
-  }
+    min-width: 700px;
+    max-width: 1040px;
+    margin: auto;
+    background-color: #ffffff;
+    border-radius: 8px;
 
-  .info {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 20px;
+    .chartTitle {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-    .infoDescription {
+    .date {
+      margin-top: 30px;
+
+      .dateTop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 375px;
+        height: 40px;
+        line-height: 40px;
+
+        .title {
+          margin-left: 20px;
+          font-size: 16px;
+          font-weight: 600;
+          color: colors.$INFO_TITLE;
+        }
+
+        .buttonWrap {
+          text-align: center;
+        }
+      }
+
+      .datePickerInputWrap {
+        display: inline-block;
+        width: 130px;
+        padding: 10px 15px;
+        margin-top: 20px;
+        margin-right: 10px;
+        text-align: center;
+        vertical-align: center;
+        background-color: #f4f4f4;
+        border-radius: 20px;
+      }
+    }
+
+    .chartWrap {
+      height: 280px;
+      background-color: black;
+      border: 1px solid #666666;
+    }
+
+    .infoContainer {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      margin-right: 45px;
+      flex-grow: 1;
+      padding: 30px 20px 20px 0;
+    }
 
-      .infoTitle {
-        margin-bottom: 6px;
-        font-size: 16px;
-        font-weight: 600;
-        color: colors.$INFO_TITLE;
-      }
+    .info {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 20px;
 
-      .infoValue {
-        font-size: 35px;
-        font-weight: 600;
+      .infoDescription {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: 45px;
+
+        .infoTitle {
+          margin-bottom: 6px;
+          font-size: 16px;
+          font-weight: 600;
+          color: colors.$INFO_TITLE;
+        }
+
+        .infoValue {
+          font-size: 35px;
+          font-weight: 600;
+        }
       }
+    }
+
+    .datePicker {
+      width: 100%;
+      text-align: center;
     }
   }
 
-  .datePicker {
-    width: 100%;
-    text-align: center;
+  .chartContent {
+    width: 600px;
+    height: 300px;
+    padding-left: 10px;
   }
-}
-
-.chartContent {
-  width: 600px;
-  height: 300px;
-  padding-left: 10px;
 }

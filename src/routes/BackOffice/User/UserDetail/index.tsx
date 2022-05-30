@@ -48,11 +48,11 @@ const UserDetail = () => {
         <ul className={styles.userProfile}>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>로그인ID</p>
-            <p className={styles.profileInfo}>{state.login_id}</p>
+            <p className={styles.profileInfo}>{state.loginId}</p>
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>회원번호</p>
-            <p className={styles.profileInfo}>{id}</p>
+            <p className={styles.profileInfo}>{state.seq}</p>
           </li>
           <li className={styles.userProfileList}>
             <p className={styles.profileTitle}>가입일시</p>
@@ -60,7 +60,7 @@ const UserDetail = () => {
           </li>
         </ul>
         <div className={styles.charWrap}>
-          <HeartRateChart />
+          <HeartRateChart heartRateData={heartRateData} />
         </div>
         <StepChart firstDate={state.date} stepData={stepData} />
       </div>
