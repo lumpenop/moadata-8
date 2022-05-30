@@ -22,10 +22,10 @@ const UserDetail = () => {
     setStepData(filteredStepData)
 
     const userData2 = store.get('heartRate')
-    const filteredHeartRateData = userData2.filter((el: IUserHeartRateInfo) => el.member_seq === Number(state.seq))
-    setHeartRateData(
-      filteredHeartRateData.sort((a: any, b: any) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
+    const filteredHeartRateData: IUserHeartRateInfo[] = userData2.filter(
+      (el: IUserHeartRateInfo) => el.member_seq === Number(state.seq)
     )
+    setHeartRateData(filteredHeartRateData.sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt))))
   }, [state.seq])
 
   return (
@@ -43,22 +43,23 @@ const UserDetail = () => {
           <span>회원상세정보</span>
         </Link>
       </div>
-      <h2>회원 상제 정보</h2>
+      <h2>회원 상세 정보</h2>
+
       <div className={styles.detailInner}>
-        <ul className={styles.userProfile}>
-          <li className={styles.userProfileList}>
-            <p className={styles.profileTitle}>로그인ID</p>
-            <p className={styles.profileInfo}>{state.loginId}</p>
-          </li>
-          <li className={styles.userProfileList}>
-            <p className={styles.profileTitle}>회원번호</p>
-            <p className={styles.profileInfo}>{state.seq}</p>
-          </li>
-          <li className={styles.userProfileList}>
-            <p className={styles.profileTitle}>가입일시</p>
-            <p className={styles.profileInfo}>{state.date}</p>
-          </li>
-        </ul>
+        <dl className={styles.userProfile}>
+          <div className={styles.userSeq}>
+            <dt>회원번호</dt>
+            <dd>No. {state.seq}</dd>
+          </div>
+          <div className={styles.userLoginId}>
+            <dt>로그인ID</dt>
+            <dd>{state.loginId}</dd>
+          </div>
+          <div className={styles.userDate}>
+            <dt>가입일시</dt>
+            <dd>{state.date}</dd>
+          </div>
+        </dl>
         <div className={styles.charWrap}>
           <HeartRateChart heartRateData={heartRateData} />
         </div>

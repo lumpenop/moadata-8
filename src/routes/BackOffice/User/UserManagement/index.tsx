@@ -17,7 +17,7 @@ const UserManagement = () => {
         </Link>
         <span>{'>'}</span>
         <Link to='/management'>
-          <span>회원관리</span>
+          <span className={styles.pageName}>회원관리</span>
         </Link>
       </div>
       <div className={styles.contents}>

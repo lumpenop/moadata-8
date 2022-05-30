@@ -191,7 +191,6 @@ const StepChart = ({ stepData, firstDate }: Props) => {
               onChange={handleStartDateChange}
             />
           </div>
-          <span>~</span>
           <div className={styles.datePickerInputWrap}>
             <DatePicker
               dateFormat='yy-MM-dd'
