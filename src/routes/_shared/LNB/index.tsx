@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 const LNB = () => {
   return (
-    <div className={styles.lnbSection}>
+    <section className={styles.lnbSection}>
       <aside className={styles.container}>
+        <h1>백 오피스</h1>
         <nav className={styles.navList}>
           <ul>
             <li>
@@ -20,7 +21,7 @@ const LNB = () => {
           </ul>
         </nav>
       </aside>
-    </div>
+    </section>
   )
 }
 

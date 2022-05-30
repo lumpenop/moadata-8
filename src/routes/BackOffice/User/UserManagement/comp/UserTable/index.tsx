@@ -19,18 +19,10 @@ const thList = ['회원번호', '로그인ID', '가입일', '상세']
 
 const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
   const [userList] = useRecoil<IUser[]>(userListState)
-  const [userListLength, setUserListLength] = useState(0)
-  useEffect(() => {
-    setUserListLength(userList.length)
-    if (userList.length === 0) setIsListHidden(true)
-  }, [userList])
 
   return (
     <section>
       <div className={styles.userListContainer}>
-        <p>
-          전체 중 <mark>{userListLength}</mark> 명의 회원이 검색되었습니다.
-        </p>
         <div className={styles.userListWrapper}>
           <table className={styles.userListTable}>
             <thead>

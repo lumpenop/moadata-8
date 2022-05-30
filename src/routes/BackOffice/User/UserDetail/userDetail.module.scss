@@ -1,87 +1,152 @@
 @use '/src/styles/constants/colors';
 
-.userDetailWrap {
-  max-width: 1024px;
-  margin: 0 auto;
+.container {
+  margin-left: 240px;
 
-  .detailInner {
-    padding-bottom: 50px;
-    border: 1px solid #cccccc;
+  .userDetailWrap {
+    // width: 960px;
+    max-width: 1024px;
+    margin: 0 auto;
+    // margin-left: 180px;
 
-    .userProfile {
-      .userProfileList {
-        display: inline-block;
-        width: 400px;
-        text-align: center;
-        border: 1px solid #cccccc;
+    .detailInner {
+      padding-bottom: 50px;
+      border: 1px solid #cccccc;
 
-        .profileTitle {
-          padding: 10px;
+      .userProfile {
+        .userProfileList {
+          display: inline-block;
+          width: 400px;
           text-align: center;
-          background-color: #cccccc;
-        }
+          border: 1px solid #cccccc;
 
-        .profileInfo {
-          padding: 10px;
+          .profileTitle {
+            padding: 10px;
+            text-align: center;
+            background-color: #cccccc;
+          }
+
+          .profileInfo {
+            padding: 10px;
+          }
         }
       }
+
+      .chartWrapper {
+        // display: flex;
+        // justify-content: space-between;
+        margin-top: 32px;
+      }
+
+      .chartWrap {
+        width: 450px;
+
+        .chartTitle {
+          p {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: colors.$GRAYD;
+            border: 1px solid #666666;
+          }
+
+          .datePickerWrap {
+            display: inline-block;
+            width: 75px;
+            margin-left: 10px;
+            vertical-align: center;
+          }
+        }
+
+        .chartWrap {
+          height: 280px;
+          // margin-top: -1px;
+          border: 1px solid #666666;
+        }
+
+        .stepChartWrap {
+          height: 280px;
+          border: 1px solid #666666;
+        }
+
+        .info {
+          margin-top: 15px;
+
+          .infoText {
+            margin-bottom: 8px;
+            font-size: 22px;
+          }
+        }
+
+        .datePicker {
+          width: 100%;
+          text-align: center;
+        }
+
+        .buttonWrap {
+          margin-top: 10px;
+          text-align: center;
+        }
+      }
+
+      .trItem {
+        display: flex;
+        min-width: 1024px;
+        padding: 12px 24px;
+        background-color: colors.$WHITE;
+        // td {
+        //   width: 30%;
+        //   line-height: 65px;
+        //   text-align: center;
+        // }
+
+        // td:first-child {
+        //   position: relative;
+
+        //   &::after {
+        //     position: absolute;
+        //     top: 50%;
+        //     right: 0;
+        //     display: block;
+        //     width: 4px;
+        //     height: 50px;
+        //     content: '';
+        background-color: #ffffff;
+        border-left: 10px solid colors.$MAIN_BLUE;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+        // &.trItem:hover {
+        //   box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+        // }
+
+        // &.trItem:active {
+        //   box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+        // }
+
+        dd {
+          padding-left: 32px;
+        }
+
+        ::before {
+          width: 10px;
+          background-color: colors.$MAIN_BLUE;
+        }
+
+        .seq {
+          flex: 1;
+        }
+
+        .loginId {
+          flex: 3;
+        }
+
+        .date {
+          flex: 5;
+        }
+        //      transform: translateY(-50%);
+        //    }
+        //  }
+      }
     }
-
-    .charWrap {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 80px;
-    }
-  }
-}
-
-.chartWrap {
-  width: 450px;
-
-  .chartTitle {
-    p {
-      display: inline-block;
-      padding: 8px 20px;
-      background-color: colors.$GRAYD;
-      border: 1px solid #666666;
-    }
-
-    .datePickerWrap {
-      display: inline-block;
-      width: 75px;
-      margin-left: 10px;
-      vertical-align: center;
-    }
-  }
-
-  .chartWrap {
-    height: 280px;
-    // margin-top: -1px;
-    background-color: black;
-    border: 1px solid #666666;
-  }
-
-  .stepChartWrap {
-    height: 280px;
-    border: 1px solid #666666;
-  }
-
-  .info {
-    margin-top: 15px;
-
-    .infoText {
-      margin-bottom: 8px;
-      font-size: 22px;
-    }
-  }
-
-  .datePicker {
-    width: 100%;
-    text-align: center;
-  }
-
-  .buttonWrap {
-    margin-top: 10px;
-    text-align: center;
   }
 }
