@@ -1,8 +1,8 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import cx from 'classnames'
 import { authState } from 'store/auth'
 import { MoadataLogo } from 'assets'
@@ -16,7 +16,8 @@ const Login = () => {
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
   const [show, setShow] = useState(false)
-  const [, setAuth] = useRecoilState(authState)
+  const setAuth = useSetRecoilState(authState)
+
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
@@ -29,6 +30,7 @@ const Login = () => {
     if (ID === idValue && PW === pwValue) {
       setIsInvalid(false)
       setAuth(true)
+      sessionStorage.setItem('user', idValue)
       navigate('/user')
     } else {
       setIsInvalid(true)
@@ -36,8 +38,14 @@ const Login = () => {
     }
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      handleLogin()
+    }
+  }
+
   const handleShowPassword = () => {
-    setShow(!show)
+    setShow((prevState) => !prevState)
   }
 
   const renderFloatingMessag = () => {
@@ -53,6 +61,7 @@ const Login = () => {
     }
     return <div className={styles.container} />
   }
+
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.loginInner}>
@@ -69,6 +78,7 @@ const Login = () => {
               onChange={handleInputId}
               autoComplete='off'
               className={cx(!idValue && styles.focus)}
+              onKeyPress={handleKeyDown}
             />
           </div>
           <div className={styles.inputWrapper}>
@@ -80,6 +90,7 @@ const Login = () => {
               onChange={handleInputPassword}
               autoComplete='new-password'
               className={cx(!pwValue && styles.focus)}
+              onKeyPress={handleKeyDown}
             />
             <button type='button' className={styles.showBtn} onClick={handleShowPassword}>
               {show ? (

@@ -1,10 +1,15 @@
 import styles from './header.module.scss'
 import { useNavigate } from 'react-router-dom'
+import { authState } from 'store/auth'
+import { useSetRecoilState } from 'recoil'
 
 const Header = () => {
   const navigate = useNavigate()
   const id = process.env.REACT_APP_ADMIN_ID
+  const setAuth = useSetRecoilState(authState)
   const handleLogout = () => {
+    delete sessionStorage.user
+    setAuth(false)
     navigate('/')
   }
 
