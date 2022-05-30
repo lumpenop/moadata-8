@@ -22,10 +22,10 @@ const UserDetail = () => {
     setStepData(filteredStepData)
 
     const userData2 = store.get('heartRate')
-    const filteredHeartRateData = userData2.filter((el: IUserHeartRateInfo) => el.member_seq === Number(state.seq))
-    setHeartRateData(
-      filteredHeartRateData.sort((a: any, b: any) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
+    const filteredHeartRateData: IUserHeartRateInfo[] = userData2.filter(
+      (el: IUserHeartRateInfo) => el.member_seq === Number(state.seq)
     )
+    setHeartRateData(filteredHeartRateData.sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt))))
   }, [state.seq])
 
   return (
