@@ -3,15 +3,26 @@
 .userSearchContainer {
   .userSearchTitle {
     padding: 20px 10px;
-    font-size: 16px;
+    font-size: 20px;
+  }
+}
+
+p {
+  padding: 18px;
+
+  mark {
+    color: colors.$BLUE;
+    background-color: colors.$MAIN_LIGHTGRAY;
   }
 }
 
 .searchForm {
-  width: 100%;
+  // width: 100%;
+  width: 700px;
   min-width: 460px;
   height: 280px;
   padding: 10px;
+  text-align: center;
   background-color: colors.$WHITE;
   border: 1px solid colors.$GRAY_BORDER;
   border-radius: 19px;
@@ -27,13 +38,12 @@
   }
 
   input {
-    width: 150px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0;
 
     &:read-only {
-      background-color: colors.$GRAY_BLOCK;
+      background-color: colors.$MAIN_BLANK;
     }
   }
 
@@ -61,5 +71,29 @@
         box-shadow: none;
       }
     }
+  }
+}
+
+.functionButtonCotainer {
+  display: flex;
+  justify-content: end;
+  width: 700px;
+  padding: 0 8px 0 0;
+  margin-top: 10px;
+
+  button:first-child {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #8c8aff;
+    background: #fdfdfd;
+  }
+
+  button:last-child {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fdfdfd;
+    background: #8c8aff;
   }
 }

@@ -1,42 +1,41 @@
 @use '/src/styles/constants/colors';
 
 .datePickerContainer {
-  width: 100%;
+  width: 90%;
   padding: 12px;
+  margin: 0 auto;
 
   .tilde {
-    padding: 0 20px;
+    margin: 0 10px;
   }
 
-  .date {
-    display: inline-block;
+  .dateContainer {
+    display: flex;
+    justify-content: space-between;
 
-    input {
-      width: 150px;
-      padding: 10px;
-      background-color: colors.$MAIN_LIGHTGRAY;
-      border: none;
-      border-radius: 5px;
+    .dateBox {
+      display: inline-block;
+
+      input {
+        width: 270px;
+        padding: 10px;
+        background-color: colors.$MAIN_LIGHTGRAY;
+        border: none;
+        border-radius: 30px;
+      }
     }
   }
 
   .dateLabelContainer {
     display: flex;
     justify-content: space-between;
-    width: 62%;
+    width: 100%;
+    height: 40px;
+    padding: 0 8px 0 16px;
   }
 }
 
 .datePickerButtonContainer {
   display: inline-block;
   padding: 7px;
-
-  button {
-    background: colors.$DATE_BUTTON;
-    filter: drop-shadow(0 1px 1px rgba(66, 54, 95, 50%));
-
-    &:active {
-      filter: none;
-    }
-  }
 }

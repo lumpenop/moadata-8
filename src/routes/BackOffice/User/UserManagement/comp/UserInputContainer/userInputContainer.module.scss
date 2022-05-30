@@ -9,23 +9,22 @@
   .searchLabelBox {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 65%;
     height: 40px;
+    padding-left: 16px;
   }
 
-  .searchFormBody {
-    display: inline-block;
-    width: 34%;
+  .searchFormBodyBox {
+    display: flex;
+    justify-content: space-between;
 
-    input {
-      width: 150px;
-      padding: 10px;
+    .searchFormBody {
+      display: inline-block;
+      // width: 34%;
+      width: 270px;
+      overflow: hidden;
       background-color: colors.$MAIN_LIGHTGRAY;
-      border-radius: 5px;
-
-      &:read-only {
-        background-color: colors.$MAIN_BLANK;
-      }
+      border-radius: 30px;
     }
   }
 }

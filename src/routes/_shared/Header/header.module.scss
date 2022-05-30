@@ -1,46 +1,46 @@
 @use '/src/styles/constants/colors';
-
+// $MAIN_BLUE: #8c8aff;
+// $MAIN_LIGHTBLUE: #b8b7ff;
+// $MAIN_TITLE: #393939;
+// $MAIN_CONTENTS: #595959;
+// $MAIN_BLANK: #dddddd;
+// $MAIN_LIGHTGRAY: #f4f4f4;
 .container {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
-  z-index: 1;
+  right: 0;
   display: flex;
   justify-content: space-between;
-  width: 100vw;
-  min-width: 600px;
+  width: calc(100vw - 227px);
   height: 50px;
   padding: 0 20px;
   line-height: 50px;
-  background: #6640bf;
-  border: 1px solid #4b1cb9;
-
-  .title {
-    font-size: 1.2rem;
-    color: colors.$WHITE;
-    letter-spacing: 1px;
-  }
 
   .loginInfo {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 200px;
+    justify-content: flex-end;
+    width: 100%;
 
     span {
-      font-weight: 400;
-      color: colors.$WHITE;
-      letter-spacing: 1px;
+      margin-right: 12px;
+      font-weight: 700;
+      color: colors.$MAIN_TITLE;
+      letter-spacing: 0;
+      weight: 90px;
     }
 
     button {
+      weight: 80px;
       height: 40px;
-      padding: 0 12px;
       font-weight: 700;
       color: colors.$GRAY2;
-      letter-spacing: 1px;
-      background: #dddddd;
+      color: colors.$MAIN_BLUE;
+      letter-spacing: 0;
+      background: colors.$MAIN_LIGHTGRAY;
+      border: 1px solid #e6e6e6;
       border-radius: 0.25rem;
+      box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 25%);
     }
   }
 }

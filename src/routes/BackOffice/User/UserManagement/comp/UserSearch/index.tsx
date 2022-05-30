@@ -12,7 +12,7 @@ import {
 } from 'store/userManagement'
 import { useRecoil, useResetRecoilState } from 'hooks/state'
 import ButtonBasic from 'routes/_shared/ButtonBasic'
-import UserSearchContainer from './UserInputContainer'
+import UserSearchContainer from '../UserInputContainer'
 import { IUser } from 'types/userManagement'
 import DatePickerUtil from '../DatePickerUtil'
 import { searchUserByLoginId, searchUserByUserNum, searchUserByDate } from 'utils/user/userSearchUtil'
@@ -20,18 +20,28 @@ import { searchUserByLoginId, searchUserByUserNum, searchUserByDate } from 'util
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './userSearch.module.scss'
 
-const UserSearch = () => {
+interface Props {
+  setIsListHidden: Function
+}
+
+const UserSearch = ({ setIsListHidden }: Props) => {
   const [loginValue, setLoginValue] = useRecoil<string>(loginValueState)
   const [numValue, setNumValue] = useRecoil<string>(numValueState)
   const [startDate] = useRecoil<Date>(startDateState)
   const [endDate] = useRecoil<Date>(endDateState)
   const [, setIsLoginValueReadOnly] = useRecoil(isLoginReadOnlyState)
   const [, setIsNumValueReadOnly] = useRecoil(isNumReadOnlyState)
-  const [, setUserList] = useRecoil<IUser[]>(userListState)
+  const [userList, setUserList] = useRecoil<IUser[]>(userListState)
 
   const [isDisabledButton] = useState(false)
   const resetStartDateList = useResetRecoilState(startDateState)
   const resetEndDateList = useResetRecoilState(endDateState)
+
+  const [userListLength, setUserListLength] = useState(0)
+  useEffect(() => {
+    setUserListLength(userList.length)
+    if (userList.length === 0) setIsListHidden(true)
+  }, [userList])
 
   useEffect(() => {
     handleReadonly()
@@ -84,8 +94,15 @@ const UserSearch = () => {
             <div className={styles.userSearchButtonBox} />
           </div>
         </form>
-        <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
-        <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
+        <div className={styles.buttonBox}>
+          <p>
+            전체 중 <mark>{userListLength}</mark> 명의 회원이 검색되었습니다.
+          </p>
+          <div className={styles.functionButtonCotainer}>
+            <ButtonBasic onClick={resetSearchButtonClick} buttonName='초기화' buttonSize='large' />
+            <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
+          </div>
+        </div>
       </div>
     </div>
   )

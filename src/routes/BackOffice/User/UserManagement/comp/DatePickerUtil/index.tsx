@@ -57,38 +57,40 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
   return (
     <div className={styles.datePickerContainer}>
       <div className={styles.dateLabelContainer}>
-        <label htmlFor='date' className={styles.period}>
-          <span>가입 기간</span>
+        <label htmlFor='date'>
+          <span className={styles.period}>가입 기간</span>
         </label>
         <div className={styles.datePickerButtonContainer}>
           <ButtonBasic onClick={setDateToday} buttonName='오늘' buttonSize='small' />
-          <ButtonBasic onClick={setDateSevenDays} buttonName='1주일' buttonSize='small' />
+          <ButtonBasic onClick={setDateSevenDays} buttonName='1주' buttonSize='small' />
           <ButtonBasic onClick={setDateAll} buttonName='전체' buttonSize='small' />
         </div>
       </div>
-      <div className={styles.date}>
-        <DatePicker
-          selected={startDate}
-          onChange={onStartDateChange}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          dateFormat='yyyy년 MM월 dd일'
-          name='date'
-        />
-      </div>
-      <span className={styles.tilde}>~</span>
-      <div className={styles.date}>
-        <DatePicker
-          selected={endDate}
-          onChange={onEndDateChange}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-          dateFormat='yyyy년 MM월 dd일'
-          name='date'
-        />
+      <div className={styles.dateContainer}>
+        <div className={styles.dateBox}>
+          <DatePicker
+            selected={startDate}
+            onChange={onStartDateChange}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            dateFormat='yyyy년 MM월 dd일'
+            name='date'
+          />
+        </div>
+        {/* <span className={styles.tilde}>~</span> */}
+        <div className={styles.dateBox}>
+          <DatePicker
+            selected={endDate}
+            onChange={onEndDateChange}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            dateFormat='yyyy년 MM월 dd일'
+            name='date'
+          />
+        </div>
       </div>
     </div>
   )

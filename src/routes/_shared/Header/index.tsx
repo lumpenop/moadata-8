@@ -10,9 +10,8 @@ const Header = () => {
 
   return (
     <header className={styles.container}>
-      <div className={styles.title}>백오피스</div>
       <div className={styles.loginInfo}>
-        <span>{id}</span>
+        <span>{id} 님</span>
         <button type='button' onClick={handleLogout}>
           로그아웃
         </button>
