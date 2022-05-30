@@ -38,10 +38,9 @@ const Login = () => {
     }
   }
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
-      handleLogin()
-    }
+  const onSubmit = (e: KeyboardEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleLogin()
   }
 
   const handleShowPassword = () => {
@@ -68,7 +67,7 @@ const Login = () => {
         <header>
           <MoadataLogo />
         </header>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className={styles.inputWrapper}>
             <input
               type='text'
@@ -78,7 +77,6 @@ const Login = () => {
               onChange={handleInputId}
               autoComplete='off'
               className={cx(!idValue && styles.focus)}
-              onKeyPress={handleKeyDown}
             />
           </div>
           <div className={styles.inputWrapper}>
@@ -90,7 +88,6 @@ const Login = () => {
               onChange={handleInputPassword}
               autoComplete='new-password'
               className={cx(!pwValue && styles.focus)}
-              onKeyPress={handleKeyDown}
             />
             <button type='button' className={styles.showBtn} onClick={handleShowPassword}>
               {show ? (
@@ -101,7 +98,7 @@ const Login = () => {
             </button>
           </div>
           {isInvalid && renderFloatingMessag()}
-          <button type='button' className={styles.loginBtn} onClick={handleLogin}>
+          <button type='submit' className={styles.loginBtn} onClick={handleLogin}>
             Login
           </button>
         </form>
