@@ -13,7 +13,6 @@ import Button from 'components/_comon/Button'
 dayjs.extend(isSameOrAfter)
 dayjs.extend(minMax)
 
-const TODAY = '2022-04-16'
 interface IChartData {
   x: number | string
   y: number
@@ -59,7 +58,6 @@ const StepChart = ({ stepData, firstDate }: Props) => {
           dayjs(data.crt_ymdt).isSameOrAfter(startDate) && dayjs(data.crt_ymdt).isBefore(dayjs(endDate).add(1, 'day'))
       )
       .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
-
     let allSteps = 0
     if (lookup === 'today') {
       const hourlyData = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
@@ -106,7 +104,6 @@ const StepChart = ({ stepData, firstDate }: Props) => {
     }
 
     if (lookup === 'custom') {
-      console.log('stepData0,', stepData)
       const entireData = stepData
         .filter(
           (data) =>

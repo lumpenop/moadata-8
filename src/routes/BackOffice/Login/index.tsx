@@ -12,7 +12,6 @@ const PW = process.env.REACT_APP_ADMIN_PASSWORD
 const Login = () => {
   const navigate = useNavigate()
   const [isInvalid, setIsInvalid] = useState(false)
-  const [loginPass, setLoginPass] = useState('false')
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
   const [, setAuth] = useRecoilState(authState)
@@ -26,7 +25,6 @@ const Login = () => {
 
   const handleLogin = () => {
     if (ID === idValue && PW === pwValue) {
-      setLoginPass('true')
       setIsInvalid(false)
       setAuth(true)
       navigate('/user')
@@ -34,13 +32,7 @@ const Login = () => {
       setIsInvalid(true)
       setAuth(false)
     }
-
-    loginPass === 'true' && navigate('/user')
   }
-
-  useEffect(() => {
-    store.set('loginPass', loginPass)
-  }, [loginPass])
 
   const renderFloatingMessag = () => {
     if (idValue === '' && idValue === '') return <div className={styles.container} />

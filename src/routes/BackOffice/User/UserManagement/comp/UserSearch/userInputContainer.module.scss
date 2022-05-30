@@ -1,30 +1,30 @@
 @use '/src/styles/constants/colors';
 
 .searchFormBodyContainer {
+  display: inline-block;
+  width: 90%;
   padding: 12px;
+  margin: 0 auto;
+
+  .searchLabelBox {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    height: 40px;
+  }
 
   .searchFormBody {
     display: inline-block;
-    width: 300px;
-    padding: 4px 0;
-
-    label {
-      width: 200px;
-      padding: 10px;
-      margin-right: 10px;
-      background: colors.$GRAY_BORDER;
-      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 25%));
-      border-radius: 5px;
-    }
+    width: 34%;
 
     input {
       width: 150px;
       padding: 10px;
-      border: 1px solid colors.$GRAYA;
+      background-color: colors.$MAIN_LIGHTGRAY;
       border-radius: 5px;
 
       &:read-only {
-        background-color: colors.$GRAY_BLOCK;
+        background-color: colors.$MAIN_BLANK;
       }
     }
   }

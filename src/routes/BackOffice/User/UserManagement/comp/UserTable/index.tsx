@@ -8,13 +8,14 @@ import ButtonBasic from 'routes/_shared/ButtonBasic'
 import { IUser } from 'types/userManagement'
 
 import styles from './userTable.module.scss'
+import { InfoIcon } from 'assets'
 
 interface Props {
   setIsListHidden: Function
   isListHidden: boolean
 }
 
-const thList = ['회원번호', '가입일', '로그인ID', '상세']
+const thList = ['회원번호', '로그인ID', '가입일', '상세']
 
 const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
   const [userList] = useRecoil<IUser[]>(userListState)
@@ -43,16 +44,16 @@ const UserTable = ({ setIsListHidden, isListHidden }: Props) => {
             </thead>
             <tbody className={cx({ [styles.listHidden]: isListHidden })}>
               {userList.map((user) => (
-                <tr key={user.seq}>
+                <tr key={user.seq} className={styles.trItem}>
                   <td>{user.seq}</td>
-                  <td>{user.date}</td>
                   <td>{user.loginId}</td>
+                  <td>{user.date}</td>
                   <td>
                     <Link
                       to={`/management/detail/${user.seq}`}
                       state={{ seq: user.seq, date: user.date, loginId: user.loginId }}
                     >
-                      <ButtonBasic buttonName='상세' buttonSize='middle' />
+                      <InfoIcon />
                     </Link>
                   </td>
                 </tr>

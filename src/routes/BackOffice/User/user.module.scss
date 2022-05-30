@@ -1,11 +1,12 @@
 @use '/src/styles/constants//colors';
 
 .container {
-  position: fixed;
-  top: 70px;
-  left: 220px;
   width: 800px;
   height: 80vh;
+  // position: fixed;
+  // top: 70px;
+  // left: 220px;
+  padding: 30px;
 
   a:link,
   a:visited,

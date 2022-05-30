@@ -1,17 +1,18 @@
 import { atom } from 'hooks/state'
 import { IUser } from 'types/userManagement'
 import dayjs from 'dayjs'
+import store from 'store'
+
+// import defaultUserArr from 'data/user_list.json'
 
 import heartRate from 'assets/json/heartrate.json'
 import step from 'assets/json/step.json'
-import userInfo from 'data/user_list.json'
-// import defaultUserArr from 'data/user_list.json'
+import userData from 'data/user_list.json'
 
-heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
-
+store.clearAll()
 store.set('heartRate', heartRate)
 store.set('step', step)
-store.set('userManagement', userInfo)
+store.set('userManagement', userData)
 
 const defaultUserArr = store.get('userManagement')
 
