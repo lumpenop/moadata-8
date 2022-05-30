@@ -56,23 +56,6 @@ const HeartRateChart = ({ heartRateData }: Props) => {
     setLookup('')
   }
 
-  // useEffect(() => {
-  //   setHeartRateData(
-  //     store
-  //       .get('heartRate')
-  //       .filter((data2: IUserHeartRateInfo) => data2.member_seq === Number(state.seq))
-  //       .sort()
-  //     // 이거 오류나서 일단 주석처리함. 추후 변경 필요
-  //     // 감사합니다
-  //     // .sort((a, b) => Number(dayjs(a.crt_ymd) - Number(dayjs(b.crt_ymdt)))
-  //   )
-  // }, [state.seq])
-
-  // useEffect(() => {
-  //   setStartDate(dayjs(date1).format('YYYY-MM-DD'))
-  //   setEndDate(dayjs(date2).format('YYYY-MM-DD'))
-  // }, [date1, date2])
-
   const tickFormatter = (t: number | string): string => {
     switch (lookup) {
       case 'today':
@@ -96,77 +79,76 @@ const HeartRateChart = ({ heartRateData }: Props) => {
 
   return (
     <div className={styles.chartWrap}>
-      {/* 아래가 제목 */}
-      <div className={styles.chartTitle}>
-        <p>심박수</p>
+      <h1 className={styles.chartTitle}>HEARTRATE PROGRESS</h1>
+      <div className={styles.chartContent}>
+        <VictoryChart domain={{ y: [50, 160] }}>
+          <VictoryLabel style={{ fill: '#8C8AFF' }} dy={10} text='bpm' x={15} y={20} />
+          <VictoryAxis
+            style={{
+              tickLabels: { fontSize: 15 },
+            }}
+            tickValues={data.map((el) => el.x)}
+            tickFormat={tickFormatter}
+          />
+          <VictoryAxis
+            dependentAxis
+            style={{
+              tickLabels: { fontSize: 15 },
+            }}
+          />
+          {data.map((item: any) => {
+            return (
+              <VictoryLine
+                style={{ data: { stroke: '#8C8AFF' } }}
+                key={item.y + new Date()}
+                data={data}
+                y={(datum) => datum.y}
+              />
+            )
+          })}
+        </VictoryChart>
       </div>
-
-      {/* 좌측 그래프 + 우측 설명 */}
-      <div className={styles.chartAndDesc}>
-        <div className={styles.chartWrap}>
-          <VictoryChart domain={{ y: [50, 160] }}>
-            <VictoryLabel style={{ fill: '#8C8AFF' }} dy={10} text='bpm' x={15} y={20} />
-            <VictoryAxis
-              style={{
-                tickLabels: { fontSize: 15, fill: '#a6a6a6' },
-              }}
-              tickValues={data.map((el) => el.x)}
-              tickFormat={tickFormatter}
-            />
-            <VictoryAxis
-              dependentAxis
-              style={{
-                tickLabels: { fontSize: 15, fill: '#a6a6a6' },
-              }}
-            />
-            {data.map((item: any) => {
-              return (
-                <VictoryLine
-                  style={{ data: { stroke: '#8C8AFF' } }}
-                  // style={{ data: { stroke: '8C8AFF' } }}
-                  key={item.y + new Date()}
-                  data={data}
-                  y={(datum) => datum.y}
-                />
-              )
-            })}
-          </VictoryChart>
-        </div>
-        <div className={styles.info}>
-          <p className={styles.infoText}>
-            <time dateTime={date1}>{date1}</time>
-            {date1 && date2 && <time dateTime={date2}>~ {date2}</time>}
-          </p>
-          <p className={styles.infoText}>평균 {heartBeatAvg} bpm</p>
-        </div>
-        <div className={styles.chartTitle}>
-          <p>조회 기간</p>
-
-          <div className={styles.datePickerWrap}>
-            <DatePicker
-              selected={new Date(startDate)}
-              dateFormat='yy-MM-dd'
-              maxDate={new Date(endDate)}
-              onChange={handleChangeStartDate}
-              className={styles.datePicker}
-            />
+      <div className={styles.infoContainer}>
+        <table>
+          <thead>
+            <tr className={styles.info}>
+              <div className={styles.infoDescription}>
+                <th className={styles.infoTitle}>HEART RATE</th>
+                <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
+              </div>
+              {/* <div className={styles.infoDescription}>
+                <th className={styles.infoTitle}>DISTANCE</th>
+                <td className={styles.infoValue}>{totalDistance.toFixed(1)}km</td>
+              </div> */}
+            </tr>
+          </thead>
+        </table>
+        <div className={styles.date}>
+          <div className={styles.dateTop}>
+            <h1 className={styles.title}>조회 기간</h1>
+            <div className={styles.buttonWrap}>
+              <Button title='오늘' value='today' onClick={handleLookUpClick} />
+              <Button title='1주일' value='week' onClick={handleLookUpClick} />
+              <Button title='전체' value='entire' onClick={handleLookUpClick} />
+            </div>
           </div>
-          <span>~</span>
-          <div className={styles.datePickerWrap}>
+          <div className={styles.datePickerInputWrap}>
             <DatePicker
-              selected={new Date(endDate)}
               dateFormat='yy-MM-dd'
               minDate={new Date(startDate)}
-              maxDate={new Date()}
+              selected={new Date(startDate)}
+              onChange={handleChangeStartDate}
+            />
+          </div>
+          {/* <span>~</span> */}
+          <div className={styles.datePickerInputWrap}>
+            <DatePicker
+              dateFormat='yy-MM-dd'
+              minDate={new Date(endDate)}
+              selected={new Date(endDate)}
               onChange={handleChangeEndDate}
             />
           </div>
-        </div>
-
-        <div className={styles.buttonWrap}>
-          <Button title='오늘' value='today' onClick={handleLookUpClick} />
-          <Button title='1주일' value='week' onClick={handleLookUpClick} />
-          <Button title='전체' value='entire' onClick={handleLookUpClick} />
         </div>
       </div>
     </div>
