@@ -39,9 +39,8 @@ const UserDetail = () => {
           <span>회원관리</span>
         </Link>
         <span>{'>'}</span>
-        <Link to=''>
-          <span>회원상세정보</span>
-        </Link>
+
+        <span>회원상세정보</span>
       </div>
       <h2>회원 상제 정보</h2>
       <div className={styles.detailInner}>
