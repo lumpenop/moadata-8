@@ -110,12 +110,10 @@ const HeartRateChart = ({ heartRateData }: Props) => {
       </div>
       <div className={styles.infoContainer}>
         <table>
-          <thead>
-            <tr className={styles.info}>
-              <div className={styles.infoDescription}>
-                <th className={styles.infoTitle}>HEART RATE</th>
-                <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
-              </div>
+          <thead className={styles.info}>
+            <tr className={styles.infoDescription}>
+              <th className={styles.infoTitle}>HEART RATE</th>
+              <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
               {/* <div className={styles.infoDescription}>
                 <th className={styles.infoTitle}>DISTANCE</th>
                 <td className={styles.infoValue}>{totalDistance.toFixed(1)}km</td>
