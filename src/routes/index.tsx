@@ -18,8 +18,6 @@ import Login from './BackOffice/Login'
 
 import styles from './Routes.module.scss'
 
-// heartRate.sort((info1, info2) => Number(dayjs(info1.crt_ymdt)) - Number(dayjs(info2.crt_ymdt)))
-
 const App = () => {
   // useEffect(() => {
   //   store.clearAll()

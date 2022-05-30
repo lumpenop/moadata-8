@@ -1,6 +1,7 @@
 @use '/src/styles/constants/colors';
 
-.app {
+.main {
+  display: flex;
   width: 100%;
-  background-color: colors.$MAIN_LIGHTGRAY;
+  padding-top: 50px;
 }

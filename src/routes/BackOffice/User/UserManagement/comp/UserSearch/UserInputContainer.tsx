@@ -40,10 +40,15 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
 
   return (
     <div className={styles.searchFormBodyContainer}>
-      <div className={styles.searchFormBody}>
+      <div className={styles.searchLabelBox}>
         <label htmlFor='userId' className={styles.login}>
-          로그인 ID
+          <span>로그인 ID</span>
         </label>
+        <label htmlFor='userNum' className={styles.userNum}>
+          <span>회원 번호</span>
+        </label>
+      </div>
+      <div className={styles.searchFormBody}>
         <input
           id='userId'
           type='text'
@@ -54,9 +59,6 @@ const UserSearchContainer = ({ searchUserButtonClick }: Props) => {
         />
       </div>
       <div className={styles.searchFormBody}>
-        <label htmlFor='userNum' className={styles.userNum}>
-          회원 번호
-        </label>
         <input
           id='userNum'
           type='text'

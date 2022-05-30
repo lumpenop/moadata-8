@@ -78,15 +78,14 @@ const UserSearch = () => {
       <p className={styles.userSearchTitle}>회원 검색</p>
       <div className={styles.searchFormBox}>
         <form className={styles.searchForm}>
-          <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
           <DatePickerUtil searchUserButtonClick={searchUserButtonClick} />
+          <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
           <div className={styles.userSearchButtonContainer}>
-            <div className={styles.userSearchButtonBox}>
-              <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
-              <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
-            </div>
+            <div className={styles.userSearchButtonBox} />
           </div>
         </form>
+        <ButtonBasic onClick={resetSearchButtonClick} buttonName='필터 초기화' buttonSize='large' />
+        <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
       </div>
     </div>
   )
