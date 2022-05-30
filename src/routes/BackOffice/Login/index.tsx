@@ -78,6 +78,7 @@ const Login = () => {
               onChange={handleInputId}
               autoComplete='off'
               className={cx(!idValue && styles.focus)}
+              onKeyPress={handleKeyDown}
             />
           </div>
           <div className={styles.inputWrapper}>
