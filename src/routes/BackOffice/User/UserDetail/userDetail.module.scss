@@ -1,12 +1,36 @@
 @use '/src/styles/constants/colors';
 
 .userDetailWrap {
-  max-width: 1024px;
+  display: inline-block;
+  width: 60%;
+  height: 94vh;
+  padding: 20px 0;
   margin: 0 auto;
+
+  .pathInfo {
+    span {
+      padding: 0 4px;
+    }
+
+    a:link,
+    a:visited,
+    a:active {
+      color: colors.$BLACK;
+    }
+
+    a:active {
+      text-decoration: underline;
+    }
+  }
+
+  h2 {
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
 
   .detailInner {
     padding-bottom: 50px;
-    border: 1px solid #cccccc;
 
     .userProfile {
       .userProfileList {
@@ -36,42 +60,93 @@
 }
 
 .chartWrap {
-  width: 450px;
+  position: relative;
+  display: flex;
+  min-width: 700px;
+  max-width: 1040px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
 
   .chartTitle {
-    p {
-      display: inline-block;
-      padding: 8px 20px;
-      background-color: colors.$GRAYD;
-      border: 1px solid #666666;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .date {
+    margin-top: 30px;
+
+    .dateTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 375px;
+      height: 40px;
+      line-height: 40px;
+
+      .title {
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: colors.$INFO_TITLE;
+      }
+
+      .buttonWrap {
+        text-align: center;
+      }
     }
 
-    .datePickerWrap {
+    .datePickerInputWrap {
       display: inline-block;
-      width: 75px;
-      margin-left: 10px;
+      width: 130px;
+      padding: 10px 15px;
+      margin-top: 20px;
+      margin-right: 10px;
+      text-align: center;
       vertical-align: center;
+      background-color: #f4f4f4;
+      border-radius: 20px;
     }
   }
 
   .chartWrap {
     height: 280px;
-    // margin-top: -1px;
     background-color: black;
     border: 1px solid #666666;
   }
 
-  .stepChartWrap {
-    height: 280px;
-    border: 1px solid #666666;
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 30px 20px 20px 0;
   }
 
   .info {
-    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
 
-    .infoText {
-      margin-bottom: 8px;
-      font-size: 22px;
+    .infoDescription {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 45px;
+
+      .infoTitle {
+        margin-bottom: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        color: colors.$INFO_TITLE;
+      }
+
+      .infoValue {
+        font-size: 35px;
+        font-weight: 600;
+      }
     }
   }
 
@@ -79,9 +154,10 @@
     width: 100%;
     text-align: center;
   }
+}
 
-  .buttonWrap {
-    margin-top: 10px;
-    text-align: center;
-  }
+.chartContent {
+  width: 600px;
+  height: 300px;
+  padding-left: 10px;
 }

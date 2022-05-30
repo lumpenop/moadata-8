@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams, Link } from 'react-router-dom'
 import store from 'store'
 
 import { IUserInfo } from 'types/step'
@@ -26,6 +26,19 @@ const UserDetail = (props: Props) => {
 
   return (
     <div className={styles.userDetailWrap}>
+      <div className={styles.pathInfo}>
+        <Link to='/user'>
+          <span>홈</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to='/management'>
+          <span>회원관리</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to=''>
+          <span>회원상세정보</span>
+        </Link>
+      </div>
       <h2>회원 상제 정보</h2>
       <div className={styles.detailInner}>
         <ul className={styles.userProfile}>
@@ -44,8 +57,8 @@ const UserDetail = (props: Props) => {
         </ul>
         <div className={styles.charWrap}>
           <HeartRateChart />
-          <StepChart firstDate={state.date} stepData={stepData} />
         </div>
+        <StepChart firstDate={state.date} stepData={stepData} />
       </div>
     </div>
   )
