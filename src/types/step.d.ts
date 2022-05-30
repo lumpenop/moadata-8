@@ -7,6 +7,12 @@ export interface IUserInfo {
   crt_ymdt: string
 }
 
+export interface IDailyStepsData {
+  totalSteps: number
+  totalDistances: number
+  records: IUserInfo[]
+}
+
 export interface IStep {
   steps: number
 }
