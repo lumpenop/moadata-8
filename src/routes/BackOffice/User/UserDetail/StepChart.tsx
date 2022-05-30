@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import dayjs from 'dayjs'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isBetween from 'dayjs/plugin/isBetween'
 import minMax from 'dayjs/plugin/minMax'
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory'
 
@@ -10,8 +10,12 @@ import { IStep, IUserInfo } from 'types/step'
 
 import Button from 'components/_comon/Button'
 
-dayjs.extend(isSameOrAfter)
+dayjs.extend(isBetween)
 dayjs.extend(minMax)
+
+interface ITickFormatter {
+  [key: string]: ((t: number) => string) | ((t: string) => string)
+}
 
 interface IChartData {
   x: number | string
@@ -29,6 +33,14 @@ const StepChart = ({ stepData, firstDate }: Props) => {
   const [endDate, setEndDate] = useState(firstDate)
   const [lookup, setLookup] = useState('today')
   const [totalSteps, setTotalSteps] = useState(0)
+  const [totalDistance, setTotalDistance] = useState(0)
+
+  const tickFormatter: ITickFormatter = {
+    today: (t: number) => ((t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : ''),
+    week: (t: number) => `${t + 1}일`,
+    entire: (t: string) => t,
+    custom: (t: number) => (t % 5 === 0 ? dayjs(startDate).add(t, 'day').format('M월 D일') : ''),
+  }
 
   const handleLookupClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.value === 'today') {
@@ -53,15 +65,12 @@ const StepChart = ({ stepData, firstDate }: Props) => {
 
   useEffect(() => {
     const filterdStep = stepData
-      .filter(
-        (data) =>
-          dayjs(data.crt_ymdt).isSameOrAfter(startDate) && dayjs(data.crt_ymdt).isBefore(dayjs(endDate).add(1, 'day'))
-      )
+      .filter((data) => dayjs(data.crt_ymdt).isBetween(dayjs(startDate).startOf('d'), dayjs(endDate).endOf('d')))
       .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
 
     let allSteps = 0
-
-    if (lookup === 'today') {
+    let allDistance = 0
+    if (lookup === 'today' || startDate === endDate) {
       const hourlyData = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
       filterdStep.forEach((info, i) => {
         const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
@@ -69,9 +78,12 @@ const StepChart = ({ stepData, firstDate }: Props) => {
         hourlyData[hourIndex].y += currenStep
 
         allSteps = Math.max(allSteps, info.steps)
+        allDistance = Math.max(allDistance, info.distance)
       })
       setChartData(hourlyData)
       setTotalSteps(allSteps)
+      setTotalDistance(allDistance)
+      setLookup('today')
     }
 
     if (lookup === 'week') {
@@ -105,12 +117,9 @@ const StepChart = ({ stepData, firstDate }: Props) => {
       setTotalSteps(eData.reduce((acc, cur) => acc + cur.y, 0))
     }
 
-    if (lookup === 'custom') {
+    if (lookup === 'custom' && startDate !== endDate) {
       const entireData = stepData
-        .filter(
-          (data) =>
-            dayjs(data.crt_ymdt).isSameOrAfter(startDate) && dayjs(data.crt_ymdt).isBefore(dayjs(endDate).add(1, 'day'))
-        )
+        .filter((data) => dayjs(data.crt_ymdt).isBetween(dayjs(startDate).startOf('d'), dayjs(endDate).endOf('d')))
         .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
         .reduce((acc: { [key: string]: IStep }, cur) => {
           acc[dayjs(cur.crt_ymdt).format('YYYY-MM-DD')] = {
@@ -120,7 +129,7 @@ const StepChart = ({ stepData, firstDate }: Props) => {
         }, {})
 
       const customPeriodData = Array.from({ length: dayjs(endDate).add(1, 'day').diff(startDate, 'day') }, (_, i) => ({
-        x: dayjs(startDate).add(i, 'day').format('M월 D일'),
+        x: i,
         y: 0,
       }))
       Object.keys(entireData).forEach((date) => {
@@ -131,69 +140,67 @@ const StepChart = ({ stepData, firstDate }: Props) => {
     }
   }, [startDate, endDate, lookup, stepData, firstDate])
 
-  const tickFormatter = (t: number | string): string => {
-    switch (lookup) {
-      case 'today':
-        return typeof t === 'number' && (t / 6) % 4 === 0 ? `${Math.floor(t / 6)}시` : ''
-      case 'week':
-        return `${typeof t === 'number' && t + 1}일`
-      case 'entire':
-        return typeof t === 'string' ? t : ''
-      case 'custom':
-        return typeof t === 'string' ? t : ''
-      default:
-        return ''
-    }
-  }
-
   return (
     <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>
-        <p>걸음수</p>
-      </div>
-      <div className={styles.stepChartWrap}>
+      <h1 className={styles.chartTitle}>STEP PROGRESS</h1>
+      <div className={styles.chartContent}>
         <VictoryChart domainPadding={lookup === 'today' ? 0 : 25}>
-          <VictoryAxis tickValues={chartData.map((el) => el.x)} tickFormat={tickFormatter} />
+          <VictoryAxis
+            style={{ axis: { display: 'none' } }}
+            tickValues={chartData.map((el) => el.x)}
+            tickFormat={tickFormatter[lookup]}
+          />
           <VictoryAxis dependentAxis crossAxis />
           <VictoryBar
             style={{
-              data: { fill: '#f3490b' },
+              data: { fill: '#f3490b', strokeWidth: '4px', strokeLinecap: 'round' },
             }}
             data={chartData}
           />
         </VictoryChart>
       </div>
-      <div className={styles.info}>
-        <p className={styles.infoText}>
-          {dayjs(startDate).format('YY-MM-DD')}
-          {startDate !== endDate && ` ~ ${dayjs(endDate).format('YY-MM-DD')}`}
-        </p>
-        <p className={styles.infoText}>총 {totalSteps.toLocaleString('ko-kr')} 걸음</p>
-      </div>
-      <div className={styles.chartTitle}>
-        <p>조회 기간</p>
-        <div className={styles.datePickerWrap}>
-          <DatePicker
-            dateFormat='yy-MM-dd'
-            minDate={new Date(firstDate)}
-            selected={new Date(startDate)}
-            onChange={handleStartDateChange}
-          />
+      <div className={styles.infoContainer}>
+        <table>
+          <thead>
+            <tr className={styles.info}>
+              <div className={styles.infoDescription}>
+                <th className={styles.infoTitle}>STEPS</th>
+                <td className={styles.infoValue}>{totalSteps.toLocaleString('ko-kr')}</td>
+              </div>
+              <div className={styles.infoDescription}>
+                <th className={styles.infoTitle}>DISTANCE</th>
+                <td className={styles.infoValue}>{totalDistance.toFixed(1)}km</td>
+              </div>
+            </tr>
+          </thead>
+        </table>
+        <div className={styles.date}>
+          <div className={styles.dateTop}>
+            <h1 className={styles.title}>조회 기간</h1>
+            <div className={styles.buttonWrap}>
+              <Button title='오늘' value='today' onClick={handleLookupClick} />
+              <Button title='1주일' value='week' onClick={handleLookupClick} />
+              <Button title='전체' value='entire' onClick={handleLookupClick} />
+            </div>
+          </div>
+          <div className={styles.datePickerInputWrap}>
+            <DatePicker
+              dateFormat='yy-MM-dd'
+              minDate={new Date(firstDate)}
+              selected={new Date(startDate)}
+              onChange={handleStartDateChange}
+            />
+          </div>
+          <span>~</span>
+          <div className={styles.datePickerInputWrap}>
+            <DatePicker
+              dateFormat='yy-MM-dd'
+              minDate={new Date(startDate)}
+              selected={new Date(endDate)}
+              onChange={handleEndDateChange}
+            />
+          </div>
         </div>
-        <span>~</span>
-        <div className={styles.datePickerWrap}>
-          <DatePicker
-            dateFormat='yy-MM-dd'
-            minDate={new Date(startDate)}
-            selected={new Date(endDate)}
-            onChange={handleEndDateChange}
-          />
-        </div>
-      </div>
-      <div className={styles.buttonWrap}>
-        <Button title='오늘' value='today' onClick={handleLookupClick} />
-        <Button title='1주일' value='week' onClick={handleLookupClick} />
-        <Button title='전체' value='entire' onClick={handleLookupClick} />
       </div>
     </div>
   )

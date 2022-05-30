@@ -1,84 +1,47 @@
 @use '/src/styles/constants/colors';
 
-.container {
-  margin-left: 240px;
+.userDetailWrap {
+  display: inline-block;
+  width: 60%;
+  height: 94vh;
+  padding: 20px 0;
+  margin: 0 auto;
 
-  .userDetailWrap {
-    // width: 960px;
-    max-width: 1024px;
-    margin: 0 auto;
-    // margin-left: 180px;
+  .pathInfo {
+    span {
+      padding: 0 4px;
+    }
 
-    .detailInner {
-      padding-bottom: 50px;
-      border: 1px solid #cccccc;
+    a:link,
+    a:visited,
+    a:active {
+      color: colors.$BLACK;
+    }
 
-      .userProfile {
-        .userProfileList {
-          display: inline-block;
-          width: 400px;
-          text-align: center;
-          border: 1px solid #cccccc;
+    a:active {
+      text-decoration: underline;
+    }
+  }
 
-          .profileTitle {
-            padding: 10px;
-            text-align: center;
-            background-color: #cccccc;
-          }
+  h2 {
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
 
-          .profileInfo {
-            padding: 10px;
-          }
-        }
-      }
+  .detailInner {
+    padding-bottom: 50px;
 
-      .chartWrapper {
-        // display: flex;
-        // justify-content: space-between;
-        margin-top: 32px;
-      }
+    .userProfile {
+      .userProfileList {
+        display: inline-block;
+        width: 400px;
+        text-align: center;
+        border: 1px solid #cccccc;
 
-      .chartWrap {
-        width: 450px;
+        .profileTitle {
+          padding: 10px;
 
-        .chartTitle {
-          p {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: colors.$GRAYD;
-            border: 1px solid #666666;
-          }
-
-          .datePickerWrap {
-            display: inline-block;
-            width: 75px;
-            margin-left: 10px;
-            vertical-align: center;
-          }
-        }
-
-        .chartWrap {
-          height: 280px;
-          // margin-top: -1px;
-          border: 1px solid #666666;
-        }
-
-        .stepChartWrap {
-          height: 280px;
-          border: 1px solid #666666;
-        }
-
-        .info {
-          margin-top: 15px;
-
-          .infoText {
-            margin-bottom: 8px;
-            font-size: 22px;
-          }
-        }
-
-        .datePicker {
-          width: 100%;
           text-align: center;
         }
 
@@ -99,54 +62,106 @@
         //   text-align: center;
         // }
 
-        // td:first-child {
-        //   position: relative;
 
-        //   &::after {
-        //     position: absolute;
-        //     top: 50%;
-        //     right: 0;
-        //     display: block;
-        //     width: 4px;
-        //     height: 50px;
-        //     content: '';
-        background-color: #ffffff;
-        border-left: 10px solid colors.$MAIN_BLUE;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+.chartWrap {
+  position: relative;
+  display: flex;
+  min-width: 700px;
+  max-width: 1040px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
 
-        // &.trItem:hover {
-        //   box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
-        // }
+  .chartTitle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
 
-        // &.trItem:active {
-        //   box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
-        // }
+  .date {
+    margin-top: 30px;
 
-        dd {
-          padding-left: 32px;
-        }
+    .dateTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 375px;
+      height: 40px;
+      line-height: 40px;
 
-        ::before {
-          width: 10px;
-          background-color: colors.$MAIN_BLUE;
-        }
+      .title {
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: colors.$INFO_TITLE;
+      }
 
-        .seq {
-          flex: 1;
-        }
+      .buttonWrap {
+        text-align: center;
+      }
+    }
 
-        .loginId {
-          flex: 3;
-        }
+    .datePickerInputWrap {
+      display: inline-block;
+      width: 130px;
+      padding: 10px 15px;
+      margin-top: 20px;
+      margin-right: 10px;
+      text-align: center;
+      vertical-align: center;
+      background-color: #f4f4f4;
+      border-radius: 20px;
+    }
+  }
 
-        .date {
-          flex: 5;
-        }
-        //      transform: translateY(-50%);
-        //    }
-        //  }
+  .chartWrap {
+    height: 280px;
+    background-color: black;
+    border: 1px solid #666666;
+  }
+
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 30px 20px 20px 0;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+
+    .infoDescription {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 45px;
+
+      .infoTitle {
+        margin-bottom: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        color: colors.$INFO_TITLE;
+      }
+
+      .infoValue {
+        font-size: 35px;
+        font-weight: 600;
       }
     }
   }
+
+  .datePicker {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.chartContent {
+  width: 600px;
+  height: 300px;
+  padding-left: 10px;
 }

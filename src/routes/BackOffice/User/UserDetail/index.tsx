@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams, Link } from 'react-router-dom'
 import store from 'store'
 import { IUserInfo } from 'types/step.d'
 import { IUserHeartRateInfo } from 'types/heartRate.d'
@@ -29,30 +29,40 @@ const UserDetail = () => {
   }, [state.seq])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.userDetailWrap}>
-        <h2>회원 상세 정보</h2>
-        <div className={styles.detailInner}>
-          <dl className={styles.trItem}>
-            <div className={styles.seq}>
-              <dt>회원 번호 </dt>
-              <dd>No. {state.seq}</dd>
-            </div>
-            <div className={styles.loginId}>
-              <dt>로그인 ID</dt>
-              <dd>{state.loginId}</dd>
-            </div>
-            <div className={styles.date}>
-              <dt>가입일</dt>
-              <dd>{state.date}</dd>
-            </div>
-          </dl>
-
-          <div className={styles.chartWrapper}>
-            <HeartRateChart heartRateData={heartRateData} />
-            <StepChart firstDate={state.date} stepData={stepData} />
-          </div>
+    <div className={styles.userDetailWrap}>
+      <div className={styles.pathInfo}>
+        <Link to='/user'>
+          <span>홈</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to='/management'>
+          <span>회원관리</span>
+        </Link>
+        <span>{'>'}</span>
+        <Link to=''>
+          <span>회원상세정보</span>
+        </Link>
+      </div>
+      <h2>회원 상제 정보</h2>
+      <div className={styles.detailInner}>
+        <ul className={styles.userProfile}>
+          <li className={styles.userProfileList}>
+            <p className={styles.profileTitle}>로그인ID</p>
+            <p className={styles.profileInfo}>{state.login_id}</p>
+          </li>
+          <li className={styles.userProfileList}>
+            <p className={styles.profileTitle}>회원번호</p>
+            <p className={styles.profileInfo}>{id}</p>
+          </li>
+          <li className={styles.userProfileList}>
+            <p className={styles.profileTitle}>가입일시</p>
+            <p className={styles.profileInfo}>{state.date}</p>
+          </li>
+        </ul>
+        <div className={styles.charWrap}>
+          <HeartRateChart />
         </div>
+        <StepChart firstDate={state.date} stepData={stepData} />
       </div>
     </div>
   )
