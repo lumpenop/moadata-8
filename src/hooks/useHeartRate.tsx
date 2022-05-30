@@ -3,12 +3,12 @@ import dayjs from 'dayjs'
 
 import { IUserData, IUserHeartRateInfo } from 'types/heartRate.d'
 
-interface Props {
-  lookup: string
-  startDate: string | Date
-  endDate: string | Date
-  state: { date: string; login_id: string; seq: string }
-}
+// interface Props {
+//   lookup: string
+//   startDate: string | Date
+//   endDate: string | Date
+//   state: { date: string; login_id: string; seq: string }
+// }
 
 let hap = 0
 let length = 0
