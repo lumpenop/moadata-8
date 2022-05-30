@@ -40,7 +40,7 @@ const UserDetail = () => {
         </Link>
         <span>{'>'}</span>
 
-        <span>회원상세정보</span>
+        <span className={styles.pageName}>회원상세정보</span>
       </div>
       <h2>회원 상세 정보</h2>
 

@@ -30,13 +30,14 @@
   width: 300px;
   height: 40px;
   margin: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 40px;
   color: colors.$WHITE;
   text-align: center;
   letter-spacing: 0.15px;
-  background: #6640bf;
-  border-radius: 1rem;
+  background: colors.$POPUP_COLOR;
+  border-radius: 0.25rem;
 
   &.fadein {
     animation: fadein 0.3s;

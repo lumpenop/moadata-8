@@ -34,6 +34,8 @@
       "not op_mini all"
     ],
     "development": [
+      "ie 9",
+      "ie 11",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
@@ -51,6 +53,7 @@
     "axios": "^0.27.2",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.3.1",
+    "core-js": "^3.22.7",
     "dayjs": "^1.11.2",
     "ga-4-react": "^0.1.281",
     "i18n-iso-countries": "^7.4.0",
@@ -58,6 +61,7 @@
     "i18next-browser-languagedetector": "^6.1.4",
     "lodash": "^4.17.21",
     "react": "^18.1.0",
+    "react-app-polyfill": "^3.0.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.1.0",
     "react-error-boundary": "^3.1.4",
@@ -68,6 +72,7 @@
     "react-scripts": "5.0.1",
     "react-use": "^17.3.2",
     "recoil": "^0.7.3-alpha.2",
+    "regenerator-runtime": "^0.13.9",
     "store": "^2.0.12",
     "use-indexeddb": "^1.0.9",
     "victory": "^36.4.0",
