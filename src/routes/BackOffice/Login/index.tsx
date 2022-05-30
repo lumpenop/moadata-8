@@ -1,11 +1,11 @@
 import Popup from './Popup'
 import styles from './login.module.scss'
-import { useState, ChangeEvent, KeyboardEvent } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import cx from 'classnames'
 import { authState } from 'store/auth'
-import { MoadataLogo } from 'assets'
+import { LoginLockIcon, LoginMailIcon, MoadataLogo } from 'assets'
 
 const ID = process.env.REACT_APP_ADMIN_ID
 const PW = process.env.REACT_APP_ADMIN_PASSWORD
@@ -16,8 +16,8 @@ const Login = () => {
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
   const [show, setShow] = useState(false)
-  const setAuth = useSetRecoilState(authState)
-
+  const [, setAuth] = useRecoilState(authState)
+  const [popUpMessage, setPopUpMessage] = useState('')
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
   }
@@ -26,11 +26,23 @@ const Login = () => {
     setPwValue(e.currentTarget.value)
   }
 
+  useEffect(() => {
+    if (ID === idValue && PW !== pwValue) {
+      return setPopUpMessage('비밀번호가 다릅니다.')
+    }
+    if (ID !== idValue && pwValue) {
+      return setPopUpMessage('존재하지 않는 ID입니다.')
+    }
+    if (ID === idValue && PW === pwValue) {
+      return setPopUpMessage('Success!')
+    }
+    return setPopUpMessage('')
+  }, [idValue, pwValue])
+
   const handleLogin = () => {
     if (ID === idValue && PW === pwValue) {
       setIsInvalid(false)
       setAuth(true)
-      sessionStorage.setItem('user', idValue)
       navigate('/user')
     } else {
       setIsInvalid(true)
@@ -38,28 +50,19 @@ const Login = () => {
     }
   }
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
-      handleLogin()
-    }
-  }
-
   const handleShowPassword = () => {
-    setShow((prevState) => !prevState)
+    setShow(!show)
   }
 
   const renderFloatingMessag = () => {
-    if (idValue === '' && idValue === '') return <div className={styles.container} />
-    if (ID !== idValue && PW !== pwValue) {
-      return <div className={styles.container}>ID 와 PW가 다릅니다.</div>
-    }
-    if (ID !== idValue && PW === pwValue) {
-      return <div className={styles.container}>ID가 다릅니다.</div>
-    }
+    if (idValue === '' || idValue === '') return <div className={styles.container} />
     if (ID === idValue && PW !== pwValue) {
-      return <div className={styles.container}>PW가 다릅니다.</div>
+      return <div className={styles.container}>{popUpMessage}</div>
     }
-    return <div className={styles.container} />
+    if (ID !== idValue && pwValue === '') {
+      return <div className={styles.container}>{popUpMessage}</div>
+    }
+    return <div className={styles.container}>{popUpMessage}</div>
   }
 
   return (
@@ -73,25 +76,30 @@ const Login = () => {
             <input
               type='text'
               name='id'
-              placeholder='id'
+              placeholder='ID'
               value={idValue}
               onChange={handleInputId}
               autoComplete='off'
               className={cx(!idValue && styles.focus)}
-              onKeyPress={handleKeyDown}
             />
+            <div className={styles.inputIcon}>
+              <LoginMailIcon className={styles.mailFavicon} />
+            </div>
           </div>
+
           <div className={styles.inputWrapper}>
             <input
               type={show ? 'text' : 'password'}
               name='password'
-              placeholder='password'
+              placeholder='Password'
               value={pwValue}
               onChange={handleInputPassword}
               autoComplete='new-password'
               className={cx(!pwValue && styles.focus)}
-              onKeyPress={handleKeyDown}
             />
+            <div className={styles.inputIcon}>
+              <LoginLockIcon className={styles.lockFavicon} />
+            </div>
             <button type='button' className={styles.showBtn} onClick={handleShowPassword}>
               {show ? (
                 <span className='material-symbols-outlined'>visibility</span>
@@ -102,10 +110,10 @@ const Login = () => {
           </div>
           {isInvalid && renderFloatingMessag()}
           <button type='button' className={styles.loginBtn} onClick={handleLogin}>
-            Login
+            Sign in
           </button>
         </form>
-        {isInvalid && <Popup idValue={idValue} pwValue={pwValue} id={ID} pw={PW} />}
+        {isInvalid && <Popup popUpMessage={popUpMessage} />}
       </div>
     </div>
   )

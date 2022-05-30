@@ -12,6 +12,10 @@
       padding: 0 4px;
     }
 
+    .pageName {
+      font-weight: 700;
+    }
+
     a:link,
     a:visited,
     a:active {
@@ -25,7 +29,7 @@
 
   h2 {
     padding: 20px 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: colors.$MAIN_TITLE;
   }
