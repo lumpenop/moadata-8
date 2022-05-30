@@ -52,7 +52,6 @@ const SelectDate = ({ setStartDate, firstDate, setEndDate, startDate, setLookup,
           onChange={handleStartDateChange}
         />
       </div>
-      <span>~</span>
       <div className={styles.datePickerInputWrap}>
         <DatePicker
           dateFormat='yy-MM-dd'
