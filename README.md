@@ -59,7 +59,7 @@ src
 $ git clone [폴더명]
 ```
 
-2. Dependecies 설치
+2. Dependencies 설치
 ```sh
 $ yarn install
 ```
