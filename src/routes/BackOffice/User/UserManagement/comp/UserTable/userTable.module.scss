@@ -88,11 +88,12 @@
     }
 
     &.trItem:hover {
-      box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+      // box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+      box-shadow: 0 2px 7px rgb(138, 138, 140, 10%), 0 5px 8px rgb(0, 0, 0, 12%);
     }
 
     &.trItem:active {
-      box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
+      // box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
     }
   }
 
