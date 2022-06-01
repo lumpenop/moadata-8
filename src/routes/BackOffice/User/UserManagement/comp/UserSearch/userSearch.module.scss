@@ -18,9 +18,8 @@
   margin: 0 auto;
   text-align: center;
   background-color: colors.$WHITE;
-  // border: 1px solid colors.$GRAY_BORDER;
   border-radius: 19px;
-  box-shadow: 0 0.5px 1px colors.$SUB_TITLE;
+  box-shadow: 0 0.5px 0 colors.$SUB_TITLE;
 
   .searchFormBodyContainer {
     padding: 12px;
@@ -77,34 +76,34 @@
     }
   }
 
+  button:first-child {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: colors.$MAIN_BLUE;
+    background: colors.$MAIN_LIGHTWHITE;
+    box-shadow: 0 0.05px 0.05px rgba(0, 0, 0, 8%), 0 2px 4px rgba(0, 0, 0, 6%);
+
+    &:active {
+      box-shadow: 0 0.05px 0.05px rgba(0, 0, 0, 8%), 0 1px 2px rgba(0, 0, 0, 4%);
+    }
+  }
+
+  button:last-child {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: colors.$MAIN_LIGHTWHITE;
+    background: colors.$MAIN_BLUE;
+    box-shadow: 0 0.1px 0.15px rgba(0, 0, 0, 8%), 0 2px 4px rgba(0, 0, 0, 6%);
+
+    &:active {
+      box-shadow: 0 0.1px 0.15px rgba(0, 0, 0, 3%), 0 1px 2px rgba(0, 0, 0, 4%);
+    }
+  }
+
   .functionButtonContainer {
     display: inline-block;
     padding: 0 8px 0 0;
-
-    button:first-child {
-      margin-right: 10px;
-      font-size: 18px;
-      font-weight: 600;
-      color: colors.$MAIN_BLUE;
-      background: colors.$MAIN_LIGHTWHITE;
-      box-shadow: 0 0.05px 0.05px rgba(0, 0, 0, 8%), 0 2px 4px rgba(0, 0, 0, 6%);
-
-      &:active {
-        box-shadow: 0 0.05px 0.05px rgba(0, 0, 0, 8%), 0 1px 2px rgba(0, 0, 0, 4%);
-      }
-    }
-
-    button:last-child {
-      margin-right: 10px;
-      font-size: 18px;
-      font-weight: 600;
-      color: colors.$MAIN_LIGHTWHITE;
-      background: colors.$MAIN_BLUE;
-      box-shadow: 0 0.1px 0.15px rgba(0, 0, 0, 8%), 0 2px 4px rgba(0, 0, 0, 6%);
-
-      &:active {
-        box-shadow: 0 0.1px 0.15px rgba(0, 0, 0, 3%), 0 1px 2px rgba(0, 0, 0, 4%);
-      }
-    }
   }
 }
