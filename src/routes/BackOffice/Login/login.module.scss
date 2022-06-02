@@ -45,6 +45,7 @@
     .inputWrapper {
       position: relative;
       width: 100%;
+      margin-bottom: 20px;
 
       + .inputWrapper {
         margin-top: 20px;
@@ -69,22 +70,26 @@
 
       .showBtn {
         position: absolute;
-        top: 15px;
+        top: 13px;
         right: 13px;
 
-        span {
-          font-weight: 700;
-          color: rgb(190, 190, 190);
-          opacity: 0.9;
+        svg {
+          width: 23px;
+          min-height: 23px;
+          fill: rgb(211, 211, 211);
         }
       }
     }
 
     .container {
+      height: 16px;
       font-size: 16px;
-      font-weight: 700;
-      color: colors.$FLOATING_MESSAGE;
+      color: colors.$GRAYE;
       text-align: center;
+
+      .isInvalid {
+        display: hidden;
+      }
     }
 
     .loginBtn {
@@ -95,7 +100,7 @@
       font-weight: 400;
       color: colors.$WHITE;
       letter-spacing: 0.4px;
-      background-color: #026fc2;
+      background-color: colors.$FANCY_BLUE;
       border-radius: 0.25rem;
     }
   }

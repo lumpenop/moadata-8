@@ -1,48 +1,50 @@
-import Popup from './Popup'
-import styles from './login.module.scss'
-import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import cx from 'classnames'
-import { authState } from 'store/auth'
-import { LoginLockIcon, LoginMailIcon, MoadataLogo } from 'assets'
-import Logo from 'assets/images/logo.png'
 
-const ID = process.env.REACT_APP_ADMIN_ID
-const PW = process.env.REACT_APP_ADMIN_PASSWORD
+import { authState } from 'store/auth'
+import Popup from './Popup'
+import { LoginLockIcon, LoginMailIcon, PasswordEye, PasswordSlashEye } from 'assets'
+import Logo from 'assets/images/logo.png'
+import styles from './login.module.scss'
+
+const ADMIN_ID = process.env.REACT_APP_ADMIN_ID
+const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD
+
+let popupDelay: NodeJS.Timer
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [isInvalid, setIsInvalid] = useState(false)
+  const setAuth = useSetRecoilState(authState)
+
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
-  const [show, setShow] = useState(false)
-  const [, setAuth] = useRecoilState(authState)
-  const [popUpMessage, setPopUpMessage] = useState('')
-  const [isPopup, setIsPopup] = useState(false)
+  const [popupMessage, setPopupMessage] = useState('')
+
+  const [isInvalid, setIsInvalid] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
+  const [showPw, setShowPw] = useState(false)
+
+  const navigate = useNavigate()
+
+  const inputIdRef = useRef<HTMLInputElement>(null)
+
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
+    setIsInvalid(false)
   }
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPwValue(e.currentTarget.value)
+    setIsInvalid(false)
   }
 
-  useEffect(() => {
-    setIsPopup(idValue.trim().length > 0 && pwValue.trim().length > 0)
-    if (ID === idValue && PW !== pwValue) {
-      setPopUpMessage('비밀번호가 다릅니다.')
-    }
-    if (ID !== idValue && pwValue) {
-      setPopUpMessage('존재하지 않는 ID입니다.')
-    }
-    if (ID === idValue && PW === pwValue) {
-      setPopUpMessage('Success!')
-    }
-  }, [idValue, pwValue])
+  const handleShowPassword = () => {
+    setShowPw((prev) => !prev)
+  }
 
   const handleLogin = () => {
-    if (ID === idValue && PW === pwValue) {
+    if (ADMIN_ID === idValue && ADMIN_PW === pwValue) {
       setIsInvalid(false)
       setAuth(true)
       sessionStorage.setItem('user', idValue)
@@ -55,19 +57,37 @@ const Login = () => {
 
   const onSubmit = (e: KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault()
-    handleLogin()
-  }
-
-  const handleShowPassword = () => {
-    setShow(!show)
-  }
-
-  const renderFloatingMessag = () => {
-    if (idValue.trim().length === 0 && pwValue.trim().length === 0) {
-      return <div className={styles.container}>아이디/비밀번호를 입력하세요.</div>
+    if (!idValue) {
+      setPopupMessage('아이디를 입력해주세요.')
     }
-    return <div className={styles.container}>{popUpMessage}</div>
+    if (idValue && !pwValue) {
+      setPopupMessage('비밀번호를 입력해주세요.')
+    }
+
+    if (ADMIN_ID === idValue && ADMIN_PW !== pwValue) {
+      setPopupMessage('비밀번호가 다릅니다.')
+    }
+    if (ADMIN_ID !== idValue && pwValue) {
+      setPopupMessage('존재하지 않는 ID입니다.')
+    }
+    handleLogin()
+    setShowPopup(true)
+
+    if (popupDelay) clearTimeout(popupDelay)
+    popupDelay = setTimeout(() => {
+      setShowPopup(false)
+    }, 1000)
   }
+
+  useEffect(() => {
+    inputIdRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    const isValues = !idValue || !pwValue
+    isValues && setPopupMessage('')
+    isInvalid && setPopupMessage('')
+  }, [idValue, pwValue, isInvalid])
 
   return (
     <div className={styles.loginWrapper}>
@@ -84,39 +104,35 @@ const Login = () => {
               value={idValue}
               onChange={handleInputId}
               autoComplete='off'
-              className={cx({ [styles.focus]: !idValue })}
+              ref={inputIdRef}
             />
             <div className={styles.inputIcon}>
-              <LoginMailIcon className={styles.mailFavicon} />
+              <LoginMailIcon />
             </div>
           </div>
           <div className={styles.inputWrapper}>
             <input
-              type={show ? 'text' : 'password'}
+              type={showPw ? 'text' : 'password'}
               name='password'
               placeholder='Password'
               value={pwValue}
               onChange={handleInputPassword}
               autoComplete='new-password'
-              className={cx({ [styles.focus]: !pwValue })}
             />
             <div className={styles.inputIcon}>
-              <LoginLockIcon className={styles.lockFavicon} />
+              <LoginLockIcon />
             </div>
             <button type='button' className={styles.showBtn} onClick={handleShowPassword}>
-              {show ? (
-                <span className='material-symbols-outlined'>visibility</span>
-              ) : (
-                <span className='material-symbols-outlined'>visibility_off</span>
-              )}
+              {showPw ? <PasswordEye /> : <PasswordSlashEye />}
             </button>
           </div>
-          {isInvalid && renderFloatingMessag()}
+
+          <div className={cx(styles.container)}>{popupMessage}</div>
           <button type='submit' className={styles.loginBtn} onClick={handleLogin}>
             Login
           </button>
         </form>
-        {isInvalid && isPopup && <Popup popUpMessage={popUpMessage} />}
+        {isInvalid && showPopup && <Popup popupMessage={popupMessage} />}
       </div>
     </div>
   )

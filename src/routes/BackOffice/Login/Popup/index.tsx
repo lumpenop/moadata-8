@@ -2,11 +2,11 @@ import { cx } from 'styles'
 import styles from './popup.module.scss'
 
 interface IPopup {
-  popUpMessage?: string
+  popupMessage?: string
 }
 
-const Popup = ({ popUpMessage }: IPopup) => {
-  return <div className={cx(styles.container, styles.fadein)}>{popUpMessage}</div>
+const Popup = ({ popupMessage }: IPopup) => {
+  return <div className={cx(styles.container, styles.fadein)}>{popupMessage}</div>
 }
 
 export default Popup
