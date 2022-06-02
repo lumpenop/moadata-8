@@ -1,0 +1,63 @@
+@use '/src/styles/constants/colors';
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  justify-content: center;
+  width: 300px;
+  height: 40px;
+  margin: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 40px;
+  color: colors.$POPUP_TEXT;
+  text-align: center;
+  letter-spacing: 0.15px;
+  background: colors.$POPUP_COLOR;
+  border-radius: 0.25rem;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 40px;
+    content: '';
+    background: colors.$POPUP_POINT;
+    border-radius: 0.2rem 0 0 0.2rem;
+  }
+
+  &.fadein {
+    animation: fadein 0.3s;
+  }
+
+  &.fadeout {
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: fadeout 0.3s;
+  }
+}

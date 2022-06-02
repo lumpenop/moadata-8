@@ -1,0 +1,34 @@
+@use '/src/styles/constants/colors';
+
+.searchFormBodyContainer {
+  display: inline-block;
+  width: 95%;
+  padding: 12px;
+  margin: 0 auto;
+
+  .labelBox {
+    display: flex;
+    justify-content: space-between;
+    width: 68%;
+    height: 40px;
+    padding: 0 8px;
+  }
+
+  .searchFormBodyBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+    padding: 12px;
+    padding: 0;
+
+    .searchFormBody {
+      display: inline-block;
+      width: 270px;
+      height: 50px;
+      overflow: hidden;
+      background-color: colors.$MAIN_LIGHTGRAY;
+      border-radius: 30px;
+    }
+  }
+}

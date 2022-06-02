@@ -1,0 +1,49 @@
+@use '/src/styles/constants/colors';
+
+.basicButton {
+  padding: 5px 10px;
+  color: colors.$WHITE;
+  text-align: center;
+  background-color: colors.$MAIN_BUTTON;
+  border-radius: 10px;
+
+  &.smallButton {
+    width: 50px;
+    height: 25px;
+    font-size: 12px;
+    font-weight: 500;
+    background: colors.$COMMON_BLUE;
+    filter: drop-shadow(0 1px 1px rgba(66, 54, 95, 50%));
+    border-radius: 15px;
+
+    &:active {
+      filter: none;
+    }
+  }
+
+  &.midButton {
+    width: 90px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  &.largeButton {
+    width: 80px;
+    padding: 10px 0;
+    font-size: 14px;
+    border-radius: 7px;
+  }
+
+  &:hover {
+    background: colors.$COMMON_BLUE;
+  }
+
+  &:active {
+    background: colors.$COMMON_BLUE;
+  }
+
+  // 버튼 사이 여백
+  & + & {
+    margin-left: 5px;
+  }
+}
