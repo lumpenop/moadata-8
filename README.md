@@ -10,6 +10,10 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
 - 스토리보드
 - Test Case
 
+- 개인 과제 수행 보고서
+
+김승원 - https://nantes.tistory.com/387
+
 ## ⚙ 기술 스택
   <img src="https://img.shields.io/badge/TypeScript-v4.4.2-blue"/>
   <img src="https://img.shields.io/badge/React-v18.1.0-blue"/>
