@@ -73,7 +73,7 @@
       width: 10px;
       height: 65px;
       content: '';
-      background: #a98af1;
+      background: colors.$COMMON_BLUE;
     }
 
     &.trItem td:nth-child(1)::after {

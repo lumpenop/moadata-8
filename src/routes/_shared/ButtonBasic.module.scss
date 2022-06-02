@@ -12,7 +12,7 @@
     height: 25px;
     font-size: 12px;
     font-weight: 500;
-    background: colors.$DATE_BUTTON;
+    background: colors.$COMMON_BLUE;
     filter: drop-shadow(0 1px 1px rgba(66, 54, 95, 50%));
     border-radius: 15px;
 
@@ -35,11 +35,11 @@
   }
 
   &:hover {
-    background: colors.$MAIN_BUTTON;
+    background: colors.$COMMON_BLUE;
   }
 
   &:active {
-    background: colors.$MAIN_BUTTON;
+    background: colors.$COMMON_BLUE;
   }
 
   // 버튼 사이 여백

@@ -1,26 +1,46 @@
 @use '/src/styles/constants//colors';
 
-.container {
-  position: fixed;
-  left: 250px;
-  width: 70%;
-  height: 100vh;
+.userWrapper {
+  width: 60%;
+  margin: 0 auto;
 
-  a:link,
-  a:visited,
-  a:active {
-    color: colors.$BLACK;
+  .container {
+    a:link,
+    a:visited,
+    a:active {
+      color: colors.$BLACK;
+    }
+
+    a:active {
+      text-decoration: underline;
+    }
+
+    .pathInfoSpan {
+      height: 40px;
+      padding: 0 4px;
+      color: colors.$MAIN_TITLE;
+    }
+
+    h2 {
+      padding: 20px 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: colors.$MAIN_TITLE;
+    }
   }
 
-  a:active {
-    text-decoration: underline;
-  }
+  .contents {
+    display: flex;
+    justify-content: center;
 
-  .pathInfo {
-    height: 40px;
-  }
+    img {
+      width: 30%;
+      padding: 10px;
+      border-radius: 20px;
+    }
 
-  h2 {
-    font-weight: 700;
+    .chartImage {
+      width: 90%;
+    }
   }
 }
