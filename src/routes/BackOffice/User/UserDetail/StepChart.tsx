@@ -5,9 +5,10 @@ import minMax from 'dayjs/plugin/minMax'
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory'
 
 import styles from './userDetail.module.scss'
-import { IStep, IUserInfo } from 'types/step'
+import { IUserInfo } from 'types/step'
 
 import SelectDate from './SelectDate'
+import { useStepsdata } from 'hooks/useStepsData'
 
 dayjs.extend(isBetween)
 dayjs.extend(minMax)
@@ -27,9 +28,10 @@ interface Props {
 }
 
 const StepChart = ({ stepData, firstDate }: Props) => {
+  const stepsData = useStepsdata(stepData)
   const [chartData, setChartData] = useState<IChartData[]>([])
-  const [startDate, setStartDate] = useState(firstDate)
-  const [endDate, setEndDate] = useState(firstDate)
+  const [startDate, setStartDate] = useState(dayjs(firstDate).format('YYYY-MM-DD'))
+  const [endDate, setEndDate] = useState(dayjs(firstDate).format('YYYY-MM-DD'))
   const [lookup, setLookup] = useState('today')
   const [totalSteps, setTotalSteps] = useState(0)
   const [totalDistance, setTotalDistance] = useState(0)
@@ -42,81 +44,65 @@ const StepChart = ({ stepData, firstDate }: Props) => {
   }
 
   useEffect(() => {
-    const filterdStep = stepData
-      .filter((data) => dayjs(data.crt_ymdt).isBetween(dayjs(startDate).startOf('d'), dayjs(endDate).endOf('d')))
-      .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
-
-    let allSteps = 0
-    let allDistance = 0
-    if (lookup === 'today' || startDate === endDate) {
-      const hourlyData = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
-      filterdStep.forEach((info, i) => {
-        const hourIndex = Math.floor((dayjs(info.crt_ymdt).hour() * 60 + dayjs(info.crt_ymdt).minute()) / 10)
-        const currenStep = info.steps - (filterdStep[i - 1]?.steps || 0)
-        hourlyData[hourIndex].y += currenStep
-
-        allSteps = Math.max(allSteps, info.steps)
-        allDistance = Math.max(allDistance, info.distance)
-      })
-      setChartData(hourlyData)
-      setTotalSteps(allSteps)
-      setTotalDistance(allDistance)
+    if (lookup === 'today' || (lookup === 'custom' && startDate === endDate)) {
       setLookup('today')
+      const targetDateData = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
+
+      stepsData[dayjs(startDate).format('YYYY-MM-DD')]?.records.forEach((record, i) => {
+        const hourIndex = Math.floor((dayjs(record.crt_ymdt).hour() * 60 + dayjs(record.crt_ymdt).minute()) / 10)
+        const currenStep = record.steps - (stepsData[dayjs(startDate).format('YYYY-MM-DD')]?.records[i - 1]?.steps || 0)
+
+        targetDateData[hourIndex].y = currenStep
+      })
+
+      setChartData(targetDateData)
+      setTotalDistance(stepsData[startDate]?.totalDistances ?? 0)
+      setTotalSteps(stepsData[startDate]?.totalSteps ?? 0)
     }
 
     if (lookup === 'week') {
       const weekData = Array.from({ length: 7 }, (_, i) => ({ x: i, y: 0 }))
-      filterdStep.forEach((data) => {
-        const dailyIndex = Number(dayjs(data.crt_ymdt).date()) - Number(dayjs(startDate).date())
-        weekData[dailyIndex].y = Math.max(weekData[dailyIndex].y, data.steps)
+
+      let weekDistance = 0
+      let weekSteps = 0
+      weekData.forEach((d, i) => {
+        d.y = stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalSteps ?? 0
+        weekDistance += stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalDistances ?? 0
+        weekSteps += stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalSteps ?? 0
       })
+
       setChartData(weekData)
-      setTotalSteps(weekData.reduce((acc, cur) => acc + cur.y, 0))
+      setTotalDistance(weekDistance)
+      setTotalSteps(weekSteps)
     }
 
     if (lookup === 'entire') {
-      const entireData = stepData
-        .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
-        .reduce((acc: { [key: string]: IStep }, cur) => {
-          acc[dayjs(cur.crt_ymdt).format('YYYY-MM-DD')] = {
-            steps: cur.steps,
-          }
-          return acc
-        }, {})
-
-      const eData = Object.keys(entireData).map((date) => ({
+      const entireData = Object.keys(stepsData).map((date) => ({
         x: dayjs(date).format('M월 D일'),
-        y: entireData[date].steps,
+        y: stepsData[date].totalSteps,
       }))
-      setChartData(eData)
-      const lastDate = Object.keys(entireData).at(-1)
-      setStartDate(dayjs(firstDate).format('YYYY-MM-DD'))
-      setEndDate(dayjs(lastDate).format('YYYY-MM-DD'))
-      setTotalSteps(eData.reduce((acc, cur) => acc + cur.y, 0))
+
+      setChartData(entireData)
+      setTotalDistance(Object.keys(stepsData).reduce((sum, date) => sum + stepsData[date].totalDistances, 0))
+      setTotalSteps(Object.keys(stepsData).reduce((sum, date) => sum + stepsData[date].totalSteps, 0))
     }
 
-    if (lookup === 'custom' && startDate < endDate) {
-      const entireData = stepData
-        .filter((data) => dayjs(data.crt_ymdt).isBetween(dayjs(startDate).startOf('d'), dayjs(endDate).endOf('d')))
-        .sort((a, b) => Number(dayjs(a.crt_ymdt)) - Number(dayjs(b.crt_ymdt)))
-        .reduce((acc: { [key: string]: IStep }, cur) => {
-          acc[dayjs(cur.crt_ymdt).format('YYYY-MM-DD')] = {
-            steps: cur.steps,
-          }
-          return acc
-        }, {})
+    if (lookup === 'custom') {
+      const filteredData = Array.from({ length: dayjs(endDate).diff(startDate, 'd') }, (_, i) => ({ x: i, y: 0 }))
 
-      const customPeriodData = Array.from({ length: dayjs(endDate).add(1, 'day').diff(startDate, 'day') }, (_, i) => ({
-        x: i,
-        y: 0,
-      }))
-      Object.keys(entireData).forEach((date) => {
-        customPeriodData[dayjs(date).diff(startDate, 'day')].y = entireData[date].steps
+      let filteredDistance = 0
+      let filteredSteps = 0
+      filteredData.forEach((d, i) => {
+        d.y = stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalSteps ?? 0
+        filteredDistance += stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalDistances ?? 0
+        filteredSteps += stepsData[dayjs(firstDate).add(i, 'd').format('YYYY-MM-DD')]?.totalSteps ?? 0
       })
-      setChartData(customPeriodData)
-      setTotalSteps(customPeriodData.reduce((acc, cur) => acc + cur.y, 0))
+
+      setChartData(filteredData)
+      setTotalDistance(filteredDistance)
+      setTotalSteps(filteredSteps)
     }
-  }, [startDate, endDate, lookup, stepData, firstDate])
+  }, [startDate, endDate, lookup, stepsData, firstDate])
 
   return (
     <div className={styles.chartWrap}>
