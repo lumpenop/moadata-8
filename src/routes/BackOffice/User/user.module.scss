@@ -1,7 +1,7 @@
 @use '/src/styles/constants//colors';
 
 .userWrapper {
-  width: 60%;
+  min-width: 600px;
   margin: 0 auto;
 
   .container {
