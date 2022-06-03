@@ -9,6 +9,7 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
 
 - 스토리보드
 - Test Case
+- **develop 브랜치에 작성 후 추후 Merge해주세요.**
 
 ## ⚙ 기술 스택
   <img src="https://img.shields.io/badge/TypeScript-v4.4.2-blue"/>
