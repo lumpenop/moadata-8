@@ -1,19 +1,24 @@
 @use '/src/styles/constants/colors';
 
 .userManagementWrapper {
-  width: 60%;
-  min-width: 600px;
+  width: fit-content;
   margin: 0 auto;
 
-  .pageName {
-    font-weight: 700;
-    color: colors.$MAIN_CONTENTS;
-  }
-
   .pathInfo {
-    span {
-      padding: 0 4px;
-      color: colors.$MAIN_TITLE;
+    color: colors.$MAIN_TITLE;
+
+    .hasNext {
+      &::after {
+        position: relative;
+        margin: 0 7px;
+        content: '>';
+      }
+    }
+
+    .currentPath {
+      font-weight: 700;
+      color: colors.$MAIN_CONTENTS;
+      user-select: none;
     }
 
     a:link,
@@ -28,8 +33,6 @@
   }
 
   .contents {
-    width: 100%;
-
     .title {
       padding: 20px 0;
       font-size: 24px;

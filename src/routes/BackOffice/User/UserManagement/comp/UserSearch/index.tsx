@@ -87,7 +87,7 @@ const UserSearch = ({ setIsListHidden }: Props) => {
 
   return (
     <div className={styles.userSearchContainer}>
-      <p className={styles.userSearchTitle}>회원 검색</p>
+      <h2 className={styles.userSearchTitle}>회원 검색</h2>
       <div className={styles.searchFormBox}>
         <form className={styles.searchForm}>
           <DatePickerUtil searchUserButtonClick={searchUserButtonClick} />
