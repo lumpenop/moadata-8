@@ -6,6 +6,8 @@
   margin: 0 auto;
 
   .container {
+    color: colors.$MAIN_TITLE;
+
     a:link,
     a:visited,
     a:active {
@@ -16,23 +18,16 @@
       text-decoration: underline;
     }
 
-    .pathInfoSpan {
-      height: 40px;
-      padding: 0 4px;
-      color: colors.$MAIN_TITLE;
-    }
-
     h2 {
       padding: 20px 8px;
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 400;
       color: colors.$MAIN_TITLE;
     }
   }
 
   .contents {
-    display: flex;
-    justify-content: center;
+    text-align: center;
 
     img {
       width: 30%;

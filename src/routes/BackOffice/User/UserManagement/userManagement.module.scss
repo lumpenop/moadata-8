@@ -5,9 +5,9 @@
   margin: 0 auto;
 
   .pathInfo {
-    color: colors.$MAIN_TITLE;
-
     .hasNext {
+      color: colors.$GRAY6;
+
       &::after {
         position: relative;
         margin: 0 7px;
@@ -15,16 +15,20 @@
       }
     }
 
-    .currentPath {
-      font-weight: 700;
-      color: colors.$MAIN_CONTENTS;
+    .goHome {
+      color: colors.$GRAY6;
       user-select: none;
     }
 
-    a:link,
-    a:visited,
-    a:active {
+    .currentPath {
       color: colors.$BLACK;
+      user-select: none;
+
+      &:link,
+      &:visited,
+      &:active {
+        color: colors.$MAIN_TITLE;
+      }
     }
 
     a:active {
@@ -36,7 +40,6 @@
     .title {
       padding: 20px 0;
       font-size: 24px;
-      font-weight: bold;
     }
   }
 }

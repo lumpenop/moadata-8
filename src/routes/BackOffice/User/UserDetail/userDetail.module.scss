@@ -16,7 +16,6 @@
     }
 
     .currentPath {
-      font-weight: 700;
       color: colors.$MAIN_CONTENTS;
       user-select: none;
     }
@@ -35,7 +34,6 @@
   h2 {
     padding: 20px 0;
     font-size: 20px;
-    font-weight: bold;
     color: colors.$MAIN_CONTENTS;
   }
 
@@ -113,7 +111,6 @@
       top: 10px;
       left: 10px;
       font-size: 20px;
-      font-weight: 700;
       color: colors.$MAIN_TITLE;
     }
 
@@ -131,7 +128,6 @@
         .title {
           margin-left: 20px;
           font-size: 16px;
-          font-weight: 600;
           color: colors.$INFO_TITLE;
         }
 
@@ -163,7 +159,6 @@
           width: 100%;
           height: 100%;
           padding: 10px 15px;
-          font-weight: bold;
           color: colors.$GRAYA;
           text-align: center;
           cursor: pointer;
@@ -178,8 +173,6 @@
           top: 50%;
           left: -20px;
           font-size: 25px;
-          font-weight: bold;
-          color: colors.$INFO_TITLE;
           content: '~';
           transform: translateY(-50%);
         }
@@ -213,13 +206,11 @@
         .infoTitle {
           margin-bottom: 6px;
           font-size: 16px;
-          font-weight: 600;
           color: colors.$INFO_TITLE;
         }
 
         .infoValue {
           font-size: 35px;
-          font-weight: 600;
           color: colors.$MAIN_TITLE;
         }
       }

@@ -12,20 +12,17 @@ const User = () => {
   return (
     <div className={styles.userWrapper}>
       <div className={styles.container}>
-        <Link to='/user'>
-          <span className={styles.pathInfoSpan}>홈</span>
-        </Link>
+        <Link to='/user'>홈</Link>
         <h2>백오피스 홈 대시보드</h2>
       </div>
       <div className={styles.contents}>
-        <div className={styles.imageWrapper}>
-          <img src={board1} alt='board1' />
-          <img src={board2} alt='board2' />
-          <img src={board3} alt='board3' />
-          <img src={board4} alt='board4' className={styles.chartImage} />
-          <img src={board5} alt='board5' />
-          <img src={board6} alt='board6' />
-        </div>
+        <img src={board1} alt='board1' />
+        <img src={board2} alt='board2' />
+        <img src={board3} alt='board3' />
+        <img src={board4} alt='board4' className={styles.chartImage} />
+        <img src={board5} alt='board5' />
+        <img src={board6} alt='board6' />
+        <img src={board5} alt='board5' />
       </div>
     </div>
   )

@@ -92,18 +92,15 @@ const UserSearch = ({ setIsListHidden }: Props) => {
         <form className={styles.searchForm}>
           <DatePickerUtil searchUserButtonClick={searchUserButtonClick} />
           <UserSearchContainer searchUserButtonClick={searchUserButtonClick} />
-          <div className={styles.userSearchButtonContainer}>
-            <div className={styles.userSearchButtonBox} />
+          <div className={styles.functionButtonCotainer}>
+            <ButtonBasic onClick={resetSearchButtonClick} buttonName='초기화' buttonSize='large' />
+            <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
           </div>
         </form>
         <div className={styles.buttonBox}>
           <p>
             전체 중 <mark>{userListLength}</mark> 명의 회원이 검색되었습니다.
           </p>
-          <div className={styles.functionButtonCotainer}>
-            <ButtonBasic onClick={resetSearchButtonClick} buttonName='초기화' buttonSize='large' />
-            <ButtonBasic onClick={searchUserButtonClick} buttonName='검색' buttonSize='large' />
-          </div>
         </div>
       </div>
     </div>

@@ -12,7 +12,9 @@ const UserManagement = () => {
   return (
     <div className={styles.userManagementWrapper}>
       <div className={styles.pathInfo}>
-        <Link to='/user'>홈</Link>
+        <Link to='/user' className={styles.goHome}>
+          홈
+        </Link>
         <span className={styles.hasNext} />
         <Link to='/management' className={styles.currentPath}>
           회원관리

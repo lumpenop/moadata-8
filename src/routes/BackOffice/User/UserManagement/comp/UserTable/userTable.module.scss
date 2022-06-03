@@ -20,8 +20,7 @@
 
     .userListSubject {
       padding-top: 16px;
-      font-weight: 600;
-      color: colors.$MAIN_TITLE;
+      color: colors.$MAIN_CONTENTS;
     }
 
     .userListSubject:nth-child(1) {
@@ -60,50 +59,49 @@
 
   .trItem {
     position: relative;
+    color: colors.$MAIN_TITLE;
     background-color: colors.$WHITE;
+    border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     &::after {
       position: absolute;
       left: 0;
-      width: 10px;
+      width: 12px;
       height: 65px;
       content: '';
       background: colors.$COMMON_BLUE;
+      border-radius: 10px 0 0 10px;
+    }
+
+    & td:nth-child(1) {
+      border-radius: 10px 0 0 10px;
+    }
+
+    & td:nth-child(4) {
+      border-radius: 0 10px 10px 0;
     }
 
     &.trItem td:nth-child(1)::after {
       position: absolute;
-      bottom: 5px;
+      bottom: 0;
       left: 125px;
-      font-size: 46px;
+      font-size: 48px;
       color: colors.$MAIN_BLANK;
       content: '|';
-      // width: 10px;
-      // height: 65px;
     }
 
     &.trItem:hover {
-      // box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
       box-shadow: 0 2px 7px rgb(138, 138, 140, 10%), 0 5px 8px rgb(0, 0, 0, 12%);
-    }
-
-    &.trItem:active {
-      // box-shadow: 0 7px 14px rgba(138, 138, 140, 15%), 0 5px 5px rgba(0, 0, 0, 12%);
     }
   }
 
   &.trItem::before {
     box-sizing: border-box;
     width: 10px;
-    // background-color: colors.$MAIN_BLUE;
     background-color: aqua;
   }
-
-  // .trItem:nth-child(1)::after {
-  //   box-sizing: border-box;
-  // }
 
   td {
     line-height: 65px;

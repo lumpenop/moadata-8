@@ -97,7 +97,6 @@ const useHeartRate = (
     }
 
     if (startDate && endDate) {
-      // if (lookup === 'custom') {
       if (startDate === endDate) {
         const HOURLY_DATA = Array.from({ length: 144 }, (_, i) => ({ x: i, y: 0 }))
 
