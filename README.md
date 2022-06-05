@@ -21,7 +21,11 @@ Password: 123457
   - 김부건 - https://velog.io/@bu-geon/%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0
   - 이주이 - https://velog.io/@ringcoa/원티드-프로온보딩-모아데이터-과제-회고
 
-- **develop 브랜치에 작성 후 추후 Merge해주세요.**
+### NOTICE
+- 페어프로그래밍 (Live Share 사용)
+함께한 명단 : zellytozelly / lumpenop / hsw824
+
+
 
 ## ⚙ 기술 스택
   <img src="https://img.shields.io/badge/TypeScript-v4.4.2-blue"/>
