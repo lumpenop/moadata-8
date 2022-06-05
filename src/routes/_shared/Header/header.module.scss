@@ -25,9 +25,8 @@
       color: colors.$MAIN_TITLE;
       letter-spacing: 0;
 
-      b {
+      strong {
         font-size: 16px;
-        font-weight: 500;
       }
     }
 
@@ -35,7 +34,6 @@
       width: 120px;
       height: 35px;
       padding: 0 10px;
-      font-weight: 500;
       color: colors.$COMMON_BLUE;
       letter-spacing: 0;
       background: #fdfdfd;

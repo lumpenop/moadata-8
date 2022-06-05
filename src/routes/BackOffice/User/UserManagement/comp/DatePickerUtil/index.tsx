@@ -61,11 +61,6 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
         <label htmlFor='date'>
           <span className={styles.period}>가입 기간</span>
         </label>
-        <div className={styles.datePickerButtonContainer}>
-          <ButtonBasic onClick={setDateToday} buttonName='오늘' buttonSize='small' />
-          <ButtonBasic onClick={setDateSevenDays} buttonName='1주' buttonSize='small' />
-          <ButtonBasic onClick={setDateAll} buttonName='전체' buttonSize='small' />
-        </div>
       </div>
       <div className={styles.dateContainer}>
         <div className={styles.dateBox}>
@@ -91,6 +86,11 @@ const DatePickerUtil = ({ searchUserButtonClick }: Props) => {
             dateFormat='yyyy년 MM월 dd일'
             name='date'
           />
+        </div>
+        <div className={styles.datePickerButtonContainer}>
+          <ButtonBasic onClick={setDateToday} buttonName='오늘' buttonSize='small' />
+          <ButtonBasic onClick={setDateSevenDays} buttonName='1주' buttonSize='small' />
+          <ButtonBasic onClick={setDateAll} buttonName='전체' buttonSize='small' />
         </div>
       </div>
     </div>

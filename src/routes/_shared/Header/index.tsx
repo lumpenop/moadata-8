@@ -17,7 +17,7 @@ const Header = () => {
     <header className={styles.container}>
       <div className={styles.loginInfo}>
         <span>
-          <b>{id}</b> 님
+          <strong>{id}</strong> 님
         </span>
         <button type='button' onClick={handleLogout}>
           로그아웃
