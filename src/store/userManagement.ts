@@ -3,8 +3,6 @@ import { IUser } from 'types/userManagement'
 import dayjs from 'dayjs'
 import store from 'store'
 
-// import defaultUserArr from 'data/user_list.json'
-
 import heartRate from 'assets/json/heartrate.json'
 import step from 'assets/json/step.json'
 import userData from 'data/user_list.json'
@@ -28,7 +26,7 @@ const setDate = () => {
 const [oldest, lately] = setDate()
 
 export const userListState = atom<IUser[]>({
-  key: '#userListState', // unique ID (with respect to other atoms/selectors)
+  key: '#userListState',
   default: defaultUserArr,
 })
 
