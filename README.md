@@ -66,7 +66,7 @@ src
 
 1. Repository 클론
 ```sh
-$ git clone [폴더명]
+$ git clone git@github.com:Team8-Rocket/moadata-8.git
 ```
 
 2. Dependencies 설치
@@ -80,8 +80,7 @@ $ yarn start
 ```
 
 ※ **.env 키 추가**
-
-1.
+=> id, pw 임의로 
 
 ## 🖼 실행 이미지
 
