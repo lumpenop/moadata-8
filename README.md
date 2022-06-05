@@ -66,7 +66,7 @@ src
 
 1. Repository 클론
 ```sh
-$ git clone git@github.com:Team8-Rocket/moadata-8.git
+$ git clone [폴더명]
 ```
 
 2. Dependencies 설치
@@ -80,7 +80,8 @@ $ yarn start
 ```
 
 ※ **.env 키 추가**
-=> id, pw 임의로 
+
+1.
 
 ## 🖼 실행 이미지
 
@@ -156,6 +157,7 @@ $ yarn start
 
 ### 4. 회원 상세 관리 페이지
 ### 🍭심박 그래프, 걸음 수 그래프 구현
+### 조회 기간을 구현할 때 오늘, 1주일의 기준을 현재부터 ~ 오늘,1주일이 아닌 과제 기획서에 나와있는 대로 회원 가입일 ~ 오늘, 1주일로 구현하였습니다.
 
 > 🍬 데이터
 
