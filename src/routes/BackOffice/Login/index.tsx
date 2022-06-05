@@ -28,6 +28,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   const inputIdRef = useRef<HTMLInputElement>(null)
+  const inputPwRef = useRef<HTMLInputElement>(null)
 
   const handleInputId = (e: ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.currentTarget.value)
@@ -59,16 +60,22 @@ const Login = () => {
     e.preventDefault()
     if (!idValue) {
       setPopupMessage('아이디를 입력해주세요.')
+      inputIdRef.current?.focus()
     }
+
     if (idValue && !pwValue) {
       setPopupMessage('비밀번호를 입력해주세요.')
+      inputPwRef.current?.focus()
     }
 
     if (ADMIN_ID === idValue && ADMIN_PW !== pwValue) {
       setPopupMessage('비밀번호가 다릅니다.')
+      inputPwRef.current?.focus()
     }
+
     if (ADMIN_ID !== idValue && pwValue) {
       setPopupMessage('존재하지 않는 ID입니다.')
+      inputIdRef.current?.focus()
     }
     handleLogin()
     setShowPopup(true)
@@ -76,7 +83,7 @@ const Login = () => {
     if (popupDelay) clearTimeout(popupDelay)
     popupDelay = setTimeout(() => {
       setShowPopup(false)
-    }, 1000)
+    }, 1200)
   }
 
   useEffect(() => {
@@ -118,6 +125,7 @@ const Login = () => {
               value={pwValue}
               onChange={handleInputPassword}
               autoComplete='new-password'
+              ref={inputPwRef}
             />
             <div className={styles.inputIcon}>
               <LoginLockIcon />
@@ -127,12 +135,18 @@ const Login = () => {
             </button>
           </div>
 
-          <div className={cx(styles.container)}>{popupMessage}</div>
+          <div
+            className={cx(styles.container, {
+              [styles.fadein]: showPopup === true,
+            })}
+          >
+            {popupMessage}
+          </div>
           <button type='submit' className={styles.loginBtn} onClick={handleLogin}>
             Login
           </button>
         </form>
-        {isInvalid && showPopup && <Popup popupMessage={popupMessage} />}
+        {isInvalid && <Popup popupMessage={popupMessage} showPopup={showPopup} />}
       </div>
     </div>
   )
