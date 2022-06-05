@@ -14,6 +14,7 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
   - 김승원 - https://nantes.tistory.com/387
   - 김수진 - https://velog.io/@zelly/Task-performance-report
   - 권은서 - https://queenlisastory.tistory.com/entry/moadata
+  - 김영현 - https://velog.io/@k29176/moadata-report
 
 ## ⚙ 기술 스택
   <img src="https://img.shields.io/badge/TypeScript-v4.4.2-blue"/>
