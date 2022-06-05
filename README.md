@@ -17,6 +17,7 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
   - 권은서 - https://queenlisastory.tistory.com/entry/moadata
   - 김영현 - https://velog.io/@k29176/moadata-report
   - 홍성우 - https://velog.io/@ghdtjddn0824/%EA%B0%9C%EC%9D%B8%EA%B3%BC%EC%A0%9C-%EC%88%98%ED%96%89%EB%B3%B4%EA%B3%A0%EC%84%9C-moaData
+  - 이상원 - https://velog.io/@bisari31/moadata
 - **develop 브랜치에 작성 후 추후 Merge해주세요.**
 
 ## ⚙ 기술 스택
