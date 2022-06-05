@@ -19,6 +19,7 @@ Password: 123457
   - 권은서 - https://queenlisastory.tistory.com/entry/moadata
   - 김영현 - https://velog.io/@k29176/moadata-report
   - 김부건 - https://velog.io/@bu-geon/%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0
+  - 이주이 - https://velog.io/@ringcoa/원티드-프로온보딩-모아데이터-과제-회고
 
 - **develop 브랜치에 작성 후 추후 Merge해주세요.**
 
