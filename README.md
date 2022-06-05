@@ -5,7 +5,7 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
 
 ## 🔗 프로젝트 배포
 
-### 🔗 [](https://dashboard-team8.netlify.app)
+### 🔗 [배포 사이트](https://dashboard-team8.netlify.app)
 
 - 스토리보드 : [Figma Link](https://www.figma.com/file/s4Z0QUZhhQcP8gqDIx14qc/%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%83%80-8%ED%8C%80?node-id=0%3A1)
 - Test Case : [Spread Sheet Link](https://docs.google.com/spreadsheets/d/128DaVE-2pbA5cdgm3aVGTHr5WnSHECMigQPDMxrdBNY/edit?usp=sharing)
