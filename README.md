@@ -18,6 +18,7 @@ Password: 123457
   - 유승완 - https://imnotadevleoper.tistory.com/entry/%EC%9B%90%ED%8B%B0%EB%93%9C-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A9-%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B3%BC%EC%A0%9C-%EC%88%98%ED%96%89-%EB%B3%B4%EA%B3%A0%EC%84%9C
   - 권은서 - https://queenlisastory.tistory.com/entry/moadata
   - 김영현 - https://velog.io/@k29176/moadata-report
+  - 김부건 - https://velog.io/@bu-geon/%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0
 
 - **develop 브랜치에 작성 후 추후 Merge해주세요.**
 
