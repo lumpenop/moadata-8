@@ -12,12 +12,12 @@ const UserManagement = () => {
   return (
     <div className={styles.userManagementWrapper}>
       <div className={styles.pathInfo}>
-        <Link to='/user'>
-          <span>홈</span>
+        <Link to='/user' className={styles.goHome}>
+          홈
         </Link>
-        <span>{'>'}</span>
-        <Link to='/management'>
-          <span className={styles.pageName}>회원관리</span>
+        <span className={styles.hasNext} />
+        <Link to='/management' className={styles.currentPath}>
+          회원관리
         </Link>
       </div>
       <div className={styles.contents}>

@@ -1,19 +1,23 @@
 @use '/src/styles/constants/colors';
 
 .userDetailWrap {
-  width: 60%;
-  height: 94vh;
-  padding: 20px 0;
+  max-width: 800px;
   margin: 0 auto;
 
   .pathInfo {
-    span {
-      padding: 0 4px;
+    color: colors.$MAIN_TITLE;
+
+    .hasNext {
+      &::after {
+        position: relative;
+        margin: 0 7px;
+        content: '>';
+      }
     }
 
-    .pageName {
-      font-weight: 700;
+    .currentPath {
       color: colors.$MAIN_CONTENTS;
+      user-select: none;
     }
 
     a:link,
@@ -30,20 +34,15 @@
   h2 {
     padding: 20px 0;
     font-size: 20px;
-    font-weight: bold;
     color: colors.$MAIN_CONTENTS;
   }
 
   .detailInner {
-    padding-bottom: 50px;
-
     .userProfile {
       position: relative;
       display: flex;
       align-items: center;
       min-width: 700px;
-      // max-width: 1040px;
-      // padding: 16px 0;
       margin: 0 auto;
       background: #ffffff;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
@@ -72,7 +71,6 @@
           width: 12px;
           height: 30px;
           content: '';
-          // left: 125px;
           background: #dddddd;
         }
       }
@@ -83,25 +81,12 @@
 
       dt {
         font-size: 12px;
-        color: #999999;
+        color: colors.$USER_DETAIL_DT;
       }
 
       dd {
         padding-left: 16px;
       }
-
-      // .userProfileList {
-      //   display: inline-block;
-      //   width: 400px;
-      //   text-align: center;
-      //   border: 1px solid #cccccc;
-
-      //   .profileTitle {
-      //     padding: 10px;
-      //     text-align: center;
-      //   }
-
-      // }
     }
 
     .trItem {
@@ -109,11 +94,6 @@
       min-width: 1024px;
       padding: 12px 24px;
       background-color: colors.$WHITE;
-      // td {
-      //   width: 30%;
-      //   line-height: 65px;
-      //   text-align: center;
-      // }
     }
   }
 
@@ -121,7 +101,6 @@
     position: relative;
     display: flex;
     min-width: 700px;
-    // max-width: 1040px;
     margin: auto;
     margin-top: 20px;
     background-color: #ffffff;
@@ -132,7 +111,6 @@
       top: 10px;
       left: 10px;
       font-size: 20px;
-      font-weight: 700;
       color: colors.$MAIN_TITLE;
     }
 
@@ -150,7 +128,6 @@
         .title {
           margin-left: 20px;
           font-size: 16px;
-          font-weight: 600;
           color: colors.$INFO_TITLE;
         }
 
@@ -172,7 +149,6 @@
         display: inline-block;
         width: 130px;
         margin-top: 20px;
-        // margin-right: 10px;
         text-align: center;
         vertical-align: center;
         background-color: #f4f4f4;
@@ -183,7 +159,6 @@
           width: 100%;
           height: 100%;
           padding: 10px 15px;
-          font-weight: bold;
           color: colors.$GRAYA;
           text-align: center;
           cursor: pointer;
@@ -198,8 +173,6 @@
           top: 50%;
           left: -20px;
           font-size: 25px;
-          font-weight: bold;
-          color: colors.$INFO_TITLE;
           content: '~';
           transform: translateY(-50%);
         }
@@ -233,22 +206,15 @@
         .infoTitle {
           margin-bottom: 6px;
           font-size: 16px;
-          font-weight: 600;
           color: colors.$INFO_TITLE;
         }
 
         .infoValue {
           font-size: 35px;
-          font-weight: 600;
           color: colors.$MAIN_TITLE;
         }
       }
     }
-
-    // .datePicker {
-    //   width: 30%;
-    //   text-align: center;
-    // }
   }
 
   .chartContent {

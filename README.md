@@ -7,6 +7,15 @@ PC WEB 기반의 차트가 포함된 회원 관리용 admin 사이트
 
 ### 🔗 [링크추가]
 
+- 스토리보드 : [Figma Link](https://www.figma.com/file/s4Z0QUZhhQcP8gqDIx14qc/%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%83%80-8%ED%8C%80?node-id=0%3A1)
+- Test Case : [Spread Sheet Link](https://docs.google.com/spreadsheets/d/128DaVE-2pbA5cdgm3aVGTHr5WnSHECMigQPDMxrdBNY/edit?usp=sharing)
+
+- 개인 과제 수행 보고서
+  - 김승원 - https://nantes.tistory.com/387
+  - 김수진 - https://velog.io/@zelly/Task-performance-report
+  - 유승완 - https://imnotadevleoper.tistory.com/entry/%EC%9B%90%ED%8B%B0%EB%93%9C-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A9-%EB%AA%A8%EC%95%84%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B3%BC%EC%A0%9C-%EC%88%98%ED%96%89-%EB%B3%B4%EA%B3%A0%EC%84%9C
+  - 권은서 - https://queenlisastory.tistory.com/entry/moadata
+  - 김영현 - https://velog.io/@k29176/moadata-report
 - 스토리보드
 - Test Case
 - **develop 브랜치에 작성 후 추후 Merge해주세요.**
@@ -94,14 +103,26 @@ $ yarn start
     
     - URL을 직접 입력해서 다른 경로에 접근하는 경우, 인증 결과에 대한 상태 값을 참조하여 리다이렉트 처리
     
-   > 🍬 비밀번호 블라인드 Toggle
+   > 🍬 비밀번호 블라인드 Toggle 버튼
 
     - 토글 버튼의 클릭 이벤트가 발생하는 경우 input의 type이 변경될 수 있도록 boolean 상태 값을 관리
     
 ### 2. 백오피스 홈 페이지
-- 페이지 구현 (요구 사항)
 
+  > 🍬 렌딩 페이지
 
+    - 로그인 시, 백오피스의 홈 페이지가 렌딩 되도록 라우팅 처리되어 내부의 홈 컨텐츠가 보이도록 구현
+    
+  > 🍬 Header Layout
+
+     - 로그인 한 Admin 계정의 ID를 Session Storage에서 가져와 상단에 '[Admin ID]님'으로 보여짐
+     - 로그아웃 버튼 : 인증에 대한 boolean 값을 초기화하고, Admin ID를 담은 Session Storage 정보도 삭제되면서 로그인 페이지로 이동
+     
+   > 🍬 LNB Layout
+
+      - NavLink를 통해 선택된 리스트에 따라 폰트와 배경 색상의 스타일이 변경되어 하이라이트 처리
+      - 선택된 리스트에 따라 화면의 메인 컨텐츠가 알맞게 보여짐 
+    
 ---
 ### 3. 회원 관리 페이지
 ### 🍭검색 영역

@@ -1,6 +1,7 @@
 @use '/src/styles/constants/colors';
 
 .main {
-  padding-top: 50px;
-  margin-left: 220px;
+  padding: 15px 20px 0;
+  margin: 50px 0 0 220px;
+  overflow-x: scroll;
 }

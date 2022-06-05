@@ -7,7 +7,7 @@ import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine } from 'victory'
 import DatePicker from 'react-datepicker'
 
 import Button from 'components/_comon/Button'
-import { IUserHeartRateInfo } from 'types/heartRate.d'
+import { IUserHeartRateInfo, IUserData } from 'types/heartRate.d'
 
 import styles from './userDetail.module.scss'
 import useHeartRate from 'hooks/useHeartRate'
@@ -23,7 +23,6 @@ const HeartRateChart = ({ heartRateData }: Props) => {
   const location = useLocation()
   const state = location.state as { date: string; login_id: string; seq: string }
 
-  // const [heartRateData, setHeartRateData] = useState<IUserInfo[]>([])
   const [lookup, setLookup] = useState('today')
   const [startDate, setStartDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
   const [endDate, setEndDate] = useState<string>(dayjs(state.date).format('YYYY-MM-DD'))
@@ -95,14 +94,9 @@ const HeartRateChart = ({ heartRateData }: Props) => {
               tickLabels: { fontSize: 15 },
             }}
           />
-          {data.map((item: any) => {
+          {data.map((item: IUserData) => {
             return (
-              <VictoryLine
-                style={{ data: { stroke: '#8C8AFF' } }}
-                key={item.y + new Date()}
-                data={data}
-                y={(datum) => datum.y}
-              />
+              <VictoryLine style={{ data: { stroke: '#8C8AFF' } }} key={item.x} data={data} y={(datum) => datum.y} />
             )
           })}
         </VictoryChart>
@@ -113,10 +107,6 @@ const HeartRateChart = ({ heartRateData }: Props) => {
             <tr className={styles.infoDescription}>
               <th className={styles.infoTitle}>HEART RATE</th>
               <td className={styles.infoValue}>{heartBeatAvg} bpm</td>
-              {/* <div className={styles.infoDescription}>
-                <th className={styles.infoTitle}>DISTANCE</th>
-                <td className={styles.infoValue}>{totalDistance.toFixed(1)}km</td>
-              </div> */}
             </tr>
           </thead>
         </table>
@@ -137,7 +127,6 @@ const HeartRateChart = ({ heartRateData }: Props) => {
               onChange={handleChangeStartDate}
             />
           </div>
-          {/* <span>~</span> */}
           <div className={styles.datePickerInputWrap}>
             <DatePicker
               dateFormat='yy-MM-dd'

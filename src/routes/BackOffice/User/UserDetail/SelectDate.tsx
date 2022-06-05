@@ -16,8 +16,8 @@ interface Props {
 const SelectDate = ({ setStartDate, firstDate, setEndDate, startDate, setLookup, endDate }: Props) => {
   const handleLookupClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.value === 'today') {
-      setStartDate(firstDate)
-      setEndDate(firstDate)
+      setStartDate(dayjs(firstDate).format('YYYY-MM-DD'))
+      setEndDate(dayjs(firstDate).format('YYYY-MM-DD'))
     }
     if (e.currentTarget.value === 'week') {
       setEndDate(dayjs(startDate).add(7, 'day').format('YYYY-MM-DD'))

@@ -31,16 +31,11 @@ const UserDetail = () => {
   return (
     <div className={styles.userDetailWrap}>
       <div className={styles.pathInfo}>
-        <Link to='/user'>
-          <span>홈</span>
-        </Link>
-        <span>{'>'}</span>
-        <Link to='/management'>
-          <span>회원관리</span>
-        </Link>
-        <span>{'>'}</span>
-
-        <span className={styles.pageName}>회원상세정보</span>
+        <Link to='/user'>홈</Link>
+        <span className={styles.hasNext} />
+        <Link to='/management'>회원관리</Link>
+        <span className={styles.hasNext} />
+        <strong className={styles.currentPath}>회원상세정보</strong>
       </div>
       <h2>회원 상세 정보</h2>
 

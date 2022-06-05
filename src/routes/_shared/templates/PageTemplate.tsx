@@ -9,10 +9,10 @@ const PageTemplate = () => {
   return (
     <>
       <Header />
-      <section className={styles.main}>
-        <LNB />
+      <LNB />
+      <main className={styles.main}>
         <Outlet />
-      </section>
+      </main>
     </>
   )
 }
