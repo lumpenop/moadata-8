@@ -8,9 +8,11 @@ export interface IUserInfo {
 }
 
 export interface IDailyStepsData {
-  totalSteps: number
-  totalDistances: number
-  records: IUserInfo[]
+  [key: string]: {
+    totalSteps: number
+    totalDistances: number
+    records: IUserInfo[]
+  }
 }
 
 export interface IStep {
